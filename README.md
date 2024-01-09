@@ -15,3 +15,5 @@ Here are some useful terminal commands for upstream
 4. git stash - If you have changes made and someone else just made changes, you will want to stash your code so when you pull the changes, you will not lose your work. 
 5. git stash pop - implements the changes you were previously working on
 6. git stash clear - clears the stash if you do not want to use that code
+
+Read by Andres Cavalie
