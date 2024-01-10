@@ -17,3 +17,4 @@ Here are some useful terminal commands for upstream
 6. git stash clear - clears the stash if you do not want to use that code
 
 Read by Andres Cavalie
+Read by Halle Olson
