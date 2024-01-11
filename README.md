@@ -19,3 +19,4 @@ Here are some useful terminal commands for upstream
 
 Read by Andres Cavalie
 Read by Halle Olson
+Read by Brianna Black
