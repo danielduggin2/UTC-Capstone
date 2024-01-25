@@ -68,12 +68,13 @@ body {
 }
 
 #nav-bar {
-    position: absolute;
-    left: 1vw;
-    top: 1vw;
-    height: calc(100% - 2vw);
+    position: fixed;
+    /* left: 1vw;
+    top: 1vw; */
+    /* height: calc(100% - 2vw); */
+    height: 100%;
     background: var(--navbar-dark-primary);
-    border-radius: 16px;
+    /* border-radius: 16px; */
     display: flex;
     flex-direction: column;
     color: var(--navbar-light-primary);
@@ -135,7 +136,7 @@ label[for=nav-toggle] {
     cursor: pointer;
 }
 
-#nav-toggle-burger {
+/* #nav-toggle-burger {
     position: relative;
     width: 16px;
     height: 2px;
@@ -160,7 +161,7 @@ label[for=nav-toggle] {
 #nav-toggle-burger:after {
     top: 6px;
     transform: translate(2px, -8px) rotate(-30deg);
-}
+} */
 
 #nav-content {
     margin: -16px 0;
