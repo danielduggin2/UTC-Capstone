@@ -24,8 +24,8 @@ Ready by Ethan Craig <br />
 Read by Andres Angel <br />
 # Getting Started with Create React App
 
-To run the project
-cd website
+To run the project <br />
+cd website <br />
 npm start
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
