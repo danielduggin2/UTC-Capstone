@@ -1,6 +1,6 @@
 import React from 'react';
 import './homepage.css'
-
+import logo from '../Images/logo.png'
 class Navbar extends React.Component{
     constructor(props){
         super(props);
@@ -10,9 +10,8 @@ class Navbar extends React.Component{
         return(
             <div id="nav-bar">
             {/* <input id="nav-toggle" type="checkbox"/> */}
-            <div id="nav-header"><a id="nav-title" href="https://codepen.io" target="_blank">C<i class="fab fa-codepen"></i>DEPEN</a>
-                <label for="nav-toggle"><span id="nav-toggle-burger"></span></label>
-                <hr/>
+            <div id="nav-header">
+             <img src={logo} alt='getrite logo'/>
             </div>
             <div id="nav-content">
                 <div class="nav-button"><i class="fas fa-palette"></i><span>Calendar</span></div>
