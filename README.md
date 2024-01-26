@@ -1,4 +1,4 @@
-# UTC Capstone Spring 2024
+# UTC Capstone 
 # To get started...
 1. Fork the directory (fork option above). This will clone the repo to your local machine and put you in the develop branch. This is important for working on new features (user auth, UI overhaul, etc.). This makes it so we do not overlap code and lose any progress.
 2. Once you have clones the repo and opened it on your local machine, you will need to set up upstream. To do so, first run this command in your vscode terminal: git remote -v (If you cloned your fork via github desktop, ignore the remaining steps).
