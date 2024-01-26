@@ -1,6 +1,6 @@
 import React from 'react';
 import './homepage.css'
-import logo from '../Images/logo.png'
+import logo2 from '../Images/logo2.png'
 class Navbar extends React.Component{
     constructor(props){
         super(props);
@@ -11,7 +11,7 @@ class Navbar extends React.Component{
             <div id="nav-bar">
             {/* <input id="nav-toggle" type="checkbox"/> */}
             <div id="nav-header">
-             <img src={logo} alt='getrite logo'/>
+             <img src={logo2} alt='getrite logo'/>
             </div>
             <div id="nav-content">
                 <div class="nav-button"><i class="fas fa-palette"></i><span>Calendar</span></div>

@@ -1,11 +1,11 @@
 :root {
     --background: #fffefd;
-    --navbar-width: 256px;
-    --navbar-width-min: 80px;
-    --navbar-dark-primary: #1da0a0;
-    --navbar-dark-secondary: #1da0a0;
-    --navbar-light-primary: #f5f6fa;
-    --navbar-light-secondary: #fffefd;
+    --navbar-width: 300px;
+    --navbar-width-min: 200px;
+    --navbar-dark-primary: #005a8d;
+    --navbar-dark-secondary: #007ba7;
+    --navbar-light-primary: #fffefd;
+    --navbar-light-secondary: #daeef6;
 }
 
 html,
