@@ -16,6 +16,10 @@
 5. git stash pop - implements the changes you were previously working on
 6. git stash clear - clears the stash if you do not want to use that code
 
+Getting Ready to Work? <br />
+git pull upstream develop <br />
+npm start
+
 # Confirmed Pull Requests
 Read by Andres Cavalie <br />
 Read by Halle Olson <br />
@@ -23,10 +27,6 @@ Read by Brianna Black <br />
 Ready by Ethan Craig <br />
 Read by Andres Angel <br />
 # Getting Started with Create React App
-
-#Getting Ready to Work
-git pull upstream develop <br />
-npm start
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
