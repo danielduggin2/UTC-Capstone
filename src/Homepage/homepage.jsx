@@ -1,11 +1,7 @@
 import React from 'react';
 import './homepage.css'
 import logo2 from '../Images/logo2.png'
-class Navbar extends React.Component{
-    constructor(props){
-        super(props);
-    }
-
+class NavBar extends React.Component{
     render(){
         return(
             <div id="nav-bar">
@@ -33,9 +29,36 @@ class Navbar extends React.Component{
             </div>
         );
     }
+}
+
+class Buttons extends React.Component{
+    render(){
+        return(
+        <div className="button-container">
+            <button className='buttons'>Add Patient</button>
+            <button className='buttons'>Appointments</button>
+        </div>  
+        );
+    }
+}
+class Homepage extends React.Component{
+    constructor(props){
+        super(props);
+    }
+
+    render(){
+        return (
+            <div>
+                <NavBar />
+            <div className='button-margin-left'>
+                <Buttons />
+            </div>   
+            </div>
+        )
+    }
 
 };
-export default Navbar
+export default Homepage
 
 // const NavBar = () => (
 //     <div id="nav-bar">

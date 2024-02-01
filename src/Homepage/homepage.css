@@ -14,6 +14,7 @@ body {
     background: var(--background);
 }
 
+/* NAVBAR EDITS */
 #nav-toggle:checked~#nav-header {
     width: calc(var(--navbar-width-min) - 16px);
 }
@@ -404,3 +405,32 @@ label[for=nav-footer-toggle] {
     border-radius: 99px;
     background-color: #D62929;
 }
+/* NAVBAR END */
+
+/* BUTTONS START */
+.button-margin-left{
+    margin-left: 300px;
+}
+.button-container{
+    padding-left: 20px;
+}
+.buttons{
+    background-color: var(--navbar-dark-secondary);
+    border: 2px solid var(--navbar-dark-primary);
+    color: var(--navbar-light-primary);
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 10px; /* Adjust vertical and horizontal margins as needed */
+    cursor: pointer;
+    border-radius: 12px; /* Rounded corners */
+    margin-left: 30px; /* Adjust the left margin to create space */
+    transition: background-color 0.5s ease-in;
+    
+    &:hover{
+        background-color: var(--navbar-dark-primary);
+    }
+}
+
