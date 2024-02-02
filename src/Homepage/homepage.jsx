@@ -1,6 +1,7 @@
 import React from 'react';
 import './homepage.css'
 import logo2 from '../Images/logo2.png'
+// hello world
 class NavBar extends React.Component{
     render(){
         return(
