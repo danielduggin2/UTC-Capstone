@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 
-import { BlogView } from 'src/sections/blog/view';
+import { PatientsView } from 'src/sections/patients/view';
+
+// import { BlogView } from 'src/sections/blog/view';
 
 // ----------------------------------------------------------------------
 
@@ -11,7 +13,7 @@ export default function BlogPage() {
         <title> Patients | GetRite PT </title>
       </Helmet>
 
-      <BlogView />
+      <PatientsView />
     </>
   );
 }

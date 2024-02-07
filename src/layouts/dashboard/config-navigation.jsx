@@ -37,6 +37,7 @@ const navConfig = [
     path: '/purchase',
     icon: icon('ic_cart'),
   },
+  // below are original items
   {
     title: 'dashboardOG',
     path: '/',
