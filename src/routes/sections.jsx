@@ -7,6 +7,7 @@ export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const PatientsPage = lazy(() => import('src/pages/patients'));
+export const WorkoutsPage = lazy(() => import('src/pages/workouts'));
 export const InboxPage = lazy(() => import('src/pages/inbox'));
 export const LoginPage = lazy(() => import('src/pages/login'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
@@ -30,6 +31,7 @@ export default function Router() {
         { path: 'patients', element: <PatientsPage /> },
         { path: 'inbox', element: <InboxPage /> },
         { path: 'products', element: <ProductsPage /> },
+        { path: 'workouts', element: <WorkoutsPage /> },
         { path: 'blog', element: <BlogPage /> },
       ],
     },
