@@ -28,8 +28,8 @@ const navConfig = [
     icon: icon('ic_analytics'),
   },
   {
-    title: 'exercise',
-    path: '/exercise',
+    title: 'exercises',
+    path: '/exercises',
     icon: icon('ic_lock'),
   },
   {
