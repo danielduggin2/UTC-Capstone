@@ -67,14 +67,14 @@ export default function UserTableRow({
         </TableCell> */}
 
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
+          <Label color={(status === 'released' ? 'error' : 'success')}>{status}</Label>
         </TableCell>
 
-        {/* <TableCell align="right">
+        <TableCell align="right">
           <IconButton onClick={handleOpenMenu}>
             <Iconify icon="eva:more-vertical-fill" />
           </IconButton>
-        </TableCell> */}
+        </TableCell>
       </TableRow>
 
       <Popover

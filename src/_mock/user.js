@@ -14,7 +14,7 @@ export const users = [...Array(24)].map((_, index) => ({
     'Sprained Ankle'
   ]),
   birthdate: faker.date.birthdate(),
-  phone: faker.phone.number(),
+  phone: faker.phone.number('(###) ###-####'),
   status: sample(['active', 'released']),
   name: faker.person.fullName(),
   // company: faker.company.name(),
