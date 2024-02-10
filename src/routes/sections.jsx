@@ -32,6 +32,7 @@ export default function Router() {
         { path: 'patients', element: <PatientsPage /> },
         { path: 'inbox', element: <InboxPage /> },
         { path: 'workouts', element: <WorkoutsPage /> },
+        { path: 'inbox', element: <InboxPage />},
         { path: 'exercises', element: <ExercisesPage />},
         { path: 'purchase', element: <PurchasePage />},
         { path: 'user', element: <UserPage /> },
