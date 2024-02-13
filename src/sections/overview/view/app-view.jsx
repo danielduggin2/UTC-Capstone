@@ -6,16 +6,7 @@ import Typography from '@mui/material/Typography';
 
 // import Iconify from 'src/components/iconify';
 
-import AppTasks from '../app-tasks';
-// import AddTask from '../add-tasks';
-// import AppNewsUpdate from '../app-news-update';
-// import AppOrderTimeline from '../app-order-timeline';
-// import AppCurrentVisits from '../app-current-visits';
-// import AppWebsiteVisits from '../app-website-visits';
-// import AppWidgetSummary from '../app-widget-summary';
-// import AppTrafficBySite from '../app-traffic-by-site';
-// import AppCurrentSubject from '../app-current-subject';
-// import AppConversionRates from '../app-conversion-rates';
+import AnalyticsTasks from '../app-tasks';
 
 // ----------------------------------------------------------------------
 
@@ -33,8 +24,8 @@ export default function AppView() {
           /> */}
       </Grid>
 
-      <Grid xs={12} md={6} lg={16}>
-          <AppTasks
+      <Grid xs={12} md={12} lg={16}>
+          <AnalyticsTasks
             title="Tasks"
             list={[
               { id: '1', name: 'Create FireStone Logo' },

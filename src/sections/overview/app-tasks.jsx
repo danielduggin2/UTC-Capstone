@@ -2,14 +2,19 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import { TextField } from '@mui/material';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import IconButton from '@mui/material/IconButton';
 import CardHeader from '@mui/material/CardHeader';
+import CardActions from '@mui/material/CardActions';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 import Iconify from 'src/components/iconify';
@@ -17,7 +22,9 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function AnalyticsTasks({ title, subheader, list, ...other }) {
-  const [selected, setSelected] = useState(['2']);
+  const [selected, setSelected] = useState(['0']);
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [newTaskName, setNewTaskName] = useState('');
 
   const handleClickComplete = (taskId) => {
     const tasksCompleted = selected.includes(taskId)
@@ -27,16 +34,56 @@ export default function AnalyticsTasks({ title, subheader, list, ...other }) {
     setSelected(tasksCompleted);
   };
 
+  // handle dialog option
+  const handleDialogOpen = () =>{
+    setDialogOpen(true);
+  }
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+
+    setNewTaskName('');
+  }
+
+  const handleCreateTask = () => {
+    console.info('Create Task: ', newTaskName);
+
+    handleDialogClose();
+  }
+
   return (
     <Card {...other}>
       <CardHeader title={title} action={
         <CardActions>
-        <Button variant="contained" color="primary">
+        <Button variant="contained" color="primary" onClick={handleDialogOpen}>
           Add Task
         </Button>
       </CardActions>
       }
       />
+
+      {/* Task Creation Dialog */}
+      <Dialog open={isDialogOpen} onClose={handleDialogClose}>
+      <DialogTitle>Create New Task</DialogTitle>
+      <DialogContent>
+        <TextField
+          label="Task Name"
+          value={newTaskName}
+          onChange={(e) => setNewTaskName(e.target.value)}
+          fullWidth
+          margin="normal"
+        />
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={handleDialogClose} color="secondary">
+          Cancel
+        </Button>
+        <Button onClick={handleCreateTask} color="primary">
+          Create
+        </Button>
+      </DialogActions>
+    </Dialog>
+
       {list.map((task) => (
         <TaskItem
           key={task.id}
