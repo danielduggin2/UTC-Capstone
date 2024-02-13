@@ -20,12 +20,14 @@
     "vite:build": "vite build"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@faker-js/faker": "^8.1.0",
     "@iconify/react": "^4.1.1",
     "@mui/lab": "^5.0.0-alpha.147",
     "@mui/material": "^5.15.9",
+    "@mui/x-date-pickers": "^6.19.4",
     "apexcharts": "^3.43.0",
     "date-fns": "^2.30.0",
     "history": "^5.3.0",
@@ -34,9 +36,11 @@
     "prop-types": "^15.8.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.1",
+    "react-calendar": "^4.8.0",
     "react-dom": "^18.2.0",
     "react-helmet-async": "^1.3.0",
     "react-hook-form": "^7.47.0",
+    "react-icons": "^5.0.1",
     "react-router-dom": "^6.16.0",
     "simplebar-react": "^3.2.4"
   },

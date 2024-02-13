@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Typography, Divider, Grid } from '@mui/material';
 import { DatePicker } from '@mui/lab';
+//import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
 
 function NewAppointment() {
   // State variables to store form data
@@ -52,14 +53,14 @@ function NewAppointment() {
           <TextField label="Contact Phone Number" type="tel" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} required fullWidth />
         </Grid>
         <Grid item xs={12}>
-          <DatePicker
+           <DatePicker
             label="Birth Date"
             value={birthDate}
             onChange={(date) => setBirthDate(date)}
             renderInput={(params) => <TextField {...params} />}
             required
             fullWidth
-          />
+          /> 
         </Grid>
       </Grid>
 
@@ -84,19 +85,30 @@ function NewAppointment() {
       {/* Additional Form Fields (Date, Time, Insurance Card Image, Signature, etc.) */}
       <Typography variant="h6">Appointment Information</Typography>
       <Divider />
-      <div>
-        <DatePicker
-          label="Date"
-          value={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
-          renderInput={(params) => <TextField {...params} />}
-          required
-          fullWidth
-        />
-      </div>
-      <div>
-        <TextField label="Time" type="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} required fullWidth />
-      </div>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
+          <DatePicker
+            label="Date"
+            value={selectedDate}
+            onChange={(date) => setSelectedDate(date)}
+            renderInput={(params) => <TextField {...params} />}
+            required
+            fullWidth
+          /> 
+        </Grid>
+        <Grid item xs={6}>
+          <TextField label="Time" type="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} required fullWidth />
+        </Grid>
+      </Grid>
+      {/* <DateTimePicker
+        label="Select Date and Time"
+        value={selectedDate}
+        onChange={(date) => setSelectedDate(date)}
+        renderInput={(params) => <TextField {...params} />}
+        required
+        fullWidth
+      /> */}
+
       <input type="file" accept="image/*" onChange={handleFileUpload} required />
       <div>
         <TextField label="Signature" value={signature} onChange={(e) => setSignature(e.target.value)} required fullWidth />
