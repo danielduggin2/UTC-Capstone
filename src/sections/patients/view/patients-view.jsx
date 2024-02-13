@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import Card from '@mui/material/Card'; 
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
@@ -8,9 +9,16 @@ import TableBody from '@mui/material/TableBody';
 import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
+
 import { users } from 'src/_mock/user';
+
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
 import TableNoData from '../table-no-data';
 import UserTableRow from '../user-table-row';
 import UserTableHead from '../user-table-head';
@@ -185,6 +193,18 @@ export default function PatientsView() {
 }
 
 function PatientForm({ onComplete }) {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [injury, setInjury] = useState('');
+  const [gender, setGender] = useState('');
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [state, setState] = useState('');
+  const [country, setCountry] = useState('');
+  const [workPhone, setWorkPhone] = useState('');
+  const [medicalHistory, setMedicalHistory] = useState('');
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // Additional form submission logic
@@ -193,13 +213,111 @@ function PatientForm({ onComplete }) {
 
   return (
     <Container>
-      {/* Your form JSX */}
+      <h1>New Patient Form</h1>
       <form onSubmit={handleSubmit}>
-        {/* Form fields */}
-        <Button variant="contained"
-              color="inherit"
-              startIcon={<Iconify icon="eva:plus-fill"/>} type="submit">Complete</Button>
+        <TextField
+          label="First Name"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+        />
+        <TextField
+          label="Last Name"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+        />
+        <TextField
+          label="Injury"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={injury}
+          onChange={(e) => setInjury(e.target.value)}
+        />
+        <FormControl fullWidth variant="outlined" margin="normal">
+          <InputLabel>Gender</InputLabel>
+          <Select
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            label="Gender"
+          >
+            <MenuItem value="male">Male</MenuItem>
+            <MenuItem value="female">Female</MenuItem>
+          </Select>
+        </FormControl>
+        <TextField
+          label="Address"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+        />
+        <TextField
+          label="City"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+        />
+        <TextField
+          label="Postal Code"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={postalCode}
+          onChange={(e) => setPostalCode(e.target.value)}
+        />
+        <TextField
+          label="State"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+        />
+        <TextField
+          label="Country"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={country}
+          onChange={(e) => setCountry(e.target.value)}
+        />
+        <TextField
+          label="Work Phone"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={workPhone}
+          onChange={(e) => setWorkPhone(e.target.value)}
+        />
+        <TextField
+          label="Medical History"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          multiline
+          rows={4}
+          value={medicalHistory}
+          onChange={(e) => setMedicalHistory(e.target.value)}
+        />
+        <Button
+          variant="contained"
+          color="inherit"
+          startIcon={<Iconify icon="eva:plus-fill"/>}
+          type="submit"
+        >
+          Complete
+        </Button>
       </form>
     </Container>
   );
 }
+
