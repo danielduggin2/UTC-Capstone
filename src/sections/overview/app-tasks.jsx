@@ -2,7 +2,9 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
 import Popover from '@mui/material/Popover';
 import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
@@ -27,8 +29,14 @@ export default function AnalyticsTasks({ title, subheader, list, ...other }) {
 
   return (
     <Card {...other}>
-      <CardHeader title={title} subheader={subheader} />
-
+      <CardHeader title={title} action={
+        <CardActions>
+        <Button variant="contained" color="primary">
+          Add Task
+        </Button>
+      </CardActions>
+      }
+      />
       {list.map((task) => (
         <TaskItem
           key={task.id}
