@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import { TextField, Button, Typography, Divider, Grid } from '@mui/material';
 import { DatePicker } from '@mui/lab';
-//import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
+// import dayjs from 'dayjs';
 
 function NewAppointment() {
   // State variables to store form data
@@ -33,7 +37,7 @@ function NewAppointment() {
     const file = e.target.files[0];
     setInsuranceCardImage(file);
   };
-
+  // const [value, setValue] = React.useState(dayjs('2022-04-17T15:30'));
   return (
     <form onSubmit={handleSubmit}>
       <Typography variant="h6">Patient Information</Typography>
@@ -100,14 +104,20 @@ function NewAppointment() {
           <TextField label="Time" type="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} required fullWidth />
         </Grid>
       </Grid>
-      {/* <DateTimePicker
-        label="Select Date and Time"
-        value={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
-        renderInput={(params) => <TextField {...params} />}
-        required
-        fullWidth
-      /> */}
+{/*       <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
+        <DateTimePicker
+          label="Uncontrolled picker"
+          defaultValue={dayjs('2022-04-17T15:30')}
+        />
+        <DateTimePicker
+          label="Controlled picker"
+          value={value}
+          onChange={(newValue) => setValue(newValue)}
+        />
+      </DemoContainer>
+    </LocalizationProvider>
+     */}
 
       <input type="file" accept="image/*" onChange={handleFileUpload} required />
       <div>
