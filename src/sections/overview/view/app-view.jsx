@@ -14,30 +14,28 @@ export default function AppView() {
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
-        GetRite Dashbaord
+        Welcome Back
       </Typography>
-
-      {/* Moved Calendar and Tasks Grid to top */}
-      <Grid xs={12} md={6} lg={4}>
-          {/* <AddTasks 
-            title="Add Tasks"
-          /> */}
-      </Grid>
-
-      <Grid xs={12} md={12} lg={16}>
-          <AnalyticsTasks
-            title="Tasks"
-            list={[
-              { id: '1', name: 'Create FireStone Logo' },
-              { id: '2', name: 'Add SCSS and JS files if required' },
-              { id: '3', name: 'Stakeholder Meeting' },
-              { id: '4', name: 'Scoping & Estimations' },
-              { id: '5', name: 'Sprint Showcase' },
-            ]}
-          />
-      </Grid>
-
       <Grid container spacing={3}>
+        {/* Moved Calendar and Tasks Grid to top */}
+        <Grid xs={12} md={6} lg={4}>
+            {/* <AddTasks 
+              title="Add Tasks"
+            /> */}
+        </Grid>
+
+        <Grid xs={12} md={12} lg={16}>
+            <AnalyticsTasks
+              title="Tasks"
+              list={[
+                { id: '1', name: 'Create FireStone Logo' },
+                { id: '2', name: 'Add SCSS and JS files if required' },
+                { id: '3', name: 'Stakeholder Meeting' },
+                { id: '4', name: 'Scoping & Estimations' },
+                { id: '5', name: 'Sprint Showcase' },
+              ]}
+            />
+        </Grid>
         <Grid xs={12} sm={6} md={3}>
           {/* <AppWidgetSummary
             title="Weekly Sales"
