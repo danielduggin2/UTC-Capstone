@@ -36,6 +36,12 @@ const navConfig = [
     title: 'purchase',
     path: '/purchase',
     icon: icon('ic_cart'),
+   
+  },
+  {
+    title: 'new appointment',
+    path: '/new-appointment',
+    icon: icon('ic_cart'),
   },
   // below are original items
   {
