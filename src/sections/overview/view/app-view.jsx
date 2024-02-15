@@ -7,21 +7,33 @@ import Typography from '@mui/material/Typography';
 // import Iconify from 'src/components/iconify';
 
 import AnalyticsTasks from '../app-tasks';
+import AppCalendar from '../app-calendar';
+
 
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+  // Placeholder for calendar events
+  // Adjust this to load your actual events
+  const calendarEvents = [
+    {
+      title: 'Meeting',
+      start: new Date(2024, 3, 0),
+      end: new Date(2024, 3, 1),
+    },
+    // More events...
+  ];
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
         Welcome Back
       </Typography>
       <Grid container spacing={3}>
-        {/* Moved Calendar and Tasks Grid to top */}
-        <Grid xs={12} md={6} lg={4}>
-            {/* <AddTasks 
-              title="Add Tasks"
-            /> */}
+        {/* Your existing grid items for tasks, summaries, etc. */}
+        
+        {/* Grid item for AppCalendar */}
+        <Grid item xs={12} md={12} lg={12}> {/* Adjust grid sizing as needed */}
+          <AppCalendar events={calendarEvents} />
         </Grid>
 
         <Grid xs={12} md={12} lg={16}>
