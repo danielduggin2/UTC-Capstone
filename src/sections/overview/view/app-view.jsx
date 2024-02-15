@@ -6,16 +6,7 @@ import Typography from '@mui/material/Typography';
 
 // import Iconify from 'src/components/iconify';
 
-import AppTasks from '../app-tasks';
-// import AddTask from '../add-tasks';
-// import AppNewsUpdate from '../app-news-update';
-// import AppOrderTimeline from '../app-order-timeline';
-// import AppCurrentVisits from '../app-current-visits';
-// import AppWebsiteVisits from '../app-website-visits';
-// import AppWidgetSummary from '../app-widget-summary';
-// import AppTrafficBySite from '../app-traffic-by-site';
-// import AppCurrentSubject from '../app-current-subject';
-// import AppConversionRates from '../app-conversion-rates';
+import AnalyticsTasks from '../app-tasks';
 
 // ----------------------------------------------------------------------
 
@@ -23,30 +14,28 @@ export default function AppView() {
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
-        GetRite Dashbaord
+        Welcome Back
       </Typography>
-
-      {/* Moved Calendar and Tasks Grid to top */}
-      <Grid xs={12} md={6} lg={4}>
-          {/* <AddTasks 
-            title="Add Tasks"
-          /> */}
-      </Grid>
-
-      <Grid xs={12} md={6} lg={16}>
-          <AppTasks
-            title="Tasks"
-            list={[
-              { id: '1', name: 'Create FireStone Logo' },
-              { id: '2', name: 'Add SCSS and JS files if required' },
-              { id: '3', name: 'Stakeholder Meeting' },
-              { id: '4', name: 'Scoping & Estimations' },
-              { id: '5', name: 'Sprint Showcase' },
-            ]}
-          />
-      </Grid>
-
       <Grid container spacing={3}>
+        {/* Moved Calendar and Tasks Grid to top */}
+        <Grid xs={12} md={6} lg={4}>
+            {/* <AddTasks 
+              title="Add Tasks"
+            /> */}
+        </Grid>
+
+        <Grid xs={12} md={12} lg={16}>
+            <AnalyticsTasks
+              title="Tasks"
+              list={[
+                { id: '1', name: 'Create FireStone Logo' },
+                { id: '2', name: 'Add SCSS and JS files if required' },
+                { id: '3', name: 'Stakeholder Meeting' },
+                { id: '4', name: 'Scoping & Estimations' },
+                { id: '5', name: 'Sprint Showcase' },
+              ]}
+            />
+        </Grid>
         <Grid xs={12} sm={6} md={3}>
           {/* <AppWidgetSummary
             title="Weekly Sales"
