@@ -6,23 +6,21 @@ import Typography from '@mui/material/Typography';
 
 // import Iconify from 'src/components/iconify';
 
+// ----------------------------------------------------------------------
+import React, { useState } from 'react';
+
 import AnalyticsTasks from '../app-tasks';
 import AppCalendar from '../app-calendar';
 
-
-// ----------------------------------------------------------------------
-
 export default function AppView() {
-  // Placeholder for calendar events
-  // Adjust this to load your actual events
-  const calendarEvents = [
+  const [calendarEvents, setCalendarEvents] = useState([
     {
       title: 'Meeting',
       start: new Date(2024, 3, 0),
       end: new Date(2024, 3, 1),
     },
-    // More events...
-  ];
+    // Add more initial events as needed
+  ]);
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
