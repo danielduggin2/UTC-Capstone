@@ -9,6 +9,7 @@ export const UserPage = lazy(() => import('src/pages/user'));
 export const PatientsPage = lazy(() => import('src/pages/patients'));
 export const WorkoutsPage = lazy(() => import('src/pages/workouts'));
 export const ExercisesPage = lazy(() => import('src/pages/exercises'));
+export const ViewPatientPage = lazy(() => import('src/pages/view-patient'));
 export const PurchasePage = lazy(() => import('src/pages/purchase'));
 export const InboxPage = lazy(() => import('src/pages/inbox'));
 export const LoginPage = lazy(() => import('src/pages/login'));
@@ -37,6 +38,7 @@ export default function Router() {
         { path: 'purchase', element: <PurchasePage />},
         { path: 'user', element: <UserPage /> },
         { path: 'products', element: <ProductsPage /> },
+        { path: 'view-patient', element: <ViewPatientPage /> },
         { path: 'blog', element: <BlogPage /> },
       ],
     },
