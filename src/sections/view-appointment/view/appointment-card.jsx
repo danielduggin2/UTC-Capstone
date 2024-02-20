@@ -5,7 +5,8 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 
-const AppointmentCard = ({ appointment }) => {
+const AppointmentCard = (props) => {
+    const { appointment, onDetailsClick } = props;
     const { name, age, gender, time, reason } = appointment;
 
     return (
@@ -16,7 +17,7 @@ const AppointmentCard = ({ appointment }) => {
                 <Typography variant="body1">Gender: {gender}</Typography>
                 <Typography variant="body1">Time: {time}</Typography>
                 <Typography variant="body1">Reason: {reason}</Typography>
-                <Button variant="contained" color="primary">
+                <Button variant="contained" color="primary" onClick={() => onDetailsClick(appointment)}>
                     See More Details
                 </Button>
             </CardContent>
@@ -32,6 +33,7 @@ AppointmentCard.propTypes = {
         time: PropTypes.string.isRequired,
         reason: PropTypes.string.isRequired,
     }).isRequired,
+    onDetailsClick: PropTypes.func.isRequired,
 };
 
 export default AppointmentCard
