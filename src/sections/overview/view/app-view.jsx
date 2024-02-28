@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 
 // ----------------------------------------------------------------------
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import AnalyticsTasks from '../app-tasks';
 import AppCalendar from '../app-calendar';
@@ -40,6 +41,11 @@ export default function AppView() {
   const handleDeleteEvent = (eventTitle) => {
     setCalendarEvents(calendarEvents.filter((event) => event.title !== eventTitle));
   };
+  const navigate = useNavigate();
+
+  const handleNewAppointment = () => {
+    navigate('/new-appointment');
+  };
 
   return (
     <Container maxWidth="xl">
@@ -54,6 +60,10 @@ export default function AppView() {
             onUpdateEvent={handleUpdateEvent}
             onDeleteEvent={handleDeleteEvent}
           />
+        </Grid>
+        
+        <Grid xs={12} sm={6} md={3}>
+        <button type="button" onClick={handleNewAppointment}>New Appointment</button>
         </Grid>
 
         <Grid xs={12} md={12} lg={16}>
