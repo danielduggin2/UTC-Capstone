@@ -15,36 +15,58 @@ import AppCalendar from '../app-calendar';
 export default function AppView() {
   const [calendarEvents, setCalendarEvents] = useState([
     {
-      title: 'Meeting',
-      start: new Date(2024, 3, 0),
+      title: 'Appointment with John Doe',
+      start: new Date(2024, 3, 1),
       end: new Date(2024, 3, 1),
     },
-    // Add more initial events as needed
+    {
+      title: 'Appointment with Jane Doe',
+      start: new Date(2024, 3, 2),
+      end: new Date(2024, 3, 2),
+    },
   ]);
+
+  const handleAddEvent = (event) => {
+    setCalendarEvents([...calendarEvents, event]);
+  };
+
+  const handleUpdateEvent = (updatedEvent) => {
+    const updatedEvents = calendarEvents.map((event) =>
+      event.title === updatedEvent.title ? updatedEvent : event
+    );
+    setCalendarEvents(updatedEvents);
+  };
+
+  const handleDeleteEvent = (eventTitle) => {
+    setCalendarEvents(calendarEvents.filter((event) => event.title !== eventTitle));
+  };
+
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
         Welcome Back
       </Typography>
       <Grid container spacing={3}>
-        {/* Your existing grid items for tasks, summaries, etc. */}
-        
-        {/* Grid item for AppCalendar */}
-        <Grid item xs={12} md={12} lg={12}> {/* Adjust grid sizing as needed */}
-          <AppCalendar events={calendarEvents} />
+        <Grid item xs={12} md={12} lg={12}> 
+          <AppCalendar
+            events={calendarEvents}
+            onAddEvent={handleAddEvent}
+            onUpdateEvent={handleUpdateEvent}
+            onDeleteEvent={handleDeleteEvent}
+          />
         </Grid>
 
         <Grid xs={12} md={12} lg={16}>
-            <AnalyticsTasks
-              title="Tasks"
-              list={[
-                { id: '1', name: 'Create FireStone Logo' },
-                { id: '2', name: 'Add SCSS and JS files if required' },
-                { id: '3', name: 'Stakeholder Meeting' },
-                { id: '4', name: 'Scoping & Estimations' },
-                { id: '5', name: 'Sprint Showcase' },
-              ]}
-            />
+          <AnalyticsTasks
+            title="Tasks"
+            list={[
+              { id: '1', name: 'Create FireStone Logo' },
+              { id: '2', name: 'Add SCSS and JS files if required' },
+              { id: '3', name: 'Stakeholder Meeting' },
+              { id: '4', name: 'Scoping & Estimations' },
+              { id: '5', name: 'Sprint Showcase' },
+            ]}
+          />
         </Grid>
         <Grid xs={12} sm={6} md={3}>
           {/* <AppWidgetSummary
