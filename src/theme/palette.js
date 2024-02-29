@@ -3,7 +3,6 @@ import { alpha } from '@mui/material/styles';
 // ----------------------------------------------------------------------
 
 // SETUP COLORS
-
 export const grey = {
   0: '#FFFFFF',
   100: '#F9FAFB',
@@ -94,6 +93,12 @@ const base = {
   warning,
   error,
   grey,
+  navbar: {
+    darkPrimary: '#005a8d',
+    darkSecondary: '#007ba7',
+    lightPrimary: '#fffefd',
+    lightSecondary: '#daeef6',
+  },
   common,
   divider: alpha(grey[500], 0.2),
   action,
