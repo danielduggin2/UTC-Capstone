@@ -3,9 +3,9 @@
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-
+import {db} from '../../../../src/firebase.js';
 // import Iconify from 'src/components/iconify';
-
+import { getFirestore, addDoc, collection } from "firebase/firestore"
 // ----------------------------------------------------------------------
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -46,8 +46,19 @@ export default function AppView() {
   const handleNewAppointment = () => {
     navigate('/new-appointment');
   };
+  const [inputValue1, setInputValue1] = useState('');
+  const [inputValue2, setInputValue2] = useState('');
+
+  const saveDataToFirestore = async () => {
+    const docRef = await addDoc(collection(db, "myCollection"), {
+      field1: inputValue1,
+      field2: inputValue2,
+    });
+    alert("Document written to Database");
+};
 
   return (
+    
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
         Welcome Back
@@ -63,6 +74,21 @@ export default function AppView() {
         </Grid>
         
         <Grid xs={12} sm={6} md={3}>
+          <p>VAR:{import.meta.env.VITE_DANIEL}</p>
+          <div className="App">
+            <h1>Save Data to Firebase Firestore</h1>
+            <input
+            type="text"
+            value={inputValue1}
+            onChange={(e) => setInputValue1(e.target.value)}
+            />
+            <input
+            type="text"
+            value={inputValue2}
+            onChange={(e) => setInputValue2(e.target.value)}
+            />
+            <button onClick={saveDataToFirestore}>Save to Firestore</button>
+          </div>
         <button type="button" onClick={handleNewAppointment}>New Appointment</button>
         </Grid>
 
