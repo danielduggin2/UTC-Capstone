@@ -5,9 +5,9 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import {db} from '../../../../src/firebase.js';
 // import Iconify from 'src/components/iconify';
-import { getFirestore, addDoc, collection } from "firebase/firestore"
+import { getFirestore, addDoc, collection, getDocs } from "firebase/firestore"
 // ----------------------------------------------------------------------
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import AnalyticsTasks from '../app-tasks';
@@ -26,7 +26,30 @@ export default function AppView() {
       end: new Date(2024, 3, 2),
     },
   ]);
+  const [currentTasks,setCurrentTasks] = useState([])
+  const fetchData = async () => {
+    try {
+      // Get a reference to the Firestore database
+      
+      // Reference to a Firestore collection (replace "yourCollection" with your collection name)
+		const querySnapshot = await getDocs(collection(db, "DashboardTasks"));
+		const temporaryArr = [];
+		querySnapshot.forEach((doc) => {
+		temporaryArr.push({...doc.data(),id:doc.id});
+		});
+      // Set the data state with the fetched data
+      setCurrentTasks(temporaryArr);
+	  console.log("set")
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
+  useEffect(()=>{
+	fetchData()
+  }, [])
+
+  
   const handleAddEvent = (event) => {
     setCalendarEvents([...calendarEvents, event]);
   };
@@ -95,13 +118,14 @@ export default function AppView() {
         <Grid xs={12} md={12} lg={16}>
           <AnalyticsTasks
             title="Tasks"
-            list={[
-              { id: '1', name: 'Create FireStone Logo' },
-              { id: '2', name: 'Add SCSS and JS files if required' },
-              { id: '3', name: 'Stakeholder Meeting' },
-              { id: '4', name: 'Scoping & Estimations' },
-              { id: '5', name: 'Sprint Showcase' },
-            ]}
+            // list={[
+            //   { id: '1', name: 'Create FireStone Logo', deleted:false, complete:false },
+            //   { id: '2', name: 'Add SCSS and JS files if required' },
+            //   { id: '3', name: 'Stakeholder Meeting' },
+            //   { id: '4', name: 'Scoping & Estimations' },
+            //   { id: '5', name: 'Sprint Showcase' },
+            // ]}
+			list={currentTasks}
           />
         </Grid>
         <Grid xs={12} sm={6} md={3}>

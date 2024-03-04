@@ -155,7 +155,7 @@ function TaskItem({ task, checked, onChange }) {
       >
         <FormControlLabel
           control={<Checkbox checked={checked} onChange={onChange} />}
-          label={task.name}
+          label={task.taskContent}
           sx={{ flexGrow: 1, m: 0 }}
         />
 
