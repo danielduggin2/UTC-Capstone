@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import {db} from '../../../../src/firebase.js';
+import {db} from '../../../../src/firebase.js';
 // import Iconify from 'src/components/iconify';
 import { getFirestore, addDoc, collection, getDocs } from "firebase/firestore"
 // ----------------------------------------------------------------------
