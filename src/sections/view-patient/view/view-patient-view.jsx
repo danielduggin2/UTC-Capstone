@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal } from '@mui/material';
+import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button } from '@mui/material';
 
 import ReadPatientView from '../read-view';
 import EditPatientView from '../edit-view';
@@ -15,22 +15,15 @@ import exercisesCard from '../../../_mock/exercisescard.jpg';
 
 export default function ViewPatientView() {
 	const [editState,setEditState] = useState(false);
-	const style = {
-		position: 'absolute',
-		top: '50%',
-		left: '50%',
-		transform: 'translate(-50%, -50%)',
-		width: 400,
-		bgcolor: 'background.paper',
-		borderRadius: 1,
-		boxShadow: 0,
-		p: 4,
-	  };
-
 	const [open, setOpen] = useState(false);
 
-	const handleOpen = () => setOpen(true);
-	const handleClose = () => setOpen(false);
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
   const fontColor = {
     style: { color: 'rgb(100, 0, 0)' }
 }
@@ -77,13 +70,13 @@ export default function ViewPatientView() {
 					<ListItem
 						key={value}
 						secondaryAction={
-							<IconButton edge="end" onClick={handleOpen}>
+							<IconButton edge="end" onClick={handleClickOpen}>
 								<FontAwesomeIcon icon={faPen} size="xs"/>
 							</IconButton>
 							}
 						disablePadding
 					>
-						<ListItemButton role={undefined} onClick={handleOpen} dense>
+						<ListItemButton role={undefined} onClick={handleClickOpen} dense>
 							<ListItemText id={labelId} primary={`Workout ${value + 1}`} />
 						</ListItemButton>
 					</ListItem>
@@ -104,21 +97,19 @@ export default function ViewPatientView() {
       </Grid> */}
 	   
     </Container>
-	<Modal
-	open={open}
-	onClose={handleClose}
-	aria-labelledby="modal-modal-title"
-	aria-describedby="modal-modal-description"
-  >
-	<Box sx={style}>
-	  <Typography id="modal-modal-title" variant="h6" component="h2">
-		Text in a modal
-	  </Typography>
-	  <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-		Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-	  </Typography>
-	</Box>
-  </Modal>
+	<Dialog
+        open={open}
+        keepMounted
+        onClose={handleClose}
+        aria-describedby="alert-dialog-slide-description"
+    >
+        <DialogTitle>{"Edit Workouts"}</DialogTitle>
+        <DialogContent>
+          
+        </DialogContent>
+        <DialogActions>
+        </DialogActions>
+      </Dialog>
   </>
   );
 }
