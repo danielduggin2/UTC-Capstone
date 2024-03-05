@@ -1,13 +1,11 @@
 import dayjs from "dayjs";
 
+import Box from "@mui/material/Box";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import Box from "@mui/material/Box";
-import {Card, Radio, FormLabel, TextField, RadioGroup, Typography, FormControl, Autocomplete, FormControlLabel, Grid,Button, Stack } from "@mui/material";
+import { Radio, Stack, Button, FormLabel, TextField, RadioGroup, Typography, FormControl,Autocomplete, FormControlLabel } from "@mui/material";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons'
 export default function EditPatientView({setEditState}) {
     const states = [
 		'Alabama',

@@ -1,7 +1,6 @@
+import { Typography } from "@mui/material";
 import Grid from '@mui/material/Unstable_Grid2';
-import { Card, IconButton, Stack, Typography } from "@mui/material";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen } from '@fortawesome/free-solid-svg-icons';
+
 export default function ReadPatientView({setEditState}) {
 return (
 	<>
