@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons'
-
+import Draggable from 'react-draggable';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
@@ -36,72 +36,95 @@ export default function ViewPatientView() {
   return (
 	<>
     <Container>
-      <Grid container spacing={2}>
-        <Grid xs={7}>
-			
-          <Stack spacing={2}>
-		  <Card sx={{ p: 2, pb: 4 }}>
-		  <Stack direction="row-reverse">
-				<IconButton aria-label="delete" color="primary" onClick={() => {
-				setEditState(!editState);
-				}}>
-				{editState ? <FontAwesomeIcon icon={faTimes} size="xs"/> : <FontAwesomeIcon icon={faPen} size="xs"/>}
-				</IconButton>
+		
+		<Box mb={2}height="200px" sx={{overflow:"hidden", overflowX:"scroll",
+		'&::-webkit-scrollbar': {
+			width: '1px',
+			height: '10px'
+		  },
+		  '&::-webkit-scrollbar-track': {
+			background: '#F9FAFB',
+		  },
+		  '&::-webkit-scrollbar-thumb': {
+			background: '#888',
+			borderRadius: '10px',
+		  },
+		  '&::-webkit-scrollbar-thumb:hover': {
+			background: '#555',
+		  },
+	
+	}}>
+			<Stack direction="row" spacing={2}>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
 			</Stack>
-		  	{!editState ? <ReadPatientView setEditState={setEditState}/> : <EditPatientView setEditState={setEditState}/> }
-			</Card>
-		  </Stack>
-        </Grid>
-        <Grid xs={5}>
+		</Box>
+		<Grid container spacing={2}>
+			<Grid xs={7}>
 			<Stack spacing={2}>
-          <Card>
-            <CardMedia
-            sx={{height: 140}}
-            image={stockImage}
-            title="banner"
-            />
-            <CardContent>
-              <Avatar sx={{bgcolor: '#ff5722'}}>AC</Avatar>
-              <Typography>Andres Cavalie</Typography>
-            </CardContent>
-          </Card>
-		  <Card>
-			<CardMedia sx={{ height: 140 }} image={exercisesCard} title="banner" />
-			<CardContent>
-				<List>
-				{[0, 1, 2, 3].map((value) => {
-        const labelId = `checkbox-list-label-${value}`;
 
-        return (
-					<ListItem
+				<Card sx={{ p: 2, pb: 4 }}>
+					<Stack direction="row-reverse">
+						<IconButton aria-label="delete" color="primary" onClick={() => {setEditState(!editState);}}>
+						{editState ? <FontAwesomeIcon icon={faTimes} size="xs"/> : <FontAwesomeIcon icon={faPen} size="xs"/>}
+						</IconButton>
+					</Stack>
+					{!editState ? <ReadPatientView setEditState={setEditState}/> : <EditPatientView setEditState={setEditState}/> }
+				</Card>
+			</Stack>
+			</Grid>
+			<Grid xs={5}>
+				<Stack spacing={2}>
+					<Card>
+						<CardMedia
+						sx={{height: 140}}
+						image={stockImage}
+						title="banner"
+						/>
+						<CardContent>
+						<Avatar sx={{bgcolor: '#ff5722'}}>AC</Avatar>
+						<Typography>Andres Cavalie</Typography>
+						</CardContent>
+					</Card>
+					{/* <Card>
+						<CardMedia sx={{ height: 140 }} image={exercisesCard} title="banner" />
+						<CardContent>
+						<List>
+						{[0, 1, 2, 3].map((value) => {
+						const labelId = `checkbox-list-label-${value}`;
+
+						return (
+						<ListItem
 						key={value}
 						secondaryAction={
-							<IconButton edge="end" onClick={handleClickOpen}>
-								<FontAwesomeIcon icon={faPen} size="xs"/>
-							</IconButton>
-							}
+						<IconButton edge="end" onClick={handleClickOpen}>
+						<FontAwesomeIcon icon={faPen} size="xs"/>
+						</IconButton>
+						}
 						disablePadding
-					>
+						>
 						<ListItemButton role={undefined} onClick={handleClickOpen} dense>
-							<ListItemText id={labelId} primary={`Workout ${value + 1}`} />
+						<ListItemText id={labelId} primary={`Workout ${value + 1}`} />
 						</ListItemButton>
-					</ListItem>
-		)})}
-					</List>
-			</CardContent>
-		</Card>
-		</Stack>
-        </Grid>
-      
-      {/* <Paper elevation={3} /> */}
-      
-      </Grid>
-      {/* <Grid container spacing={3}>
-        {posts.map((post, index) => (
-          <PostCard key={post.id} post={post} index={index} />
-        ))}
-      </Grid> */}
-	   
+						</ListItem>
+						)})}
+						</List>
+						</CardContent>
+					</Card> */}
+				</Stack>
+			</Grid>
+		</Grid>
     </Container>
 	<Dialog
         open={open}
@@ -141,59 +164,41 @@ export default function ViewPatientView() {
 			</Tabs>
 		</Box>
 		</DialogTitle>
-        <DialogContent>
-<List>
-	{[0, 1, 2, 3].map((value) => {
-	const labelId = `checkbox-list-label-${value}`;
-	return (
-		<ListItem
-		key={value}
-		disablePadding
-		>
-			<ListItemButton role={undefined} onClick={handleClickOpen} dense>
-				<ListItemText id={labelId} primary={`Workout ${value + 1}`} />
+			<DialogContent>
 				<List>
-	{[0, 1, 2, 3].map((value) => {
-	const labelId = `checkbox-list-label-${value}`;
-	return (
-		<ListItem
-		key={value}
-		secondaryAction={
-			<IconButton edge="end" onClick={handleClickOpen}>
-				<FontAwesomeIcon icon={faPen} size="xs"/>
-			</IconButton>
-			}
-		disablePadding
-		>
-			<ListItemButton role={undefined} onClick={handleClickOpen} dense>
-				<ListItemText id={labelId} primary={`Workout ${value + 1}`} />
-			</ListItemButton>
-		</ListItem>
-	)})}
-</List>
-			</ListItemButton>
-		</ListItem>
-	)})}
-</List>
-			{/* <Button
-				sx={{
-				background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-				borderRadius: 1,
-				border: 0,
-				color: 'white',
-				width:'100%',
-				height: '100%',
-				padding: '0 30px',
-				boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-				'&:hover': {
-				boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .5)',
-				},
-				}}
-				>
-				Add Workout
-			</Button> */}
-        </DialogContent>
-        {/* <DialogActions/> */}
+				{[0, 1, 2, 3].map((value) => {
+				const labelId = `checkbox-list-label-${value}`;
+				return (
+					<ListItem
+					key={value}
+					disablePadding
+					>
+					<ListItemButton role={undefined} onClick={handleClickOpen} dense>
+						<ListItemText id={labelId} primary={`Workout ${value + 1}`} />
+						<List>
+							{[0, 1, 2, 3].map((value) => {
+								const labelId = `checkbox-list-label-${value}`;
+								return (
+									<ListItem
+										key={value}
+										disablePadding
+										secondaryAction={
+											<IconButton edge="end" onClick={handleClickOpen}>
+											<FontAwesomeIcon icon={faPen} size="xs"/>
+											</IconButton>
+										}
+									>
+										<ListItemButton role={undefined} onClick={handleClickOpen} dense>
+										<ListItemText id={labelId} primary={`Workout ${value + 1}`} />
+									</ListItemButton>
+									</ListItem>
+								)})}
+						</List>
+					</ListItemButton>
+					</ListItem>
+				)})}
+				</List>
+			</DialogContent>
       </Dialog>
   </>
   );
