@@ -1,14 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons'
-
-// import Draggable from 'react-draggable';
+import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import AppWebsiteVisits from '../app-website-visits';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
-import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Tab } from '@mui/material';
+import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Tab, CardActions } from '@mui/material';
 
 import { primary } from 'src/theme/palette';
 import { secondary } from 'src/theme/palette';
@@ -25,7 +24,7 @@ import { color } from 'framer-motion';
 
 export default function ViewPatientView() {
 	const [editState,setEditState] = useState(false);
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState(0);
 
 	const handleClickOpen = () => {
@@ -41,12 +40,23 @@ export default function ViewPatientView() {
   const fontColor = {
     style: { color: 'rgb(100, 0, 0)' }
 }
-
+const [scrolled, setScrolled] = useState(false);
+	useEffect(() => {
+		if (!scrolled) {
+			const container = document.getElementById('scrollableContainer');
+			if (container) {
+				container.scrollLeft = container.scrollWidth;
+				setScrolled(true);
+			}
+		}
+	}, [scrolled]);
   return (
 	<>
     <Container>
+		<Typography variant='h3' pb={2}>Andres Cavalie</Typography>
+		<Typography variant='h6'>Appointments</Typography>
 		
-		<Box mb={2}height="200px" sx={{overflow:"hidden", overflowX:"scroll",
+		<Box id="scrollableContainer" mb={2} mt={1} sx={{overflow:"hidden", overflowX:"scroll",
 		'&::-webkit-scrollbar': {
 			width: '1px',
 			height: '10px'
@@ -63,30 +73,54 @@ export default function ViewPatientView() {
 		  },
 	
 	}}>
-			<Stack direction="row" spacing={2}>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+			<Stack direction="row" spacing={2} sx={{pb:'10px'}} >
+				{[1,2,3,4,5,6,7,8,9,10,11].map(x=>{
+					return (
+						<Card sx={{flexShrink:0,width:'350px',height:'250px'}}>
+							<CardContent sx={{pb:1}}>
+								<Stack
+								px={1}
+								pb={1}
+									direction="row"
+									justifyContent="space-between"
+									alignItems="center">
+								<Typography variant="h6"> March 6 2024</Typography>
+								<Box sx={{backgroundColor:'#ffde73',borderRadius: .5,}} p='5px' >
+								<Typography sx={{fontWeight:'normal',lineHeight:'.9'}} variant="subtitle2">In Progress</Typography>
+								</Box>
+								</Stack>
+									<List sx={{listStyleType:'disc',listStylePosition:'inside',}}>
+										<ListItem sx={{ display: 'list-item',pl:1,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
+											Range of motion getting better. Swelling is down. Swelling is down.
+										</ListItem>
+										<ListItem sx={{ display: 'list-item',pl:1,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
+											Swelling is down. Swelling is down. Swelling is down.
+										</ListItem>
+										<ListItem sx={{ display: 'list-item',pl:1,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
+											Still need to ice after each session
+										</ListItem>
+									</List>
+							</CardContent>
+							<CardActions sx={{px:2}}>
+								<Button  onClick={handleClickOpen} >See More</Button>
+							</CardActions>
+						</Card>
+					)
+				})}
+				
+				
+				
+				
 			</Stack>
 		</Box>
 		<Grid container spacing={2}>
-			<Grid xs={6}>
+			<Grid xs={7}>
 			<Stack spacing={2}>
 
 				<Card sx={{ p: 2, pb: 4 }}>
 					<Stack direction="row-reverse">
-						{/* <IconButton aria-label="delete" color="primary" onClick={() => {setEditState(!editState);}}> */}
-						<IconButton aria-label="delete" color="primary" onClick={() => {handleClickOpen()}}>
+						<IconButton aria-label="delete" color="primary" onClick={() => {setEditState(!editState);}}>
+						{/* <IconButton aria-label="delete" color="primary" onClick={() => {handleClickOpen()}}> */}
 						{editState ? <FontAwesomeIcon icon={faTimes} size="xs"/> : <FontAwesomeIcon icon={faPen} size="xs"/>}
 						</IconButton>
 					</Stack>
@@ -94,7 +128,7 @@ export default function ViewPatientView() {
 				</Card>
 			</Stack>
 			</Grid>
-			<Grid xs={6}>
+			<Grid xs={5}>
 				<Stack spacing={2}>
 					<Card>
 						<CardMedia
@@ -103,10 +137,50 @@ export default function ViewPatientView() {
 						title="banner"
 						/>
 						<CardContent>
-						<Avatar sx={{bgcolor: '#ff5722'}}>AC</Avatar>
-						<Typography>Andres Cavalie</Typography>
+						<Grid container spacing={2} columnSpacing={1}>
+                  <Grid xs={12} display="flex" justifyContent="center" ><Avatar sx={{bgcolor: '#ff5722', mt:-13 , width: 120, height: 120,fontSize:40 }}>AC</Avatar></Grid>
+                  <Grid xs={12} display="flex" justifyContent="center" ><Typography variant="h6">Andres Cavalie</Typography></Grid>
+                  <Grid container xs={12} display="flex" justifyContent="center">
+                    <Grid><Button variant="outlined">Add Patient</Button></Grid>
+                    <Grid><Button variant="contained">Send Message</Button></Grid>
+                  </Grid>
+                </Grid>
 						</CardContent>
 					</Card>
+
+					<AppWebsiteVisits
+            title="Recovery Tracking"
+            subheader="(+43%) than last year"
+            chart={{
+              labels: [
+                '01/01/2003',
+                '02/01/2003',
+                '03/01/2003',
+                '04/01/2003',
+                '05/01/2003',
+                '06/01/2003',
+                '07/01/2003',
+                '08/01/2003',
+                '09/01/2003',
+                '10/01/2003',
+                '11/01/2003',
+              ],
+              series: [
+                {
+                  name: 'Pain',
+                  type: 'line',
+                  fill: 'solid',
+                  data: [7, 6, 5, 4,5 , 6, 4, 4, 3, 3, 2],
+                },
+                {
+                  name: 'Mobility',
+                  type: 'line',
+                  fill: 'solid',
+                  data: [2, 3, 3, 3,4 , 3, 5, 4, 5, 5, 6],
+                },
+              ],
+            }}
+          />
 					{/* <Card>
 						<CardMedia sx={{ height: 140 }} image={exercisesCard} title="banner" />
 						<CardContent>
