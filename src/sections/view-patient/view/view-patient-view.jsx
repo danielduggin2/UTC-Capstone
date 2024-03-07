@@ -23,7 +23,7 @@ import { color } from 'framer-motion';
 
 export default function ViewPatientView() {
 	const [editState,setEditState] = useState(false);
-	const [open, setOpen] = useState(true);
+	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState(0);
 
 	const handleClickOpen = () => {
@@ -52,8 +52,10 @@ const [scrolled, setScrolled] = useState(false);
   return (
 	<>
     <Container>
+		<Typography variant='h3' pb={2}>Andres Cavalie</Typography>
+		<Typography variant='h6'>Appointments</Typography>
 		
-		<Box id="scrollableContainer" mb={2} sx={{overflow:"hidden", overflowX:"scroll",
+		<Box id="scrollableContainer" mb={2} mt={1} sx={{overflow:"hidden", overflowX:"scroll",
 		'&::-webkit-scrollbar': {
 			width: '1px',
 			height: '10px'
@@ -99,7 +101,7 @@ const [scrolled, setScrolled] = useState(false);
 									</List>
 							</CardContent>
 							<CardActions sx={{px:2}}>
-								<Button size="small">See More</Button>
+								<Button  onClick={handleClickOpen} >See More</Button>
 							</CardActions>
 						</Card>
 					)
@@ -111,13 +113,13 @@ const [scrolled, setScrolled] = useState(false);
 			</Stack>
 		</Box>
 		<Grid container spacing={2}>
-			<Grid xs={6}>
+			<Grid xs={7}>
 			<Stack spacing={2}>
 
 				<Card sx={{ p: 2, pb: 4 }}>
 					<Stack direction="row-reverse">
-						{/* <IconButton aria-label="delete" color="primary" onClick={() => {setEditState(!editState);}}> */}
-						<IconButton aria-label="delete" color="primary" onClick={() => {handleClickOpen()}}>
+						<IconButton aria-label="delete" color="primary" onClick={() => {setEditState(!editState);}}>
+						{/* <IconButton aria-label="delete" color="primary" onClick={() => {handleClickOpen()}}> */}
 						{editState ? <FontAwesomeIcon icon={faTimes} size="xs"/> : <FontAwesomeIcon icon={faPen} size="xs"/>}
 						</IconButton>
 					</Stack>
@@ -125,7 +127,7 @@ const [scrolled, setScrolled] = useState(false);
 				</Card>
 			</Stack>
 			</Grid>
-			<Grid xs={6}>
+			<Grid xs={5}>
 				<Stack spacing={2}>
 					<Card>
 						<CardMedia
@@ -134,8 +136,14 @@ const [scrolled, setScrolled] = useState(false);
 						title="banner"
 						/>
 						<CardContent>
-						<Avatar sx={{bgcolor: '#ff5722'}}>AC</Avatar>
-						<Typography>Andres Cavalie</Typography>
+						<Grid container spacing={2} columnSpacing={1}>
+                  <Grid xs={12} display="flex" justifyContent="center" ><Avatar sx={{bgcolor: '#ff5722', mt:-13 , width: 120, height: 120,fontSize:40 }}>AC</Avatar></Grid>
+                  <Grid xs={12} display="flex" justifyContent="center" ><Typography variant="h6">Andres Cavalie</Typography></Grid>
+                  <Grid container xs={12} display="flex" justifyContent="center">
+                    <Grid><Button variant="outlined">Add Patient</Button></Grid>
+                    <Grid><Button variant="contained">Send Message</Button></Grid>
+                  </Grid>
+                </Grid>
 						</CardContent>
 					</Card>
 					{/* <Card>
