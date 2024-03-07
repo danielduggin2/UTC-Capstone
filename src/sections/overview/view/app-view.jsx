@@ -3,8 +3,6 @@
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import {db} from '../../../../src/firebase.js';
-import {db} from '../../../../src/firebase.js';
 // import Iconify from 'src/components/iconify';
 import { getFirestore, addDoc, collection, getDocs } from "firebase/firestore"
 // ----------------------------------------------------------------------
@@ -28,27 +26,27 @@ export default function AppView() {
     },
   ]);
   const [currentTasks,setCurrentTasks] = useState([])
-  const fetchData = async () => {
-    try {
-      // Get a reference to the Firestore database
+  // const fetchData = async () => {
+  //   try {
+  //     // Get a reference to the Firestore database
       
-      // Reference to a Firestore collection (replace "yourCollection" with your collection name)
-		const querySnapshot = await getDocs(collection(db, "DashboardTasks"));
-		const temporaryArr = [];
-		querySnapshot.forEach((doc) => {
-		temporaryArr.push({...doc.data(),id:doc.id});
-		});
-      // Set the data state with the fetched data
-      setCurrentTasks(temporaryArr);
-	  console.log("set")
-    } catch (error) {
-      console.error('Error fetching data:', error);
-    }
-  };
+  //     // Reference to a Firestore collection (replace "yourCollection" with your collection name)
+	// 	// const querySnapshot = await getDocs(collection(db, "DashboardTasks"));
+	// 	// const temporaryArr = [];
+	// 	// querySnapshot.forEach((doc) => {
+	// 	// temporaryArr.push({...doc.data(),id:doc.id});
+	// 	// });
+  //   //   // Set the data state with the fetched data
+  //   //   setCurrentTasks(temporaryArr);
+	//   // console.log("set")
+  //   // } catch (error) {
+  //   //   console.error('Error fetching data:', error);
+  //   // }
+  // };
 
-  useEffect(()=>{
-	fetchData()
-  }, [])
+  // useEffect(()=>{
+	// fetchData()
+  // }, [])
 
   
   const handleAddEvent = (event) => {
@@ -73,13 +71,13 @@ export default function AppView() {
   const [inputValue1, setInputValue1] = useState('');
   const [inputValue2, setInputValue2] = useState('');
 
-  const saveDataToFirestore = async () => {
-    const docRef = await addDoc(collection(db, "myCollection"), {
-      field1: inputValue1,
-      field2: inputValue2,
-    });
-    alert("Document written to Database");
-};
+//   const saveDataToFirestore = async () => {
+//     const docRef = await addDoc(collection(db, "myCollection"), {
+//       field1: inputValue1,
+//       field2: inputValue2,
+//     });
+//     alert("Document written to Database");
+// };
 
   return (
     
@@ -97,7 +95,7 @@ export default function AppView() {
           />
         </Grid>
         
-        <Grid xs={12} sm={6} md={3}>
+        {/* <Grid xs={12} sm={6} md={3}>
           <p>VAR:{import.meta.env.VITE_DANIEL}</p>
           <div className="App">
             <h1>Save Data to Firebase Firestore</h1>
@@ -114,7 +112,7 @@ export default function AppView() {
             <button onClick={saveDataToFirestore}>Save to Firestore</button>
           </div>
         <button type="button" onClick={handleNewAppointment}>New Appointment</button>
-        </Grid>
+        </Grid> */}
 
         <Grid xs={12} md={12} lg={16}>
           <AnalyticsTasks
