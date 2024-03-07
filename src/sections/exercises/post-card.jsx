@@ -4,8 +4,6 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Avatar from '@mui/material/Avatar';
-import { alpha } from '@mui/material/styles';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
@@ -13,38 +11,12 @@ import { fDate } from 'src/utils/format-time';
 import { fShortenNumber } from 'src/utils/format-number';
 
 import Iconify from 'src/components/iconify';
-import SvgColor from 'src/components/svg-color';
+
 
 // ----------------------------------------------------------------------
 
 export default function PostCard({ post, index }) {
-  const { cover, title, view, comment, share, author, createdAt } = post;
-
-  const latestPostLarge = index === 0;
-
-  const latestPost = index === 1 || index === 2;
-
-  const renderAvatar = (
-    <Avatar
-      alt={author.name}
-      src={author.avatarUrl}
-      sx={{
-        zIndex: 9,
-        width: 32,
-        height: 32,
-        position: 'absolute',
-        left: (theme) => theme.spacing(3),
-        bottom: (theme) => theme.spacing(-2),
-        ...((latestPostLarge || latestPost) && {
-          zIndex: 9,
-          top: 24,
-          left: 24,
-          width: 40,
-          height: 40,
-        }),
-      }}
-    />
-  );
+  const { title, view, comment, share, createdAt, videoUrl, cover} = post;
 
   const renderTitle = (
     <Link
@@ -57,10 +29,6 @@ export default function PostCard({ post, index }) {
         WebkitLineClamp: 2,
         display: '-webkit-box',
         WebkitBoxOrient: 'vertical',
-        ...(latestPostLarge && { typography: 'h5', height: 60 }),
-        ...((latestPostLarge || latestPost) && {
-          color: 'common.white',
-        }),
       }}
     >
       {title}
@@ -86,12 +54,6 @@ export default function PostCard({ post, index }) {
         <Stack
           key={_index}
           direction="row"
-          sx={{
-            ...((latestPostLarge || latestPost) && {
-              opacity: 0.48,
-              color: 'common.white',
-            }),
-          }}
         >
           <Iconify width={16} icon={info.icon} sx={{ mr: 0.5 }} />
           <Typography variant="caption">{fShortenNumber(info.number)}</Typography>
@@ -101,18 +63,32 @@ export default function PostCard({ post, index }) {
   );
 
   const renderCover = (
-    <Box
-      component="img"
-      alt={title}
-      src={cover}
-      sx={{
-        top: 0,
-        width: 1,
-        height: 1,
-        objectFit: 'cover',
+    <a
+      href={videoUrl}
+      target="_blank" // Opens the video in a new tab
+      rel="noopener noreferrer" // Security measure
+      style={{
         position: 'absolute',
+        width: '100%',
+        height: '100%',
+        textDecoration: 'none', // Removing underline from the link
+        overflow: 'hidden', // Hide any potential overflow content
       }}
-    />
+    >
+      <span style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(1px, 1px, 1px, 1px)', whiteSpace: 'nowrap' }}>
+        Go to video
+      </span>
+      <Box
+      
+        style={{
+          backgroundImage: "", // Using the cover image as the background
+          backgroundSize: 'cover',
+          display: 'block', // Making the entire box clickable
+          width: '100%',
+          height: '100%',
+        }}
+      />
+    </a>
   );
 
   const renderDate = (
@@ -122,73 +98,27 @@ export default function PostCard({ post, index }) {
       sx={{
         mb: 2,
         color: 'text.disabled',
-        ...((latestPostLarge || latestPost) && {
-          opacity: 0.48,
-          color: 'common.white',
-        }),
       }}
     >
       {fDate(createdAt)}
     </Typography>
   );
 
-  const renderShape = (
-    <SvgColor
-      color="paper"
-      src="/assets/icons/shape-avatar.svg"
-      sx={{
-        width: 80,
-        height: 36,
-        zIndex: 9,
-        bottom: -15,
-        position: 'absolute',
-        color: 'background.paper',
-        ...((latestPostLarge || latestPost) && { display: 'none' }),
-      }}
-    />
-  );
-
   return (
-    <Grid xs={12} sm={latestPostLarge ? 12 : 6} md={latestPostLarge ? 6 : 3}>
+    <Grid xs={12} sm={6} md={3}>
       <Card>
         <Box
           sx={{
             position: 'relative',
             pt: 'calc(100% * 3 / 4)',
-            ...((latestPostLarge || latestPost) && {
-              pt: 'calc(100% * 4 / 3)',
-              '&:after': {
-                top: 0,
-                content: "''",
-                width: '100%',
-                height: '100%',
-                position: 'absolute',
-                bgcolor: (theme) => alpha(theme.palette.grey[900], 0.72),
-              },
-            }),
-            ...(latestPostLarge && {
-              pt: {
-                xs: 'calc(100% * 4 / 3)',
-                sm: 'calc(100% * 3 / 4.66)',
-              },
-            }),
           }}
         >
-          {renderShape}
-
-          {renderAvatar}
-
           {renderCover}
         </Box>
 
         <Box
           sx={{
             p: (theme) => theme.spacing(4, 3, 3, 3),
-            ...((latestPostLarge || latestPost) && {
-              width: 1,
-              bottom: 0,
-              position: 'absolute',
-            }),
           }}
         >
           {renderDate}
