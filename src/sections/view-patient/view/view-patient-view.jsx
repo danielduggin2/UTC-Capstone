@@ -5,6 +5,7 @@ import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import AppWebsiteVisits from '../app-website-visits';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Tab, CardActions } from '@mui/material';
 
@@ -146,6 +147,40 @@ const [scrolled, setScrolled] = useState(false);
                 </Grid>
 						</CardContent>
 					</Card>
+
+					<AppWebsiteVisits
+            title="Recovery Tracking"
+            subheader="(+43%) than last year"
+            chart={{
+              labels: [
+                '01/01/2003',
+                '02/01/2003',
+                '03/01/2003',
+                '04/01/2003',
+                '05/01/2003',
+                '06/01/2003',
+                '07/01/2003',
+                '08/01/2003',
+                '09/01/2003',
+                '10/01/2003',
+                '11/01/2003',
+              ],
+              series: [
+                {
+                  name: 'Pain',
+                  type: 'line',
+                  fill: 'solid',
+                  data: [7, 6, 5, 4,5 , 6, 4, 4, 3, 3, 2],
+                },
+                {
+                  name: 'Mobility',
+                  type: 'line',
+                  fill: 'solid',
+                  data: [2, 3, 3, 3,4 , 3, 5, 4, 5, 5, 6],
+                },
+              ],
+            }}
+          />
 					{/* <Card>
 						<CardMedia sx={{ height: 140 }} image={exercisesCard} title="banner" />
 						<CardContent>
