@@ -16,7 +16,7 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function PostCard({ post, index }) {
-  const { title, view, comment, share, createdAt, videoUrl, cover} = post;
+  const { title, view, comment, share, createdAt, videoUrl, cover,bodyPart} = post;
 
   const renderTitle = (
     <Link
@@ -63,32 +63,44 @@ export default function PostCard({ post, index }) {
   );
 
   const renderCover = (
-    <a
-      href={videoUrl}
-      target="_blank" // Opens the video in a new tab
-      rel="noopener noreferrer" // Security measure
-      style={{
+    <Box
+      component="img"
+      alt={title}
+      src={cover}
+      sx={{
+        top: 0,
+        width: 1,
+        height: 1,
+        objectFit: 'cover',
         position: 'absolute',
-        width: '100%',
-        height: '100%',
-        textDecoration: 'none', // Removing underline from the link
-        overflow: 'hidden', // Hide any potential overflow content
       }}
-    >
-      <span style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(1px, 1px, 1px, 1px)', whiteSpace: 'nowrap' }}>
-        Go to video
-      </span>
-      <Box
+    />
+    // <a
+    //   href={videoUrl}
+    //   target="_blank" // Opens the video in a new tab
+    //   rel="noopener noreferrer" // Security measure
+    //   style={{
+    //     position: 'absolute',
+    //     width: '100%',
+    //     height: '100%',
+    //     textDecoration: 'none', // Removing underline from the link
+    //     overflow: 'hidden', // Hide any potential overflow content
+    //   }}
+    // >
+    //   <span style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(1px, 1px, 1px, 1px)', whiteSpace: 'nowrap' }}>
+    //     Go to video
+    //   </span>
+    //   <Box
       
-        style={{
-          backgroundImage: "", // Using the cover image as the background
-          backgroundSize: 'cover',
-          display: 'block', // Making the entire box clickable
-          width: '100%',
-          height: '100%',
-        }}
-      />
-    </a>
+    //     style={{
+    //       backgroundImage: "", // Using the cover image as the background
+    //       backgroundSize: 'cover',
+    //       display: 'block', // Making the entire box clickable
+    //       width: '100%',
+    //       height: '100%',
+    //     }}
+    //   />
+    // </a>
   );
 
   const renderDate = (
@@ -100,7 +112,7 @@ export default function PostCard({ post, index }) {
         color: 'text.disabled',
       }}
     >
-      {fDate(createdAt)}
+      {bodyPart}
     </Typography>
   );
 
@@ -122,10 +134,7 @@ export default function PostCard({ post, index }) {
           }}
         >
           {renderDate}
-
           {renderTitle}
-
-          {renderInfo}
         </Box>
       </Card>
     </Grid>

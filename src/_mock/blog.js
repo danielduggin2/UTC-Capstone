@@ -43,15 +43,19 @@ const videoUrls = [
   "https://www.youtube.com/watch?v=oDdkytliOqE"
 
 ];
-
-export const posts = [...Array(16)].map((_, index) => ({
+// const array=['wrists, shoulder, pelvis, hips, ankle, knee']
+export const posts = [...Array(16)].map((_, index) => {
+  let array = ['wrists', 'shoulder', 'pelvis', 'hips', 'ankle', 'knee']
+  return({
   id: faker.string.uuid(),
-  cover: `/assets/images/covers/cover_${index + 1}.jpg`,
+  cover: `/assets/images/exercises/exercise_${index + 1}.jpg`,
   title: POST_TITLES[index + 1],
   createdAt: faker.date.past(),
   view: faker.number.int(1000),
   comment: faker.number.int(1000),
   share: faker.number.int(1000),
   favorite: faker.number.int(1000),
-  videoUrl: videoUrls[index + 1]
-}));
+  videoUrl: videoUrls[index + 1],
+  bodyPart: array[Math.floor(Math.random() * array.length)]
+})
+});
