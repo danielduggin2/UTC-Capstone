@@ -1,14 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons'
-
-// import Draggable from 'react-draggable';
+import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
-import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Tab } from '@mui/material';
+import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Tab, CardActions } from '@mui/material';
 
 import { primary } from 'src/theme/palette';
 import { secondary } from 'src/theme/palette';
@@ -41,12 +39,21 @@ export default function ViewPatientView() {
   const fontColor = {
     style: { color: 'rgb(100, 0, 0)' }
 }
-
+const [scrolled, setScrolled] = useState(false);
+	useEffect(() => {
+		if (!scrolled) {
+			const container = document.getElementById('scrollableContainer');
+			if (container) {
+				container.scrollLeft = container.scrollWidth;
+				setScrolled(true);
+			}
+		}
+	}, [scrolled]);
   return (
 	<>
     <Container>
 		
-		<Box mb={2}height="200px" sx={{overflow:"hidden", overflowX:"scroll",
+		<Box id="scrollableContainer" mb={2} sx={{overflow:"hidden", overflowX:"scroll",
 		'&::-webkit-scrollbar': {
 			width: '1px',
 			height: '10px'
@@ -63,20 +70,44 @@ export default function ViewPatientView() {
 		  },
 	
 	}}>
-			<Stack direction="row" spacing={2}>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
-				<Box width="100px" sx={{backgroundColor:'red',flexShrink:0}}>TEXT</Box>
+			<Stack direction="row" spacing={2} sx={{pb:'10px'}} >
+				{[1,2,3,4,5,6,7,8,9,10,11].map(x=>{
+					return (
+						<Card sx={{flexShrink:0,width:'350px',height:'250px'}}>
+							<CardContent sx={{pb:1}}>
+								<Stack
+								px={1}
+								pb={1}
+									direction="row"
+									justifyContent="space-between"
+									alignItems="center">
+								<Typography variant="h6"> March 6 2024</Typography>
+								<Box sx={{backgroundColor:'#ffde73',borderRadius: .5,}} p='5px' >
+								<Typography sx={{fontWeight:'normal',lineHeight:'.9'}} variant="subtitle2">In Progress</Typography>
+								</Box>
+								</Stack>
+									<List sx={{listStyleType:'disc',listStylePosition:'inside',}}>
+										<ListItem sx={{ display: 'list-item',pl:1,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
+											Range of motion getting better. Swelling is down. Swelling is down.
+										</ListItem>
+										<ListItem sx={{ display: 'list-item',pl:1,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
+											Swelling is down. Swelling is down. Swelling is down.
+										</ListItem>
+										<ListItem sx={{ display: 'list-item',pl:1,whiteSpace:'nowrap',overflow:'hidden',textOverflow:'ellipsis'}}>
+											Still need to ice after each session
+										</ListItem>
+									</List>
+							</CardContent>
+							<CardActions sx={{px:2}}>
+								<Button size="small">See More</Button>
+							</CardActions>
+						</Card>
+					)
+				})}
+				
+				
+				
+				
 			</Stack>
 		</Box>
 		<Grid container spacing={2}>
