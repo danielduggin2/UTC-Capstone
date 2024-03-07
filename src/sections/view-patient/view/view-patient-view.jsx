@@ -1,22 +1,31 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons'
-import Draggable from 'react-draggable';
+
+// import Draggable from 'react-draggable';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
+import Tabs, { tabsClasses } from '@mui/material/Tabs';
 import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Tab } from '@mui/material';
 
-import Tabs, { tabsClasses } from '@mui/material/Tabs';
+import { primary } from 'src/theme/palette';
+import { secondary } from 'src/theme/palette';
+import { common, grey } from '@mui/material/colors';
+
+
 import ReadPatientView from '../read-view';
 import EditPatientView from '../edit-view';
 import stockImage from '../../../_mock/office_stock_1.jpg'
 import exercisesCard from '../../../_mock/exercisescard.jpg';
+import { base } from '@faker-js/faker';
+import { color } from 'framer-motion';
+
 
 export default function ViewPatientView() {
 	const [editState,setEditState] = useState(false);
-	const [open, setOpen] = useState(false);
+	const [open, setOpen] = useState(true);
 	const [value, setValue] = useState(0);
 
 	const handleClickOpen = () => {
@@ -71,12 +80,13 @@ export default function ViewPatientView() {
 			</Stack>
 		</Box>
 		<Grid container spacing={2}>
-			<Grid xs={7}>
+			<Grid xs={6}>
 			<Stack spacing={2}>
 
 				<Card sx={{ p: 2, pb: 4 }}>
 					<Stack direction="row-reverse">
-						<IconButton aria-label="delete" color="primary" onClick={() => {setEditState(!editState);}}>
+						{/* <IconButton aria-label="delete" color="primary" onClick={() => {setEditState(!editState);}}> */}
+						<IconButton aria-label="delete" color="primary" onClick={() => {handleClickOpen()}}>
 						{editState ? <FontAwesomeIcon icon={faTimes} size="xs"/> : <FontAwesomeIcon icon={faPen} size="xs"/>}
 						</IconButton>
 					</Stack>
@@ -84,7 +94,7 @@ export default function ViewPatientView() {
 				</Card>
 			</Stack>
 			</Grid>
-			<Grid xs={5}>
+			<Grid xs={6}>
 				<Stack spacing={2}>
 					<Card>
 						<CardMedia
@@ -126,6 +136,111 @@ export default function ViewPatientView() {
 			</Grid>
 		</Grid>
     </Container>
+
+	{/* Notecard view on click */}
+	{/* need this card to be a bit wider */}
+	<Dialog
+  		open={open}
+  		keepMounted
+  		onClose={handleClose}
+  		aria-describedby="alert-dialog-slide-description"
+  		scroll='paper'
+  		maxWidth='xl'
+  		PaperProps={{sx:{height:650},}}
+		
+	>		
+    <DialogTitle>Workout for Cavalie from 3-6-24</DialogTitle>
+    <DialogContent>
+	{/* Notes */}
+	<Box mt={2}>
+		<Typography variant="h6">Notes from session</Typography>
+		<Grid container spacing={3}>
+			<Grid item xs={12}>
+				<Card>
+    	  			<CardContent style={{backgroundColor: primary.lighter}}>
+    	  	  			{/* <Typography variant="body2" color="text.secondary">
+    	  	    			Sample Workout Name
+    	  	  			</Typography> */}
+						<List>
+							<ListItem>Range of motion getting better</ListItem>
+							<ListItem>Swelling is down. Still need to ice after each session</ListItem>
+							<ListItem>Quad activation is impressive</ListItem>
+						</List>
+
+						<Button
+							variant="contained"
+							// onClick={() => {}}
+						>
+							Add Note
+						</Button>
+    	  			</CardContent>
+    			</Card>
+			</Grid>
+		</Grid>
+	</Box>
+
+	{/* Workouts */}
+	<Box mt={4}>
+      <Typography variant="h6">Workouts completed</Typography>
+      	<Grid container spacing={3}>
+      	    <Grid item xs={12}>
+      	      <Card>
+      	        <CardContent style={{backgroundColor: primary.lighter}}>
+      	          <Typography>
+      	            Can be faker data of our exercises from Angel
+      	          </Typography>
+      	        </CardContent>
+      	      </Card>
+      	    </Grid>
+      	</Grid>
+	</Box>
+
+      {/* Add Workouts */}
+      <Box mt={2}>
+        <Typography variant="h6">Select workouts</Typography>
+
+        {/* Dropdown Filter */} 
+        <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Card>
+                <CardContent style={{backgroundColor: primary.lighter}}>
+                  <Typography>
+                    Can have exercises here, filter, selecting a exercise card highlights it, add, adds it above
+                  </Typography>
+
+				<Grid container spacing={2} sx={{ mt: 2}}>
+                  {/* Add Button */}
+				  <Grid item>
+					 <Button 
+                    	variant="contained"
+                    	color="primary"
+                    	onClick={() => {}}
+                 	 >
+                    Add
+                  </Button>
+				  </Grid>
+                 {/* Filter Button */}
+				 <Grid item>
+					 <Button 
+                    	variant="contained"
+                    	color="primary"
+                    	onClick={() => {}}
+                 	 >
+                    Filter
+                  </Button>
+				  </Grid>
+				</Grid>
+
+                </CardContent>
+              </Card>
+            </Grid>  
+        </Grid>  
+      </Box>
+
+    </DialogContent>  
+</Dialog>
+	{/* 
+	OG dialog box
 	<Dialog
         open={open}
         keepMounted
@@ -199,7 +314,7 @@ export default function ViewPatientView() {
 				)})}
 				</List>
 			</DialogContent>
-      </Dialog>
+      </Dialog> */}
   </>
   );
 }
