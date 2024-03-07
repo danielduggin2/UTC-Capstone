@@ -8,7 +8,7 @@ export default function InboxPage() {
   return (
     <>
       <Helmet>
-        <title> Inbox | GetRite PT </title>
+        <title> Inbox | Minimal UI </title>
       </Helmet>
 
       <InboxView />

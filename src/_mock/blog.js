@@ -3,43 +3,55 @@ import { faker } from '@faker-js/faker';
 // ----------------------------------------------------------------------
 
 const POST_TITLES = [
-  'Whiteboard Templates By Industry Leaders',
-  'Tesla Cybertruck-inspired camper trailer for Tesla fans who can’t just wait for the truck!',
-  'Designify Agency Landing Page Design',
-  '✨What is Done is Done ✨',
-  'Fresh Prince',
-  'Six Socks Studio',
-  'vincenzo de cotiis’ crossing over showcases a research on contamination',
-  'Simple, Great Looking Animations in Your Project | Video Tutorial',
-  '40 Free Serif Fonts for Digital Designers',
-  'Examining the Evolution of the Typical Web Design Client',
-  'Katie Griffin loves making that homey art',
-  'The American Dream retold through mid-century railroad graphics',
-  'Illustration System Design',
-  'CarZio-Delivery Driver App SignIn/SignUp',
-  'How to create a client-serverless Jamstack app using Netlify, Gatsby and Fauna',
-  'Tylko Organise effortlessly -3D & Motion Design',
-  'RAYO ?? A expanded visual arts festival identity',
-  'Anthony Burrill and Wired mag’s Andrew Diprose discuss how they made January’s Change Everything cover',
-  'Inside the Mind of Samuel Day',
-  'Portfolio Review: Is This Portfolio Too Creative?',
-  'Akkers van Margraten',
-  'Gradient Ticket icon',
-  'Here’s a Dyson motorcycle concept that doesn’t ‘suck’!',
-  'How to Animate a SVG with border-image',
+    "Squats",
+    "Lunges",
+    "Plank",
+    "Burpees",
+    "Pull-ups",
+    "Jumping Jacks",
+    "Mountain Climbers",
+    "Deadlifts",
+    "Bench Press",
+    "Russian Twists",
+    "Tricep Dips",
+    "Leg Raises",
+    "Bicep Curls",
+    "Shoulder Press",
+    "Calf Raises",
+    "Jump Squats",
+    "High Knees",
 ];
 
-export const posts = [...Array(23)].map((_, index) => ({
+// Define an array of video URLs
+const videoUrls = [
+  "https://www.youtube.com/watch?v=aclHkVaku9U",
+  "https://www.youtube.com/watch?v=QOVaHwm-Q6U",
+  "https://www.youtube.com/watch?v=ynUw0YsrmSg",
+  "https://www.youtube.com/watch?v=dZgVxmf6jkA",
+  "https://www.youtube.com/watch?v=X3cNM52QbQI",
+  "https://www.youtube.com/watch?v=iSSAk4XCsRA",
+  "https://www.youtube.com/watch?v=cnyTQDSE884",
+  "https://www.youtube.com/watch?v=IiGk8g3e41w",
+  "https://www.youtube.com/watch?v=676GkswmHRY",
+  "https://www.youtube.com/watch?v=j6y881X_--U",
+  "https://www.youtube.com/watch?v=zWuigRKvb-0",
+  "https://www.youtube.com/watch?v=l4kQd9eWclE",
+  "https://www.youtube.com/watch?v=T9J0FMLIp8A",
+  "https://www.youtube.com/watch?v=kGooAJM3294",
+  "https://www.youtube.com/watch?v=pkqa08atdgM",
+  "https://www.youtube.com/watch?v=QQWsscOgGkU",
+  "https://www.youtube.com/watch?v=oDdkytliOqE"
+
+];
+
+export const posts = [...Array(16)].map((_, index) => ({
   id: faker.string.uuid(),
   cover: `/assets/images/covers/cover_${index + 1}.jpg`,
   title: POST_TITLES[index + 1],
   createdAt: faker.date.past(),
-  view: faker.number.int(99999),
-  comment: faker.number.int(99999),
-  share: faker.number.int(99999),
-  favorite: faker.number.int(99999),
-  author: {
-    name: faker.person.fullName(),
-    avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
-  },
+  view: faker.number.int(1000),
+  comment: faker.number.int(1000),
+  share: faker.number.int(1000),
+  favorite: faker.number.int(1000),
+  videoUrl: videoUrls[index + 1]
 }));
