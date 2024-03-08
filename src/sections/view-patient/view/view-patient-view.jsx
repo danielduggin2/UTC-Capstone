@@ -220,8 +220,8 @@ const [scrolled, setScrolled] = useState(false);
   		aria-describedby="alert-dialog-slide-description"
   		scroll='paper'
   		maxWidth='xl'
-  		PaperProps={{sx:{height:650},}}
-		
+  		PaperProps={{sx:{height:650, width:750},}}		
+		sx={{maxidth: 650}}
 	>		
     <DialogTitle>Workout for Cavalie from 3-6-24</DialogTitle>
     <DialogContent>
@@ -263,27 +263,7 @@ const [scrolled, setScrolled] = useState(false);
       	          <Typography>
       	            Can be faker data of our exercises from Angel
       	          </Typography>
-      	        </CardContent>
-      	      </Card>
-      	    </Grid>
-      	</Grid>
-	</Box>
-
-      {/* Add Workouts */}
-      <Box mt={2}>
-        <Typography variant="h6">Select workouts</Typography>
-
-        {/* Dropdown Filter */} 
-        <Grid container spacing={3}>
-            <Grid item xs={12}>
-              <Card>
-                <CardContent style={{backgroundColor: primary.lighter}}>
-                  <Typography>
-                    Can have exercises here, filter, selecting a exercise card highlights it, add, adds it above
-                  </Typography>
-
-				<Grid container spacing={2} sx={{ mt: 2}}>
-                  {/* Add Button */}
+				<Grid container spacing={2} sx={{ mt: 2}}>  
 				  <Grid item>
 					 <Button 
                     	variant="contained"
@@ -293,7 +273,6 @@ const [scrolled, setScrolled] = useState(false);
                     Add
                   </Button>
 				  </Grid>
-                 {/* Filter Button */}
 				 <Grid item>
 					 <Button 
                     	variant="contained"
@@ -304,13 +283,11 @@ const [scrolled, setScrolled] = useState(false);
                   </Button>
 				  </Grid>
 				</Grid>
-
-                </CardContent>
-              </Card>
-            </Grid>  
-        </Grid>  
-      </Box>
-
+      	        </CardContent>
+      	      </Card>
+      	    </Grid>
+      	</Grid>
+	</Box>
     </DialogContent>  
 </Dialog>
 	{/* 
