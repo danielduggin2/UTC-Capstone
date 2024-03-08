@@ -53,7 +53,7 @@ export default function ExerciseItem({ post, index }) {
 			</Stack>
             <Box>
             <IconButton >
-            <FontAwesomeIcon icon={faCircleMinus}/>
+            <FontAwesomeIcon icon={faCircleMinus} size="xs"/>
             </IconButton>
             </Box>
           </Stack>
