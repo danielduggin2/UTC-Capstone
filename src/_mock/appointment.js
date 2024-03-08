@@ -32,5 +32,13 @@ export const appointments = [...Array(15)].map((_, index) => ({
     'General',
     'Progress Evaluation'
   ]),
+  therapist: faker.person.firstName(),
+  injury: sample([
+    'Torn ACL',
+    'Broken Ankle',
+    'Sprained AC Joint',
+    'Broken Neck',
+    'Sprained Ankle'
+  ]),
     // company: faker.company.name(),
 }));

@@ -1,25 +1,26 @@
 import PropTypes from 'prop-types';
 
 import Card from '@mui/material/Card';
+import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CardContent from '@mui/material/CardContent';
 
 const AppointmentCard = (props) => {
     const { appointment, onDetailsClick } = props;
-    const { name, age, gender, time, reason } = appointment;
+    const { name, time, reason } = appointment;
 
     return (
         <Card>
             <CardContent>
                 <Typography variant="h5">{name}</Typography>
-                <Typography variant="body1">Age: {age}</Typography>
-                <Typography variant="body1">Gender: {gender}</Typography>
-                <Typography variant="body1">Time: {time}</Typography>
-                <Typography variant="body1">Reason: {reason}</Typography>
-                <Button variant="contained" color="primary" onClick={() => onDetailsClick(appointment)}>
-                    See More Details
-                </Button>
+                <Typography variant="body1"><b>Time:</b> {time}</Typography>
+                <Stack spacing={2}>
+                    <Typography variant="body1"><b>Reason:</b> {reason}</Typography>
+                    <Button variant="contained" color="primary" onClick={() => onDetailsClick(appointment)}>
+                        See More Details
+                    </Button>
+                </Stack>
             </CardContent>
         </Card>
     );
