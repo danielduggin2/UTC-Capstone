@@ -6,29 +6,29 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-
+import ExerciseItem from './exercise-item';
 import { fDate } from 'src/utils/format-time';
 import { fShortenNumber } from 'src/utils/format-number';
 
 import Iconify from 'src/components/iconify';
-
-
+import { Button, IconButton } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 // ----------------------------------------------------------------------
 
-export default function PostCard({ post, index }) {
+export default function PostCard({ post, index,dialogFunction }) {
   const { title, view, comment, share, createdAt, videoUrl, cover,bodyPart} = post;
 
   const renderTitle = (
     <Link
       color="inherit"
-      variant="h5"
+      variant="subtitle2"
       underline="hover"
       sx={{
         overflow: 'hidden',
         WebkitLineClamp: 2,
         display: '-webkit-box',
         WebkitBoxOrient: 'vertical',
-        mt:1
       }}
     >
       {title}
@@ -68,50 +68,23 @@ export default function PostCard({ post, index }) {
       alt={title}
       src={cover}
       sx={{
-        top: 0,
-        width: 1,
-        height: 1,
         objectFit: 'cover',
-        position: 'absolute',
+        display:'inline',
+		
       }}
     />
-    // <a
-    //   href={videoUrl}
-    //   target="_blank" // Opens the video in a new tab
-    //   rel="noopener noreferrer" // Security measure
-    //   style={{
-    //     position: 'absolute',
-    //     width: '100%',
-    //     height: '100%',
-    //     textDecoration: 'none', // Removing underline from the link
-    //     overflow: 'hidden', // Hide any potential overflow content
-    //   }}
-    // >
-    //   <span style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(1px, 1px, 1px, 1px)', whiteSpace: 'nowrap' }}>
-    //     Go to video
-    //   </span>
-    //   <Box
-      
-    //     style={{
-    //       backgroundImage: "", // Using the cover image as the background
-    //       backgroundSize: 'cover',
-    //       display: 'block', // Making the entire box clickable
-    //       width: '100%',
-    //       height: '100%',
-    //     }}
-    //   />
-    // </a>
   );
 
   const renderDate = (
     <Typography
       variant="caption"
       sx={{
-        backgroundColor:'#EAECEE',
+        backgroundColor:'#ffde73',
         p:'3px',
         borderRadius:'4px',
+        color: 'text.disabled',
         fontWeight:'normal',
-        lineHeight:'.9',
+        lineHeight:'.9'
       }}
     >
       {bodyPart}
@@ -120,30 +93,57 @@ export default function PostCard({ post, index }) {
 
   return (
     <Grid xs={12} sm={6} md={3}>
-      <Card>
-        <Box
-          sx={{
-            position: 'relative',
-            pt: 'calc(100% * 3 / 4)',
-          }}
-        >
-          {renderCover}
-        </Box>
-          
+      <Card >
         <Box
           sx={{
             p:2,
           }}
         >
-          {renderDate}
-          {renderTitle}
+			<Stack direction="row" alignItems="center" mb={1} >
+			<Typography variant="h6" >Workout 1</Typography>
+	
+			</Stack>
+         
+		
+		  
+		  <ExerciseItem post={post}/>
+		  <ExerciseItem post={post}/>
+		  <ExerciseItem post={post}/>
+		  <ExerciseItem post={post}/>
+		  
+		  <Stack  pt={2}>
+				<Button variant="outlined" onClick={dialogFunction}>See More</Button>	
+		  </Stack>
+		  
         </Box>
       </Card>
     </Grid>
+    // <Grid xs={12} sm={6} md={3}>
+    //   <Card>
+    //     <Box
+    //       sx={{
+    //         position: 'relative',
+    //         pt: 'calc(100% * 3 / 4)',
+    //       }}
+    //     >
+    //       {renderCover}
+    //     </Box>
+          
+    //     <Box
+    //       sx={{
+    //         p:2,
+    //       }}
+    //     >
+    //       {renderDate}
+    //       {renderTitle}
+    //     </Box>
+    //   </Card>
+    // </Grid>
   );
 }
 
 PostCard.propTypes = {
   post: PropTypes.object.isRequired,
   index: PropTypes.number,
+  dialogFunction: PropTypes.func
 };

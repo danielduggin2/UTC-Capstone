@@ -11,17 +11,20 @@ import { fDate } from 'src/utils/format-time';
 import { fShortenNumber } from 'src/utils/format-number';
 
 import Iconify from 'src/components/iconify';
+import { IconButton } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleMinus,faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 
 
 // ----------------------------------------------------------------------
 
-export default function PostCard({ post, index }) {
+export default function MiniExerciseCard({ post, index }) {
   const { title, view, comment, share, createdAt, videoUrl, cover,bodyPart} = post;
 
   const renderTitle = (
     <Link
       color="inherit"
-      variant="h5"
+      variant="subtitle1"
       underline="hover"
       sx={{
         overflow: 'hidden',
@@ -119,12 +122,14 @@ export default function PostCard({ post, index }) {
   );
 
   return (
-    <Grid xs={12} sm={6} md={3}>
-      <Card>
+    <Grid xs={4}>
+      <Card sx={{}}>
+        
         <Box
           sx={{
             position: 'relative',
             pt: 'calc(100% * 3 / 4)',
+            
           }}
         >
           {renderCover}
@@ -133,17 +138,22 @@ export default function PostCard({ post, index }) {
         <Box
           sx={{
             p:2,
+            pb:0
           }}
         >
           {renderDate}
           {renderTitle}
+          
         </Box>
+        <Stack alignItems='center'>
+        <IconButton ><FontAwesomeIcon icon={faCirclePlus} size="xs"/></IconButton>
+        </Stack>
       </Card>
     </Grid>
   );
 }
 
-PostCard.propTypes = {
+MiniExerciseCard.propTypes = {
   post: PropTypes.object.isRequired,
   index: PropTypes.number,
 };

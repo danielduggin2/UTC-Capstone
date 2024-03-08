@@ -8,11 +8,11 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-PostSearch.propTypes = {
+MiniExerciseSearch.propTypes = {
   posts: PropTypes.array.isRequired,
 };
 
-export default function PostSearch({ posts }) {
+export default function MiniExerciseSearch({ posts }) {
   return (
     <Autocomplete
       sx={{ width: 280 }}

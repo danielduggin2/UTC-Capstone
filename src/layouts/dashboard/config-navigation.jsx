@@ -28,6 +28,11 @@ const navConfig = [
     icon: icon('ic_lock'),
   },
   {
+    title: 'workouts',
+    path: '/workouts',
+    icon: icon('ic_analytics'),
+  },
+  {
     title: 'purchase',
     path: '/purchase',
     icon: icon('ic_cart'),
