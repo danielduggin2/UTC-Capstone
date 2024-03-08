@@ -11,8 +11,9 @@ import { fDate } from 'src/utils/format-time';
 import { fShortenNumber } from 'src/utils/format-number';
 
 import Iconify from 'src/components/iconify';
-
-
+import { Button, IconButton } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 // ----------------------------------------------------------------------
 
 export default function PostCard({ post, index }) {
@@ -67,39 +68,12 @@ export default function PostCard({ post, index }) {
       alt={title}
       src={cover}
       sx={{
-        top: 0,
-        width: 1,
-        height: 1,
         objectFit: 'cover',
-        position: 'absolute',
+        display:'inline',
+		border:'2px solid grey',
+			borderRadius:'10px'
       }}
     />
-    // <a
-    //   href={videoUrl}
-    //   target="_blank" // Opens the video in a new tab
-    //   rel="noopener noreferrer" // Security measure
-    //   style={{
-    //     position: 'absolute',
-    //     width: '100%',
-    //     height: '100%',
-    //     textDecoration: 'none', // Removing underline from the link
-    //     overflow: 'hidden', // Hide any potential overflow content
-    //   }}
-    // >
-    //   <span style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(1px, 1px, 1px, 1px)', whiteSpace: 'nowrap' }}>
-    //     Go to video
-    //   </span>
-    //   <Box
-      
-    //     style={{
-    //       backgroundImage: "", // Using the cover image as the background
-    //       backgroundSize: 'cover',
-    //       display: 'block', // Making the entire box clickable
-    //       width: '100%',
-    //       height: '100%',
-    //     }}
-    //   />
-    // </a>
   );
 
   const renderDate = (
@@ -120,26 +94,99 @@ export default function PostCard({ post, index }) {
 
   return (
     <Grid xs={12} sm={6} md={3}>
-      <Card>
-        <Box
-          sx={{
-            position: 'relative',
-            pt: 'calc(100% * 3 / 4)',
-          }}
-        >
-          {renderCover}
-        </Box>
-          
+      <Card >
         <Box
           sx={{
             p:2,
           }}
         >
-          {renderDate}
-          {renderTitle}
+			<Stack direction="row" alignItems="center" mb={1} >
+			<Typography variant="h6" >Workout 1</Typography>
+	
+			</Stack>
+         
+		  <Stack spacing={1} pt={1}>
+          <Stack direction="row" alignItems='center' spacing={1}>
+            <Box
+            sx={{
+            width:'50px',
+            height:'50px',
+            display:'inline'
+            }}
+            >
+				{renderCover}
+            </Box>
+     <Typography sx={{display:'inline'}} variant="subtitle2">Hello</Typography>
+  
+          </Stack>
+		  <Stack direction="row" alignItems='center' spacing={1}>
+            <Box
+            sx={{
+            width:'50px',
+            height:'50px',
+            display:'inline'
+            }}
+            >
+				{renderCover}
+            </Box>
+     <Typography sx={{display:'inline'}} variant="subtitle2">Hello</Typography>
+  
+          </Stack>
+		  <Stack direction="row" alignItems='center' spacing={1}>
+            <Box
+            sx={{
+            width:'50px',
+            height:'50px',
+            display:'inline',
+			
+            }}
+            >
+				{renderCover}
+            </Box>
+     <Typography sx={{display:'inline'}} variant="subtitle2">Hello</Typography>
+  
+          </Stack>
+		  <Stack direction="row" alignItems='center' spacing={1}>
+            <Box
+            sx={{
+            width:'50px',
+            height:'50px',
+            display:'inline'
+            }}
+            >
+				{renderCover}
+            </Box>
+     <Typography sx={{display:'inline'}} variant="subtitle2">Hello</Typography>
+  
+          </Stack>
+		  </Stack>
+		  <Stack  pt={2}>
+				<Button variant="outlined">See More</Button>	
+		  </Stack>
         </Box>
       </Card>
     </Grid>
+    // <Grid xs={12} sm={6} md={3}>
+    //   <Card>
+    //     <Box
+    //       sx={{
+    //         position: 'relative',
+    //         pt: 'calc(100% * 3 / 4)',
+    //       }}
+    //     >
+    //       {renderCover}
+    //     </Box>
+          
+    //     <Box
+    //       sx={{
+    //         p:2,
+    //       }}
+    //     >
+    //       {renderDate}
+    //       {renderTitle}
+    //     </Box>
+    //   </Card>
+    // </Grid>
   );
 }
 
