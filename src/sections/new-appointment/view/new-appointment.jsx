@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 
 import { DatePicker } from '@mui/lab';
 import { Grid, Button, Divider, TextField, Typography } from '@mui/material';
-// import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-// import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-// import dayjs from 'dayjs';
+
 
 function NewAppointment() {
   // State variables to store form data
@@ -105,20 +101,6 @@ function NewAppointment() {
           <TextField label="Time" type="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} required fullWidth />
         </Grid>
       </Grid>
-{/*       <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['DateTimePicker', 'DateTimePicker']}>
-        <DateTimePicker
-          label="Uncontrolled picker"
-          defaultValue={dayjs('2022-04-17T15:30')}
-        />
-        <DateTimePicker
-          label="Controlled picker"
-          value={value}
-          onChange={(newValue) => setValue(newValue)}
-        />
-      </DemoContainer>
-    </LocalizationProvider>
-     */}
 
       <input type="file" accept="image/*" onChange={handleFileUpload} required />
       <div>
