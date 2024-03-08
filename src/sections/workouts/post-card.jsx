@@ -6,7 +6,7 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-
+import ExerciseItem from './exercise-item';
 import { fDate } from 'src/utils/format-time';
 import { fShortenNumber } from 'src/utils/format-number';
 
@@ -16,7 +16,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 // ----------------------------------------------------------------------
 
-export default function PostCard({ post, index }) {
+export default function PostCard({ post, index,dialogFunction }) {
   const { title, view, comment, share, createdAt, videoUrl, cover,bodyPart} = post;
 
   const renderTitle = (
@@ -70,8 +70,7 @@ export default function PostCard({ post, index }) {
       sx={{
         objectFit: 'cover',
         display:'inline',
-		border:'2px solid grey',
-			borderRadius:'10px'
+		
       }}
     />
   );
@@ -105,64 +104,17 @@ export default function PostCard({ post, index }) {
 	
 			</Stack>
          
-		  <Stack spacing={1} pt={1}>
-          <Stack direction="row" alignItems='center' spacing={1}>
-            <Box
-            sx={{
-            width:'50px',
-            height:'50px',
-            display:'inline'
-            }}
-            >
-				{renderCover}
-            </Box>
-     <Typography sx={{display:'inline'}} variant="subtitle2">Hello</Typography>
-  
-          </Stack>
-		  <Stack direction="row" alignItems='center' spacing={1}>
-            <Box
-            sx={{
-            width:'50px',
-            height:'50px',
-            display:'inline'
-            }}
-            >
-				{renderCover}
-            </Box>
-     <Typography sx={{display:'inline'}} variant="subtitle2">Hello</Typography>
-  
-          </Stack>
-		  <Stack direction="row" alignItems='center' spacing={1}>
-            <Box
-            sx={{
-            width:'50px',
-            height:'50px',
-            display:'inline',
-			
-            }}
-            >
-				{renderCover}
-            </Box>
-     <Typography sx={{display:'inline'}} variant="subtitle2">Hello</Typography>
-  
-          </Stack>
-		  <Stack direction="row" alignItems='center' spacing={1}>
-            <Box
-            sx={{
-            width:'50px',
-            height:'50px',
-            display:'inline'
-            }}
-            >
-				{renderCover}
-            </Box>
-     <Typography sx={{display:'inline'}} variant="subtitle2">Hello</Typography>
-  
-          </Stack>
-		  </Stack>
+		
+		  
+		  <ExerciseItem post={post}/>
+		  <ExerciseItem post={post}/>
+		  <ExerciseItem post={post}/>
+		  <ExerciseItem post={post}/>
+		  
 		  <Stack  pt={2}>
-				<Button variant="outlined">See More</Button>	
+				<Button variant="outlined" onClick={dialogFunction}>See More</Button>	
 		  </Stack>
+		  
         </Box>
       </Card>
     </Grid>
@@ -193,4 +145,5 @@ export default function PostCard({ post, index }) {
 PostCard.propTypes = {
   post: PropTypes.object.isRequired,
   index: PropTypes.number,
+  dialogFunction: PropTypes.func
 };

@@ -21,13 +21,14 @@ export default function PostCard({ post, index }) {
   const renderTitle = (
     <Link
       color="inherit"
-      variant="subtitle2"
+      variant="h5"
       underline="hover"
       sx={{
         overflow: 'hidden',
         WebkitLineClamp: 2,
         display: '-webkit-box',
         WebkitBoxOrient: 'vertical',
+        mt:1
       }}
     >
       {title}
@@ -106,12 +107,11 @@ export default function PostCard({ post, index }) {
     <Typography
       variant="caption"
       sx={{
-        backgroundColor:'#ffde73',
+        backgroundColor:'#EAECEE',
         p:'3px',
         borderRadius:'4px',
-        color: 'text.disabled',
         fontWeight:'normal',
-        lineHeight:'.9'
+        lineHeight:'.9',
       }}
     >
       {bodyPart}
