@@ -35,30 +35,27 @@ export default function ExerciseItem({ post, index }) {
     <>
     <Stack spacing={1} pt={1}>
         <Stack direction="row" justifyContent='space-between' alignItems='center'>
-			<Stack direction="row" alignItems='center' spacing={2}>
-			<Box
-			sx={{
-			width:'60px',
-			height:'60px',
-			display:'inline',
-			boxShadow: '0px 1px 5px 2px lightgrey',
-			borderRadius:'10px',
-			p:.7,
-			}}
-			>
-			{renderCover}
-			</Box>
-			<Typography sx={{display:'inline'}} variant="body1">Hello</Typography>
-            
-			</Stack>
+            <Stack direction="row" alignItems='center' spacing={2}>
+                <Box
+                sx={{
+                width:'60px',
+                height:'60px',
+                display:'inline',
+                boxShadow: '0px 1px 5px 2px lightgrey',
+                borderRadius:'10px',
+                p:.7,
+                }}
+                >
+                    {renderCover}
+                </Box>
+                <Typography sx={{display:'inline'}} variant="body1">Hello</Typography>
+            </Stack>
             <Box>
-            <IconButton >
-            <FontAwesomeIcon icon={faCircleMinus} size="xs"/>
-            </IconButton>
+                <IconButton ><FontAwesomeIcon icon={faCircleMinus} size="xs"/></IconButton>
             </Box>
-          </Stack>
-		  </Stack>
-          </>
+        </Stack>
+    </Stack>
+    </>
   );
 }
 
