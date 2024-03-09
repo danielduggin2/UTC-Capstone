@@ -1,8 +1,12 @@
 import React, { useState } from 'react';
-
-import { DatePicker } from '@mui/lab';
-import { Grid, Button, Divider, TextField, Typography } from '@mui/material';
-
+import { Grid, Button, Divider, TextField, Typography, Container } from '@mui/material';
+import dayjs from "dayjs";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { DatePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import { VisuallyHiddenInput } from '@chakra-ui/react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCloud, faCloudArrowUp, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function NewAppointment() {
   // State variables to store form data
@@ -33,14 +37,17 @@ function NewAppointment() {
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     setInsuranceCardImage(file);
+    
   };
+  console.log(insuranceCardImage)
   // const [value, setValue] = React.useState(dayjs('2022-04-17T15:30'));
   return (
+<Container>
     <form onSubmit={handleSubmit}>
       <Typography variant="h6">Patient Information</Typography>
       <Divider />
       {/* Patient Information Fields */}
-      <Grid container spacing={2}>
+      <Grid container spacing={2} p={2}>
         <Grid item xs={6}>
           <TextField label="First Name" value={firstName} onChange={(e) => setFirstName(e.target.value)} required fullWidth />
         </Grid>
@@ -68,7 +75,7 @@ function NewAppointment() {
       <Typography variant="h6">Therapist Information</Typography>
       <Divider />
       {/* Therapist Information Fields */}
-      <Grid container spacing={2}>
+      <Grid container spacing={2} p={2}>
         <Grid item xs={6}>
           <TextField label="Therapist First Name" value={therapistFirstName} onChange={(e) => setTherapistFirstName(e.target.value)} required fullWidth />
         </Grid>
@@ -86,29 +93,54 @@ function NewAppointment() {
       {/* Additional Form Fields (Date, Time, Insurance Card Image, Signature, etc.) */}
       <Typography variant="h6">Appointment Information</Typography>
       <Divider />
-      <Grid container spacing={2}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+      <Grid container spacing={2} p={2}>
         <Grid item xs={6}>
-          <DatePicker
-            label="Date"
-            value={selectedDate}
-            onChange={(date) => setSelectedDate(date)}
-            renderInput={(params) => <TextField {...params} />}
-            required
-            fullWidth
-          /> 
+
+
+									<DemoContainer components={['DatePicker']}>
+										<DatePicker
+											size="small"
+											label="Controlled picker"
+											value={dayjs('2022-04-17')}
+										/>
+									</DemoContainer>
+								
+        </Grid>
+        <Grid item xs={6} >
+          <DemoContainer components={['TimePicker']}>
+            <TimePicker sx={{}} label="Basic time picker" />
+          </DemoContainer>
+          {/* <TextField label="Time" type="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} required fullWidth /> */}
         </Grid>
         <Grid item xs={6}>
-          <TextField label="Time" type="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} required fullWidth />
+        <Button
+          component="label"
+          role={undefined}
+          variant="outlined"
+          tabIndex={-1}
+
+          startIcon={<FontAwesomeIcon icon={faCloudArrowUp} size="xs"/>}
+          >
+          Upload Insurance Card
+        <VisuallyHiddenInput onChange={handleFileUpload} required  type="file" />
+        </Button>
+        </Grid>
+        <Grid item xs={12}>
+          <TextField label="Signature" value={signature} onChange={(e) => setSignature(e.target.value)} required fullWidth />
+       </Grid>
+      </Grid>
+      </LocalizationProvider>
+      {/* <input type="file" accept="image/*" onChange={handleFileUpload} required /> */}
+      
+      
+      <Grid container >
+        <Grid item xs={12}>
+          <Button fullWidth type="submit" variant="contained" color="primary">Create Appointment</Button>
         </Grid>
       </Grid>
-
-      <input type="file" accept="image/*" onChange={handleFileUpload} required />
-      <div>
-        <TextField label="Signature" value={signature} onChange={(e) => setSignature(e.target.value)} required fullWidth />
-      </div>
-      
-      <Button type="submit" variant="contained" color="primary">Create Appointment</Button>
     </form>
+</Container>
   );
 }
 
