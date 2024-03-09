@@ -93,7 +93,13 @@ export default function AppView() {
             onDeleteEvent={handleDeleteEvent}
           />
 
-<button type="button" onClick={handleNewAppointment}>New Appointment</button> 
+<button
+  type="button"
+  onClick={handleNewAppointment}
+  className="new-appointment-button"
+>
+  New Appointment
+</button>
 
         </Grid>
         
