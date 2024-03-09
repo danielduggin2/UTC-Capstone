@@ -4,6 +4,8 @@ import PropTypes from 'prop-types';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 
+import 'src/customCalendarStyles.css'
+
 
 
 const localizer = momentLocalizer(moment);
