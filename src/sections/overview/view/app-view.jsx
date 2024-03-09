@@ -125,14 +125,14 @@ export default function AppView() {
         <Grid xs={12} md={12} lg={16}>
           <AnalyticsTasks
             title="Tasks"
-            // list={[
-            //   { id: '1', name: 'Create FireStone Logo', deleted:false, complete:false },
-            //   { id: '2', name: 'Add SCSS and JS files if required' },
-            //   { id: '3', name: 'Stakeholder Meeting' },
-            //   { id: '4', name: 'Scoping & Estimations' },
-            //   { id: '5', name: 'Sprint Showcase' },
-            // ]}
-			list={currentTasks}
+            list={[
+            { id: '1', name: 'Create FireStone Logo'},
+            { id: '2', name: 'Add SCSS and JS files if required' },
+            { id: '3', name: 'Stakeholder Meeting' },
+            { id: '4', name: 'Scoping & Estimations' },
+            { id: '5', name: 'Sprint Showcase' },
+            ]}
+			// list={currentTasks}
           />
         </Grid>
         <Grid xs={12} sm={6} md={3}>

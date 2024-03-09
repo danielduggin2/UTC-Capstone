@@ -7,7 +7,7 @@ import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 import AppWebsiteVisits from '../app-website-visits';
 import Tabs, { tabsClasses } from '@mui/material/Tabs';
-import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Tab, CardActions } from '@mui/material';
+import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Tab, CardActions, Paper } from '@mui/material';
 
 import { primary } from 'src/theme/palette';
 import { secondary } from 'src/theme/palette';
@@ -20,12 +20,15 @@ import stockImage from '../../../_mock/office_stock_1.jpg'
 import exercisesCard from '../../../_mock/exercisescard.jpg';
 import { base } from '@faker-js/faker';
 import { color } from 'framer-motion';
+import MiniExerciseView from 'src/sections/workouts/mini-exercise-view';
 
 
 export default function ViewPatientView() {
 	const [editState,setEditState] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [value, setValue] = useState(0);
+	const [exercisesOpen, setexercisesOpen] = useState(false)
+	const [appointmentNotes, setappointmentNotes] = useState([])
 
 	const handleClickOpen = () => {
 		setOpen(true);
@@ -213,20 +216,19 @@ const [scrolled, setScrolled] = useState(false);
 
 	{/* Notecard view on click */}
 	{/* need this card to be a bit wider */}
-	<Dialog
-  		open={open}
-  		keepMounted
-  		onClose={handleClose}
-  		aria-describedby="alert-dialog-slide-description"
-  		scroll='paper'
-  		maxWidth='xl'
-  		PaperProps={{sx:{height:650, width:750},}}		
-		sx={{maxidth: 650}}
-	>		
-    <DialogTitle>Workout for Cavalie from 3-6-24</DialogTitle>
-    <DialogContent>
-	{/* Notes */}
-	<Box mt={2}>
+	<Modal
+		open={open}
+		onClose={handleClose}
+    >
+		<Box sx={{position: "absolute",
+  top: "50%",
+  left: "50%",
+  
+  transform: "translate(-50%, -50%)"}}>
+	<Stack direction="row" spacing={2}>
+		<Paper sx={{p:2,height:'520px',}}>
+		<Typography variant="h5">Workout for Cavalie from 3-6-24</Typography>
+		<Box mt={2}>
 		<Typography variant="h6">Notes from session</Typography>
 		<Grid container spacing={3}>
 			<Grid item xs={12}>
@@ -236,9 +238,14 @@ const [scrolled, setScrolled] = useState(false);
     	  	    			Sample Workout Name
     	  	  			</Typography> */}
 						<List>
-							<ListItem>Range of motion getting better</ListItem>
+							{appointmentNotes.map((index,note) => {
+								return (
+									<ListItem>{note}</ListItem>
+								)
+							})}
+							{/* <ListItem>Range of motion getting better</ListItem>
 							<ListItem>Swelling is down. Still need to ice after each session</ListItem>
-							<ListItem>Quad activation is impressive</ListItem>
+							<ListItem>Quad activation is impressive</ListItem> */}
 						</List>
 
 						<Button
@@ -268,7 +275,7 @@ const [scrolled, setScrolled] = useState(false);
 					 <Button 
                     	variant="contained"
                     	color="primary"
-                    	onClick={() => {}}
+                    	onClick={() => {setexercisesOpen(!exercisesOpen)}}
                  	 >
                     Add
                   </Button>
@@ -288,8 +295,15 @@ const [scrolled, setScrolled] = useState(false);
       	    </Grid>
       	</Grid>
 	</Box>
-    </DialogContent>  
-</Dialog>
+		</Paper>
+		<Paper sx={{p:2,height:'475px',display: exercisesOpen ? 'block' : 'none'}}>
+		<Stack sx={{width:350}}>
+					<MiniExerciseView sx={{minHeight:0}}/>
+		</Stack>
+		</Paper>
+		</Stack>
+		</Box>
+    </Modal>
 	{/* 
 	OG dialog box
 	<Dialog
@@ -369,3 +383,5 @@ const [scrolled, setScrolled] = useState(false);
   </>
   );
 }
+
+

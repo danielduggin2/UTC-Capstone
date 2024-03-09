@@ -15,28 +15,20 @@ MiniExerciseSearch.propTypes = {
 export default function MiniExerciseSearch({ posts }) {
   return (
     <Autocomplete
-      sx={{ width: 280 }}
+      sx={{ width: 220 }}
       autoHighlight
       popupIcon={null}
-      slotProps={{
-        paper: {
-          sx: {
-            width: 320,
-            [`& .${autocompleteClasses.option}`]: {
-              typography: 'body2',
-            },
-          },
-        },
-      }}
       options={posts}
       getOptionLabel={(post) => post.title}
       isOptionEqualToValue={(option, value) => option.id === value.id}
       renderInput={(params) => (
         <TextField
+          
           {...params}
           placeholder="Search exercises..."
           InputProps={{
             ...params.InputProps,
+            sx:{justifyContent:'space-between',pr:'20px !important'},
             startAdornment: (
               <InputAdornment position="start">
                 <Iconify

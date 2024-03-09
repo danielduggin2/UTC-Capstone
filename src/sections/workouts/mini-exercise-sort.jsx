@@ -12,7 +12,7 @@ MiniExerciseSort.propTypes = {
 
 export default function MiniExerciseSort({ options, onSort }) {
   return (
-    <TextField select size="small" value="latest" onChange={onSort}>
+    <TextField select size="medium" sx={{width:'120px'}} value="latest" onChange={onSort}>
       {options.map((option) => (
         <MenuItem key={option.value} value={option.value}>
           {option.label}
