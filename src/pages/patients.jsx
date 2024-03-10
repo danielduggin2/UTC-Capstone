@@ -7,13 +7,13 @@ import { PatientsView } from 'src/sections/patients/view';
 // ----------------------------------------------------------------------
 
 export default function BlogPage() {
-  return (
-    <>
-      <Helmet>
-        <title> Patients | GetRite PT </title>
-      </Helmet>
+    return (
+        <>
+            <Helmet>
+                <title> Patients | GetRite PT </title>
+            </Helmet>
 
-      <PatientsView />
-    </>
-  );
+            <PatientsView />
+        </>
+    );
 }

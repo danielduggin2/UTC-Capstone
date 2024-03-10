@@ -5,13 +5,13 @@ import { InboxView } from 'src/sections/inbox/view';
 // ----------------------------------------------------------------------
 
 export default function InboxPage() {
-  return (
-    <>
-      <Helmet>
-        <title> Inbox | Minimal UI </title>
-      </Helmet>
+    return (
+        <>
+            <Helmet>
+                <title> Inbox | Minimal UI </title>
+            </Helmet>
 
-      <InboxView />
-    </>
-  );
+            <InboxView />
+        </>
+    );
 }

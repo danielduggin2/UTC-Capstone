@@ -7,13 +7,13 @@ import { ViewPatientView } from 'src/sections/view-patient/view';
 // ----------------------------------------------------------------------
 
 export default function ViewPatientPage() {
-  return (
-    <>
-      <Helmet>
-        <title> View Patient | GetRite PT </title>
-      </Helmet>
+    return (
+        <>
+            <Helmet>
+                <title> View Patient | GetRite PT </title>
+            </Helmet>
 
-      <ViewPatientView />
-    </>
-  );
+            <ViewPatientView />
+        </>
+    );
 }

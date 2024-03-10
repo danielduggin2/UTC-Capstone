@@ -5,13 +5,13 @@ import { PurchaseView } from 'src/sections/purchase/view';
 // ----------------------------------------------------------------------
 
 export default function purchasePage() {
-  return (
-    <>
-      <Helmet>
-        <title> Purchase | Minimal UI </title>
-      </Helmet>
+    return (
+        <>
+            <Helmet>
+                <title> Purchase | Minimal UI </title>
+            </Helmet>
 
-      <PurchaseView />
-    </>
-  );
+            <PurchaseView />
+        </>
+    );
 }
