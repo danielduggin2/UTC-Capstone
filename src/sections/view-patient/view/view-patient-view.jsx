@@ -1,26 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
+
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import AppWebsiteVisits from '../app-website-visits';
-import Tabs, { tabsClasses } from '@mui/material/Tabs';
-import { Box, Card, Avatar, CardMedia, IconButton, CardContent,ListItemButton, List, ListItem, ListItemIcon, Checkbox, ListItemText, Modal, Dialog, DialogTitle, DialogContent, DialogContentText, DialogActions, Button, Tab, CardActions, Paper } from '@mui/material';
+import { Box, Card, List, Modal, Paper,Avatar, Button, ListItem, CardMedia, IconButton, CardContent, CardActions } from '@mui/material';
 
-import { primary } from 'src/theme/palette';
-import { secondary } from 'src/theme/palette';
-import { common, grey } from '@mui/material/colors';
+import { primary  } from 'src/theme/palette';
 
+import MiniExerciseView from 'src/sections/workouts/mini-exercise-view';
 
 import ReadPatientView from '../read-view';
 import EditPatientView from '../edit-view';
+import AppWebsiteVisits from '../app-website-visits';
 import stockImage from '../../../_mock/office_stock_1.jpg'
-import exercisesCard from '../../../_mock/exercisescard.jpg';
-import { base } from '@faker-js/faker';
-import { color } from 'framer-motion';
-import MiniExerciseView from 'src/sections/workouts/mini-exercise-view';
 
 
 export default function ViewPatientView() {
@@ -77,8 +72,7 @@ const [scrolled, setScrolled] = useState(false);
 	
 	}}>
 			<Stack direction="row" spacing={2} sx={{pb:'10px'}} >
-				{[1,2,3,4,5,6,7,8,9,10,11].map(x=>{
-					return (
+				{[1,2,3,4,5,6,7,8,9,10,11].map(x=>(
 						<Card sx={{flexShrink:0,width:'350px',height:'250px'}}>
 							<CardContent sx={{pb:1}}>
 								<Stack
@@ -108,8 +102,7 @@ const [scrolled, setScrolled] = useState(false);
 								<Button  onClick={handleClickOpen} >See More</Button>
 							</CardActions>
 						</Card>
-					)
-				})}
+					))}
 				
 				
 				
@@ -238,11 +231,9 @@ const [scrolled, setScrolled] = useState(false);
     	  	    			Sample Workout Name
     	  	  			</Typography> */}
 						<List>
-							{appointmentNotes.map((index,note) => {
-								return (
+							{appointmentNotes.map((index,note) => (
 									<ListItem>{note}</ListItem>
-								)
-							})}
+								))}
 							{/* <ListItem>Range of motion getting better</ListItem>
 							<ListItem>Swelling is down. Still need to ice after each session</ListItem>
 							<ListItem>Quad activation is impressive</ListItem> */}

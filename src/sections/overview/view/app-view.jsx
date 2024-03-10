@@ -1,12 +1,13 @@
 // import { faker } from '@faker-js/faker';
 
+// ----------------------------------------------------------------------
+import React, { useState } from 'react';
+// import Iconify from 'src/components/iconify';
+import { useNavigate } from 'react-router-dom';
+
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-// import Iconify from 'src/components/iconify';
-// ----------------------------------------------------------------------
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import AnalyticsTasks from '../app-tasks';
 import AppCalendar from '../app-calendar';

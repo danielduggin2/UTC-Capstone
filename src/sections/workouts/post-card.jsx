@@ -3,17 +3,16 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import Card from '@mui/material/Card';
+import { Button } from '@mui/material';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import ExerciseItem from './exercise-item';
-import { fDate } from 'src/utils/format-time';
+
 import { fShortenNumber } from 'src/utils/format-number';
 
 import Iconify from 'src/components/iconify';
-import { Button, IconButton } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
+
+import ExerciseItem from './exercise-item';
 // ----------------------------------------------------------------------
 
 export default function PostCard({ post, index,dialogFunction }) {

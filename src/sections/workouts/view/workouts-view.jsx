@@ -1,18 +1,18 @@
+import { useState } from 'react';
+
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-import MiniExerciseView from '../mini-exercise-view';
+import { Box, Modal, Paper, Button } from '@mui/material';
+
 import { posts } from 'src/_mock/blog';
-import ExerciseItem from '../exercise-item';
+
 import PostCard from '../post-card';
 import PostSort from '../post-sort';
 import PostSearch from '../post-search';
-import { Box, Button, Card, CardContent, Dialog, DialogContent, DialogTitle, IconButton, List, ListItem, Modal, Paper } from '@mui/material';
-import { useState } from 'react';
-import { primary } from 'src/theme/palette';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleMinus,faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import ExerciseItem from '../exercise-item';
+import MiniExerciseView from '../mini-exercise-view';
 // ----------------------------------------------------------------------
 
 export default function WorkoutsView() {

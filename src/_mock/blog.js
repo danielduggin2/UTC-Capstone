@@ -45,7 +45,7 @@ const videoUrls = [
 ];
 // const array=['wrists, shoulder, pelvis, hips, ankle, knee']
 export const posts = [...Array(16)].map((_, index) => {
-  let array = ['wrists', 'shoulder', 'pelvis', 'hips', 'ankle', 'knee']
+  const array = ['wrists', 'shoulder', 'pelvis', 'hips', 'ankle', 'knee']
   return({
   id: faker.string.uuid(),
   cover: `/assets/images/exercises/exercise_${index + 1}.jpg`,

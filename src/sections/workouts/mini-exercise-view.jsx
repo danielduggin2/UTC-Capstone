@@ -1,14 +1,12 @@
 import Stack from '@mui/material/Stack';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
 import { posts } from 'src/_mock/blog';
 
 import MiniExerciseCard from './mini-exercise-card';
-import MiniExerciseSearch from './mini-exercise-search';
 import MiniExerciseSort from './mini-exercise-sort';
-import { Box } from '@mui/material';
+import MiniExerciseSearch from './mini-exercise-search';
 
 // ----------------------------------------------------------------------
 

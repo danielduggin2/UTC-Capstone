@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { Grid, Button, Divider, TextField, Typography, Container } from '@mui/material';
 import dayjs from "dayjs";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
-import { DatePicker, LocalizationProvider, TimePicker } from "@mui/x-date-pickers";
+import React, { useState } from 'react';
 import { VisuallyHiddenInput } from '@chakra-ui/react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloud, faCloudArrowUp, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faCloudArrowUp } from '@fortawesome/free-solid-svg-icons';
+
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
+import { DatePicker, TimePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { Grid, Button, Divider, TextField, Container, Typography } from '@mui/material';
 
 function NewAppointment() {
   // State variables to store form data

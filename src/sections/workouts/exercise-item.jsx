@@ -1,19 +1,13 @@
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
 import Box from '@mui/material/Box';
-import Link from '@mui/material/Link';
-import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
-import Grid from '@mui/material/Unstable_Grid2';
+import { IconButton } from '@mui/material';
 import Typography from '@mui/material/Typography';
 
-import { fDate } from 'src/utils/format-time';
-import { fShortenNumber } from 'src/utils/format-number';
 
-import Iconify from 'src/components/iconify';
-import { Button, IconButton } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleMinus, faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
 // ----------------------------------------------------------------------
 
 export default function ExerciseItem({ post, index }) {
@@ -32,7 +26,6 @@ export default function ExerciseItem({ post, index }) {
       );
     console.log(cover)
   return (
-    <>
     <Stack spacing={1} pt={1}>
         <Stack direction="row" justifyContent='space-between' alignItems='center'>
             <Stack direction="row" alignItems='center' spacing={2}>
@@ -55,7 +48,6 @@ export default function ExerciseItem({ post, index }) {
             </Box>
         </Stack>
     </Stack>
-    </>
   );
 }
 
