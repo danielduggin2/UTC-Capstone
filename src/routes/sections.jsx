@@ -17,47 +17,46 @@ export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 export const NewAppointmentPage = lazy(() => import('src/pages/new-appointment'));
 
-
 // ----------------------------------------------------------------------
 
 export default function Router() {
-  const routes = useRoutes([
-    {
-      element: (
-        <DashboardLayout>
-          <Suspense>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
-      ),
-      children: [
-        { element: <IndexPage />, index: true },
-        { path: 'patients', element: <PatientsPage /> },
-        { path: 'inbox', element: <InboxPage /> },
-        { path: 'workouts', element: <WorkoutsPage /> },
-        { path: 'inbox', element: <InboxPage />},
-        { path: 'exercises', element: <ExercisesPage />},
-        { path: 'purchase', element: <PurchasePage />},
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'view-patient', element: <ViewPatientPage /> },
-        { path: 'blog', element: <BlogPage /> },
-        { path: 'new-appointment', element: <NewAppointmentPage /> },
-      ],
-    },
-    {
-      path: 'login',
-      element: <LoginPage />,
-    },
-    {
-      path: '404',
-      element: <Page404 />,
-    },
-    {
-      path: '*',
-      element: <Navigate to="/404" replace />,
-    },
-  ]);
+    const routes = useRoutes([
+        {
+            element: (
+                <DashboardLayout>
+                    <Suspense>
+                        <Outlet />
+                    </Suspense>
+                </DashboardLayout>
+            ),
+            children: [
+                { element: <IndexPage />, index: true },
+                { path: 'patients', element: <PatientsPage /> },
+                { path: 'inbox', element: <InboxPage /> },
+                { path: 'workouts', element: <WorkoutsPage /> },
+                { path: 'inbox', element: <InboxPage /> },
+                { path: 'exercises', element: <ExercisesPage /> },
+                { path: 'purchase', element: <PurchasePage /> },
+                { path: 'user', element: <UserPage /> },
+                { path: 'products', element: <ProductsPage /> },
+                { path: 'view-patient', element: <ViewPatientPage /> },
+                { path: 'blog', element: <BlogPage /> },
+                { path: 'new-appointment', element: <NewAppointmentPage /> },
+            ],
+        },
+        {
+            path: 'login',
+            element: <LoginPage />,
+        },
+        {
+            path: '404',
+            element: <Page404 />,
+        },
+        {
+            path: '*',
+            element: <Navigate to="/404" replace />,
+        },
+    ]);
 
-  return routes;
+    return routes;
 }

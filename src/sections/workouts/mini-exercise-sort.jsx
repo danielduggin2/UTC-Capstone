@@ -6,18 +6,18 @@ import TextField from '@mui/material/TextField';
 // ----------------------------------------------------------------------
 
 MiniExerciseSort.propTypes = {
-  options: PropTypes.array,
-  onSort: PropTypes.func,
+    options: PropTypes.array,
+    onSort: PropTypes.func,
 };
 
 export default function MiniExerciseSort({ options, onSort }) {
-  return (
-    <TextField select size="medium" sx={{width:'120px'}} value="latest" onChange={onSort}>
-      {options.map((option) => (
-        <MenuItem key={option.value} value={option.value}>
-          {option.label}
-        </MenuItem>
-      ))}
-    </TextField>
-  );
+    return (
+        <TextField select size="medium" sx={{ width: '120px' }} value="latest" onChange={onSort}>
+            {options.map((option) => (
+                <MenuItem key={option.value} value={option.value}>
+                    {option.label}
+                </MenuItem>
+            ))}
+        </TextField>
+    );
 }

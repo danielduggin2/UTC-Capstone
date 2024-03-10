@@ -27,44 +27,43 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { NewAppointmentView } from 'src/sections/new-appointment/view';
 
 export default function NewAppointment() {
-  const navigate = useNavigate();
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
+    const navigate = useNavigate();
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+    const handleSubmit = (event) => {
+        event.preventDefault();
 
-    if (!startDate || !endDate) {
-      alert('Please select both start and end dates for the appointment.');
-      return;
-    }
+        if (!startDate || !endDate) {
+            alert('Please select both start and end dates for the appointment.');
+            return;
+        }
 
-    const newAppointment = {
-      title: event.target.appointmentTitle.value,
-      start: startDate.$d,
-      end: endDate.$d,
+        const newAppointment = {
+            title: event.target.appointmentTitle.value,
+            start: startDate.$d,
+            end: endDate.$d,
+        };
+
+        // This should be used to navigate back to the dashboard and update the calendar events state.
+        navigate('/dashboard');
     };
 
-    // This should be used to navigate back to the dashboard and update the calendar events state.
-    navigate('/dashboard');
-  };
-
-  return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <NewAppointmentView onSubmit={handleSubmit}>
-        <DatePicker
-          label="Start Date"
-          value={startDate}
-          onChange={(newValue) => setStartDate(newValue)}
-        />
-        <DatePicker
-          label="End Date"
-          value={endDate}
-          onChange={(newValue) => setEndDate(newValue)}
-        />
-        <button type="submit">Create Appointment</button>
-
-      </NewAppointmentView>
-    </LocalizationProvider>
-  );
+    return (
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <NewAppointmentView onSubmit={handleSubmit}>
+                <DatePicker
+                    label="Start Date"
+                    value={startDate}
+                    onChange={(newValue) => setStartDate(newValue)}
+                />
+                <DatePicker
+                    label="End Date"
+                    value={endDate}
+                    onChange={(newValue) => setEndDate(newValue)}
+                />
+                <button type="submit">Create Appointment</button>
+            </NewAppointmentView>
+        </LocalizationProvider>
+    );
 }

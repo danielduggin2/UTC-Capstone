@@ -13,98 +13,95 @@ import AnalyticsTasks from '../app-tasks';
 import AppCalendar from '../app-calendar';
 
 export default function AppView() {
-  const [calendarEvents, setCalendarEvents] = useState([
-    {
-      title: 'Appointment with John Doe',
-      start: new Date(2024, 3, 1),
-      end: new Date(2024, 3, 1),
-    },
-    {
-      title: 'Appointment with Jane Doe',
-      start: new Date(2024, 3, 2),
-      end: new Date(2024, 3, 2),
-    },
-  ]);
-  const [currentTasks,setCurrentTasks] = useState([])
-  // const fetchData = async () => {
-  //   try {
-  //     // Get a reference to the Firestore database
-      
-  //     // Reference to a Firestore collection (replace "yourCollection" with your collection name)
-	// 	// const querySnapshot = await getDocs(collection(db, "DashboardTasks"));
-	// 	// const temporaryArr = [];
-	// 	// querySnapshot.forEach((doc) => {
-	// 	// temporaryArr.push({...doc.data(),id:doc.id});
-	// 	// });
-  //   //   // Set the data state with the fetched data
-  //   //   setCurrentTasks(temporaryArr);
-	//   // console.log("set")
-  //   // } catch (error) {
-  //   //   console.error('Error fetching data:', error);
-  //   // }
-  // };
+    const [calendarEvents, setCalendarEvents] = useState([
+        {
+            title: 'Appointment with John Doe',
+            start: new Date(2024, 3, 1),
+            end: new Date(2024, 3, 1),
+        },
+        {
+            title: 'Appointment with Jane Doe',
+            start: new Date(2024, 3, 2),
+            end: new Date(2024, 3, 2),
+        },
+    ]);
+    const [currentTasks, setCurrentTasks] = useState([]);
+    // const fetchData = async () => {
+    //   try {
+    //     // Get a reference to the Firestore database
 
-  // useEffect(()=>{
-	// fetchData()
-  // }, [])
+    //     // Reference to a Firestore collection (replace "yourCollection" with your collection name)
+    // 	// const querySnapshot = await getDocs(collection(db, "DashboardTasks"));
+    // 	// const temporaryArr = [];
+    // 	// querySnapshot.forEach((doc) => {
+    // 	// temporaryArr.push({...doc.data(),id:doc.id});
+    // 	// });
+    //   //   // Set the data state with the fetched data
+    //   //   setCurrentTasks(temporaryArr);
+    //   // console.log("set")
+    //   // } catch (error) {
+    //   //   console.error('Error fetching data:', error);
+    //   // }
+    // };
 
-  
-  const handleAddEvent = (event) => {
-    setCalendarEvents([...calendarEvents, event]);
-  };
+    // useEffect(()=>{
+    // fetchData()
+    // }, [])
 
-  const handleUpdateEvent = (updatedEvent) => {
-    const updatedEvents = calendarEvents.map((event) =>
-      event.title === updatedEvent.title ? updatedEvent : event
-    );
-    setCalendarEvents(updatedEvents);
-  };
+    const handleAddEvent = (event) => {
+        setCalendarEvents([...calendarEvents, event]);
+    };
 
-  const handleDeleteEvent = (eventTitle) => {
-    setCalendarEvents(calendarEvents.filter((event) => event.title !== eventTitle));
-  };
-  const navigate = useNavigate();
+    const handleUpdateEvent = (updatedEvent) => {
+        const updatedEvents = calendarEvents.map((event) =>
+            event.title === updatedEvent.title ? updatedEvent : event
+        );
+        setCalendarEvents(updatedEvents);
+    };
 
-  const handleNewAppointment = () => {
-    navigate('/new-appointment');
-  };
-  const [inputValue1, setInputValue1] = useState('');
-  const [inputValue2, setInputValue2] = useState('');
+    const handleDeleteEvent = (eventTitle) => {
+        setCalendarEvents(calendarEvents.filter((event) => event.title !== eventTitle));
+    };
+    const navigate = useNavigate();
 
-//   const saveDataToFirestore = async () => {
-//     const docRef = await addDoc(collection(db, "myCollection"), {
-//       field1: inputValue1,
-//       field2: inputValue2,
-//     });
-//     alert("Document written to Database");
-// };
+    const handleNewAppointment = () => {
+        navigate('/new-appointment');
+    };
+    const [inputValue1, setInputValue1] = useState('');
+    const [inputValue2, setInputValue2] = useState('');
 
-  return (
-    
-    <Container maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Welcome Back
-      </Typography>
-      <Grid container spacing={3}>
-        <Grid item xs={12} md={12} lg={12}> 
-          <AppCalendar
-            events={calendarEvents}
-            onAddEvent={handleAddEvent}
-            onUpdateEvent={handleUpdateEvent}
-            onDeleteEvent={handleDeleteEvent}
-          />
+    //   const saveDataToFirestore = async () => {
+    //     const docRef = await addDoc(collection(db, "myCollection"), {
+    //       field1: inputValue1,
+    //       field2: inputValue2,
+    //     });
+    //     alert("Document written to Database");
+    // };
 
-<button
-  type="button"
-  onClick={handleNewAppointment}
-  className="new-appointment-button"
->
-  New Appointment
-</button>
+    return (
+        <Container maxWidth="xl">
+            <Typography variant="h4" sx={{ mb: 5 }}>
+                Welcome Back
+            </Typography>
+            <Grid container spacing={3}>
+                <Grid item xs={12} md={12} lg={12}>
+                    <AppCalendar
+                        events={calendarEvents}
+                        onAddEvent={handleAddEvent}
+                        onUpdateEvent={handleUpdateEvent}
+                        onDeleteEvent={handleDeleteEvent}
+                    />
 
-        </Grid>
-        
-        {/* <Grid xs={12} sm={6} md={3}>
+                    <button
+                        type="button"
+                        onClick={handleNewAppointment}
+                        className="new-appointment-button"
+                    >
+                        New Appointment
+                    </button>
+                </Grid>
+
+                {/* <Grid xs={12} sm={6} md={3}>
           <p>VAR:{import.meta.env.VITE_DANIEL}</p>
           <div className="App">
             <h1>Save Data to Firebase Firestore</h1>
@@ -123,57 +120,57 @@ export default function AppView() {
         <button type="button" onClick={handleNewAppointment}>New Appointment</button>
         </Grid> */}
 
-        <Grid xs={12} md={12} lg={16}>
-          <AnalyticsTasks
-            title="Tasks"
-            list={[
-            { id: '1', name: 'Create FireStone Logo'},
-            { id: '2', name: 'Add SCSS and JS files if required' },
-            { id: '3', name: 'Stakeholder Meeting' },
-            { id: '4', name: 'Scoping & Estimations' },
-            { id: '5', name: 'Sprint Showcase' },
-            ]}
-			// list={currentTasks}
-          />
-        </Grid>
-        <Grid xs={12} sm={6} md={3}>
-          {/* <AppWidgetSummary
+                <Grid xs={12} md={12} lg={16}>
+                    <AnalyticsTasks
+                        title="Tasks"
+                        list={[
+                            { id: '1', name: 'Create FireStone Logo' },
+                            { id: '2', name: 'Add SCSS and JS files if required' },
+                            { id: '3', name: 'Stakeholder Meeting' },
+                            { id: '4', name: 'Scoping & Estimations' },
+                            { id: '5', name: 'Sprint Showcase' },
+                        ]}
+                        // list={currentTasks}
+                    />
+                </Grid>
+                <Grid xs={12} sm={6} md={3}>
+                    {/* <AppWidgetSummary
             title="Weekly Sales"
             total={714000}
             color="success"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
           /> */}
-        </Grid>
+                </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
-          {/* <AppWidgetSummary
+                <Grid xs={12} sm={6} md={3}>
+                    {/* <AppWidgetSummary
             title="New Users"
             total={1352831}
             color="info"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
           /> */}
-        </Grid>
+                </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
-          {/* <AppWidgetSummary
+                <Grid xs={12} sm={6} md={3}>
+                    {/* <AppWidgetSummary
             title="Item Orders"
             total={1723315}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           /> */}
-        </Grid>
+                </Grid>
 
-        <Grid xs={12} sm={6} md={3}>
-          {/* <AppWidgetSummary
+                <Grid xs={12} sm={6} md={3}>
+                    {/* <AppWidgetSummary
             title="Bug Reports"
             total={234}
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
           /> */}
-        </Grid>
+                </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          {/* <AppWebsiteVisits
+                <Grid xs={12} md={6} lg={8}>
+                    {/* <AppWebsiteVisits
             title="Website Visits"
             subheader="(+43%) than last year"
             chart={{
@@ -212,10 +209,10 @@ export default function AppView() {
               ],
             }}
           /> */}
-        </Grid>
+                </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
-          {/* <AppCurrentVisits
+                <Grid xs={12} md={6} lg={4}>
+                    {/* <AppCurrentVisits
             title="Current Visits"
             chart={{
               series: [
@@ -226,10 +223,10 @@ export default function AppView() {
               ],
             }}
           /> */}
-        </Grid>
+                </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          {/* <AppConversionRates
+                <Grid xs={12} md={6} lg={8}>
+                    {/* <AppConversionRates
             title="Conversion Rates"
             subheader="(+43%) than last year"
             chart={{
@@ -247,10 +244,10 @@ export default function AppView() {
               ],
             }}
           /> */}
-        </Grid>
+                </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
-          {/* <AppCurrentSubject
+                <Grid xs={12} md={6} lg={4}>
+                    {/* <AppCurrentSubject
             title="Current Subject"
             chart={{
               categories: ['English', 'History', 'Physics', 'Geography', 'Chinese', 'Math'],
@@ -261,10 +258,10 @@ export default function AppView() {
               ],
             }}
           /> */}
-        </Grid>
+                </Grid>
 
-        <Grid xs={12} md={6} lg={8}>
-          {/* <AppNewsUpdate
+                <Grid xs={12} md={6} lg={8}>
+                    {/* <AppNewsUpdate
             title="News Update"
             list={[...Array(5)].map((_, index) => ({
               id: faker.string.uuid(),
@@ -274,10 +271,10 @@ export default function AppView() {
               postedAt: faker.date.recent(),
             }))}
           /> */}
-        </Grid>
+                </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
-          {/* <AppOrderTimeline
+                <Grid xs={12} md={6} lg={4}>
+                    {/* <AppOrderTimeline
             title="Order Timeline"
             list={[...Array(5)].map((_, index) => ({
               id: faker.string.uuid(),
@@ -292,10 +289,10 @@ export default function AppView() {
               time: faker.date.past(),
             }))}
           /> */}
-        </Grid>
+                </Grid>
 
-        <Grid xs={12} md={6} lg={4}>
-          {/* <AppTrafficBySite
+                <Grid xs={12} md={6} lg={4}>
+                    {/* <AppTrafficBySite
             title="Traffic by Site"
             list={[
               {
@@ -320,8 +317,8 @@ export default function AppView() {
               },
             ]}
           /> */}
-        </Grid>
-      </Grid>
-    </Container>
-  );
+                </Grid>
+            </Grid>
+        </Container>
+    );
 }

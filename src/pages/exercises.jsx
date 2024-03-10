@@ -7,13 +7,13 @@ import { ExercisesView } from 'src/sections/exercises/view';
 // ----------------------------------------------------------------------
 
 export default function ExercisesPage() {
-  return (
-    <>
-      <Helmet>
-        <title> Exercises | GetRite PT </title>
-      </Helmet>
+    return (
+        <>
+            <Helmet>
+                <title> Exercises | GetRite PT </title>
+            </Helmet>
 
-      <ExercisesView />
-    </>
-  );
+            <ExercisesView />
+        </>
+    );
 }
