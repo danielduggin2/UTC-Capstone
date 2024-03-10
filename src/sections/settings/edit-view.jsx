@@ -15,8 +15,10 @@ import {
     FormControl,
     Autocomplete,
     FormControlLabel,
+
 } from '@mui/material';
 
+import Grid from '@mui/material/Unstable_Grid2'
 export default function EditPatientView({ setEditState }) {
     const states = [
         'Alabama',
@@ -71,100 +73,79 @@ export default function EditPatientView({ setEditState }) {
         'Wyoming',
     ];
     return (
-        <Box
-            component="form"
-            sx={{
-                '& .MuiTextField-root': { m: 2, width: '27ch' },
-                '& .MuiFormControl-root': { m: 2, width: '27ch' },
-                '& .css-1nrlq1o-MuiFormControl-root': { width: '50ch' },
-                '& .css-4jnixx-MuiStack-root': { p: 0 },
-                '& .css-106nasd-MuiFormLabel-root': { fontSize: '12px' },
-                '& .ss-4jnixx-MuiStack-root': { display: 'inline-flex' },
-            }}
-            noValidate
-            autoComplete="off"
-        >
-            <Typography variant="h6" mb={1}>
-                General Information
-            </Typography>
-            <TextField
-                id="outlined-basic"
-                label="First Name"
-                variant="outlined"
-                defaultValue="Andres"
-            />
-            <TextField
-                id="outlined-basic"
-                label="Last Name"
-                variant="outlined"
-                defaultValue="Cavalie"
-            />
-
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker']}>
-                    <DatePicker
-                        size="small"
-                        label="Controlled picker"
-                        value={dayjs('2022-04-17')}
+        // <Grid container
+        //     component="form"
+        //     noValidate
+        //     autoComplete="off"
+        // >
+            <>
+                    <Typography variant="h6" mb={1}>
+                        Office Information
+                    </Typography>
+                    <TextField
+                        fullWidth
+                        id="outlined-basic"
+                        label="Account Name"
+                        margin="normal"
+                        variant="outlined"
+                        defaultValue="UTC Therapy"
                     />
-                </DemoContainer>
-            </LocalizationProvider>
-
-            <FormControl variant="filled" size="small">
-                <FormLabel component="legend">Gender</FormLabel>
-                <RadioGroup
-                    row
-                    aria-labelledby="demo-row-radio-buttons-group-label"
-                    name="row-radio-buttons-group"
-                >
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
-                </RadioGroup>
-            </FormControl>
-
-            <TextField
-                id="outlined-basic"
-                label="Email"
-                variant="outlined"
-                defaultValue="andrescavalie@gmail.com"
-            />
-            <TextField
-                id="outlined-basic"
-                label="Phone"
-                variant="outlined"
-                defaultValue="(931) 409 - 9499"
-            />
-
-            <Typography variant="h6" mb={1}>
-                Address Information
-            </Typography>
-            <TextField
-                id="outlined-basic"
-                label="Address"
-                variant="outlined"
-                defaultValue="900 Mountain Creek Rd"
-            />
-            <TextField
-                id="outlined-basic"
-                label="City"
-                variant="outlined"
-                defaultValue="Chattanooga"
-            />
-            <Autocomplete
-                options={states}
-                renderInput={(params) => <TextField {...params} label="State" />}
-            />
-            <TextField id="outlined-basic" label="Zip" variant="outlined" defaultValue="37405" />
-            <Stack spacing={2} direction="row-reverse">
-                <Button variant="contained">Apply</Button>
-                <Button
-                    onClick={() => {
-                        setEditState(false);
-                    }}
-                >
-                    Cancel
-                </Button>
-            </Stack>
-        </Box>
+                <TextField
+                    fullWidth
+                    id="outlined-basic"
+                    margin="normal"
+                    label="Email"
+                    variant="outlined"
+                    defaultValue="andrescavalie@gmail.com"
+                />
+                    <TextField
+                        id="outlined-basic"
+                        margin="normal"
+                        label="Office Phone #"
+                        variant="outlined"
+                        defaultValue="(931) 409 - 9499"
+                    />
+                
+                    <Typography variant="h6" mb={1}>
+                        Address Information
+                    </Typography>
+                    <TextField
+                        fullWidth
+                        id="outlined-basic"
+                        label="Address"
+                        margin="normal"
+                        variant="outlined"
+                        defaultValue="900 Mountain Creek Rd"
+                    />
+                <Stack direction="row" spacing={2} mt={2} mb={1}>
+                   
+                    <TextField
+                        id="outlined-basic"
+                        label="City"
+                        margin="normal"
+                        variant="outlined"
+                        defaultValue="Chattanooga"
+                    />
+                    <Autocomplete
+                    sx={{display:'inline-flex', width: '250px'}}
+                    options={states}
+                    renderInput={(params) => <TextField {...params} label="State" />}
+                />
+                <TextField id="outlined-basic" margin="normal" label="Zip" variant="outlined" defaultValue="37405" />
+                </Stack>
+                
+                
+                <Stack spacing={2} direction="row-reverse" mt={2} mb={1}>
+                    <Button variant="contained">Apply</Button>
+                    <Button
+                        onClick={() => {
+                            setEditState(false);
+                        }}
+                    >
+                        Cancel
+                    </Button>
+                </Stack>
+            </>
+        // </Grid>
     );
 }
