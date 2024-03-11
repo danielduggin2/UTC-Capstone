@@ -68,13 +68,12 @@ export default function SettingsView() {
     };
   
     return (
-        <>
             <Container>
                 <Tabs sx={{}} value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Office Settings"/>
           <Tab label="User Settings" />
         </Tabs>
-        <Divider sx={{mb:2}}></Divider>
+        <Divider sx={{mb:2}}/>
                 <Grid container spacing={2}>
                     <Grid xs={7}>
                         <Stack spacing={2}>
@@ -93,6 +92,5 @@ export default function SettingsView() {
                     
                 </Grid>
             </Container>
-        </>
     );
 }
