@@ -1,0 +1,37 @@
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+/>
+
+
+<link rel="stylesheet" href="../static/searchbar.css">
+
+<!-- FILTER TESTING START -->
+<div class="sorting">
+  <div class="searchbar">
+    <input type="text" id="search" name="search" placeholder="Search" />
+    <button class="searchButton" type="submit" onclick="search()">
+      <i class="fas fa-search"></i>
+    </button>
+  </div>
+  <div class="dropdown-container">
+    <!-- Category Dropdown -->
+    <div class="category-dropdown">
+      <select id="categorySelect">
+        <option value="">Select Category</option>
+        <option value="1">Breakfast</option>
+        <option value="2">Lunch</option>
+        <option value="3">Dinner</option>
+      </select>
+    </div>
+    <!-- Difficulty Dropdown -->
+    <div class="difficulty-dropdown">
+      <select id="difficultySelect">
+        <option value="">Select Difficulties</option>
+        <option value="1">Beginner</option>
+        <option value="2">Intermediate</option>
+        <option value="3">Advanced</option>
+      </select>
+    </div>
+  </div>
+</div>

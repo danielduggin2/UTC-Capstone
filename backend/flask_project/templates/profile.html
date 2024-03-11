@@ -1,0 +1,32 @@
+{%extends "base.html"%} {%block content%}
+<link rel="stylesheet" href="../static/profile.css">
+<div class="profile-card">
+  <div class="profile-image">
+    <img src="../static/Images/profile.jpeg" alt="User Profile Image" />
+  </div>
+  <h2 class="profile-name">{{user.first_name}} {{user.last_name}}</h2>
+  <div class="profile-info">
+    <p>
+      <span class="label">First Name: </span
+      ><span class="value">{{user.first_name}}</span>
+    </p>
+    <p>
+      <span class="label">Last Name: </span
+      ><span class="value">{{user.last_name}}</span>
+    </p>
+    <p>
+      <span class="label">User Name: </span
+      ><span class="value">{{user.username}}</span>
+    </p>
+    <p>
+      <span class="label">Email: </span
+      ><span class="value">{{user.email}}</span>
+    </p>
+  </div>
+</div>
+<div class="created-recipes">
+  {% for element in recipes.get('recipes') %} {% include "recipebase.html" %} {%
+  endfor %}
+</div>
+
+{%endblock%}

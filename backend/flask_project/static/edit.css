@@ -1,0 +1,101 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body { 
+    font-family: 'Arial', sans-serif;
+  }
+
+  .create-container {
+    max-width: 800px;
+    padding: 30px;
+    margin: 0 auto; 
+    background-color: #ede7e3;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 130px; /* change this margin to adjust where the edit box sits on the screen compared to the nav bar */
+    color: #604c3e; /* A makes the text a soft brown */
+    border-radius: 10px; /* rounded corners */
+  }
+  
+  .create-container h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .edit-recipe-form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  textarea {
+    width: 100%; 
+    resize: vertical; 
+  }
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-size: 14px;
+    color: #604c3e;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    padding: 15px;
+    border: 1px solid #ddd; 
+    border-radius: 5px; /* slightly rounded corners for all text box edges */
+    background-color: #fff;
+    transition: border-color 0.3s;
+  }
+  
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  textarea:focus {
+    border-color: #d2b396;
+
+  }
+  .time-input {
+    display: flex;
+    gap: 10px; 
+  }
+
+  .time-input input[type="number"] {
+    flex: 1; 
+  }
+
+  .submit-button {
+    background-color: #8b6b61;
+    color: #fff;
+    border-radius: 5px; 
+  }
+
+  .submit-button:hover {
+    background-color: #a1887f /* different color for the hover */
+}
+  
+    @media (max-width: 768px) {
+      .edit-recipe-form {
+        grid-template-columns: 1fr;
+      }
+      
+      .time-input {
+        flex-direction: column; 
+        gap: 5px;
+      }
+  
+      .time-input input[type="number"] {
+        flex: none; 
+        width: 100%;
+      }
+  
+      .submit-button {
+        grid-column: span 1;
+      }
+    }

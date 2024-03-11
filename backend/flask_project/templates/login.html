@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="../static/login.css">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Culinary Canvas</title>
+  </head>
+  <body>
+    <script
+      src="../static/index.js"
+      type="text/javascript"
+      charset="utf-8"
+    ></script>
+    {% include "flashmessage.html" %}
+
+    <!-- Create a container to hold the login form and image -->
+    <!-- <div class="rectangle"></div> -->
+    <div class="container">
+      <div class="login-form">
+        <h1 class="title">Culinary Canvas</h1>
+        <!-- Heading for the login form -->
+        <h2>Login</h2>
+
+        <!-- Login form with email and password fields -->
+        <form
+          method="POST"
+          action="/login"
+          onsubmit="return checkCredentials();"
+        >
+          <input
+            type="text"
+            name="email"
+            placeholder="Enter your email"
+            required
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter your password"
+            required
+          />
+          <button type="submit">Login</button>
+        </form>
+
+        <!-- Link to sign up for a new account -->
+        <div class="signup-link">
+          Don't have an account?
+          <a href="/signup" style="color: #8b6b61">Sign up here</a>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
