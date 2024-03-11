@@ -43,11 +43,11 @@ const navConfig = [
         icon: icon('ic_user'),
     },
     // below are original items
-    {
-        title: 'dashboardOG',
-        path: '/',
-        icon: icon('ic_disabled'),
-    },
+    // {
+    //     title: 'dashboardOG',
+    //     path: '/',
+    //     icon: icon('ic_disabled'),
+    // },
     {
         title: 'new appointment',
         path: '/new-appointment',
@@ -57,6 +57,11 @@ const navConfig = [
         title: 'login',
         path: '/login',
         icon: icon('ic_user'),
+    },
+    {
+        title: 'settings',
+        path: '/settings',
+        icon: icon('ic_settings'),
     },
 ];
 

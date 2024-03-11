@@ -13,6 +13,7 @@ export const ViewPatientPage = lazy(() => import('src/pages/view-patient'));
 export const PurchasePage = lazy(() => import('src/pages/purchase'));
 export const InboxPage = lazy(() => import('src/pages/inbox'));
 export const LoginPage = lazy(() => import('src/pages/login'));
+export const SettingsPage = lazy(() => import('src/pages/settings'));
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 export const NewAppointmentPage = lazy(() => import('src/pages/new-appointment'));
@@ -42,6 +43,7 @@ export default function Router() {
                 { path: 'view-patient', element: <ViewPatientPage /> },
                 { path: 'blog', element: <BlogPage /> },
                 { path: 'new-appointment', element: <NewAppointmentPage /> },
+                { path: 'settings', element: <SettingsPage /> },
             ],
         },
         {
