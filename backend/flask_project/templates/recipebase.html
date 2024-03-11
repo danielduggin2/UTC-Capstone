@@ -1,0 +1,46 @@
+{%if element.get('favorited') %} {% set favoriteButtonText = "Saved" %} {% set
+favoriteClass = "favorited" %} {%else%} {% set favoriteButtonText = "Save
+Recipe" %} {%endif%}
+
+<div class="recipe-card">
+  <img
+    src="{{element.get('image')}}"
+    alt="chicken-and-waffle"
+  />
+  <div class="recipe-details">
+    <ul>
+      <li>
+        Time: {% if element.get('hours') == 1 %} 1 hour, {% elif
+        element.get('hours') > 1 %} {{element.get('hours')}} hours, {% endif %}
+        {{element.get('minutes')}} minutes
+      </li>
+
+      <li>Difficulty: {{element.get('difficulty')}}</li>
+      <li>Category: {{element.get('category')}}</li>
+      <li>Calories: {{element.get('calories')}}</li>
+    </ul>
+  </div>
+  <p class="recipe-description">{{element.get('name')}}</p>
+  <button
+    class="save-button {{favoriteClass}}"
+    onClick="favoriteToggle({{element.get('id')}})"
+  >
+    {{favoriteButtonText}}
+  </button>
+  <button
+    class="info-button"
+    onClick="window.location.href='/recipe/{{element.get('id')}}'"
+  >
+    More Info
+  </button>
+</div>
+
+<!-- 
+  <li>
+    Time: 
+    {% if element.get('hours') > 0 %}
+        {{element.get('hours')}} hours, 
+    {% endif %}
+    {{element.get('minutes')}} minutes
+</li>
+ -->

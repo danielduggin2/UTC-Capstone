@@ -71,3 +71,7 @@ frontend/.vscode
 frontend/npm-debug.log*
 frontend/yarn-debug.log*
 frontend/yarn-error.log*
+
+backend/.vscode/
+backend/instance/
+backend/flask_project/__pycache__

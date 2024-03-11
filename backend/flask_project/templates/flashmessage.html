@@ -1,0 +1,74 @@
+<!-- position: absolute;
+top: 10px;
+left: 10px;
+right: 10px;  -->
+<style>
+  .flash-messages-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: 75px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+  }
+
+  .flash-message {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    border-radius: 10px; /* Rounded corners */
+  }
+
+  .flash-message p {
+    margin: 0;
+    white-space: nowrap; /* Keeps text on one line */
+    overflow: visible; /* Display entire content */
+    text-align: center; /* Center-align the text */
+  }
+
+  .flash-message-close {
+    color: black;
+  }
+
+  .flash-message button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    z-index: 1;
+  }
+
+  .error-flash-message {
+    background-color: #fd8585; /* Red background for error messages */
+  }
+
+  .success-flash-message {
+    background-color: #ccffcc; /* Green background for success messages */
+  }
+</style>
+
+
+<div class="flash-messages-container">
+  {% with messages = get_flashed_messages(with_categories=true) %} {% if
+  messages %} {% for category, message in messages %}
+  <div
+    class="flash-message {% if category =='error' %} error-flash-message {% else %} success-flash-message {% endif %}"
+    role="alert"
+  >
+    <p>{{ message }}</p>
+    <button type="button" class="flash-message-close">&times;</button>
+  </div>
+  {% endfor %} {% endif %} {% endwith %}
+</div>
+
+<script
+  src="../static/flashmessage.js"
+  type="text/javascript"
+  charset="utf-8"
+></script>

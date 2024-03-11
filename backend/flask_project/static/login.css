@@ -1,0 +1,112 @@
+/* Reset some default styles and set the overall background color and layout */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2efe9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Create a container to hold the login form */
+  .container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    height: 80%;
+    width: 80%; /* Changes the size of the center box */
+    background: #d8d0c8;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Style the right section with the login form */
+  .login-form {
+    flex: 1;
+    padding: 25px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+  }
+
+  h1 {
+    font-family: "Raleway", sans-serif;
+    font-weight: 800;
+    font-size: 40px;
+    color: #080808;
+  }
+
+  /* Style the login form heading */
+  h2 {
+    color: #5c5346;
+    margin-bottom: 20px;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 400px; /* Adjust the width to make the text fields wider */
+    height: 30px; /* Adjust the height to make the text fields taller */
+    padding: 12px;
+    margin-bottom: 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ede7e3;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  /* Style the login button */
+  button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 5px;
+    background-color: #5c5346;
+    color: #f2efe9;
+    font-size: 16px;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+
+  /* Style the signup link text */
+  .signup-link {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+
+  /* Style the signup link anchor (link) */
+  .signup-link a {
+    color: #5c5346;
+  }
+
+  /* Styles for small screens */
+  @media screen and (max-width: 600px) {
+    .login-form {
+      width: 90%; /* Further adjust the width for smaller screens */
+    }
+
+    .container {
+      width: 100%;
+      height: 100%;
+      border-radius: 0px;
+    }
+
+    /* Override the width property for input boxes on smaller screens */
+    input[type="text"],
+    input[type="password"] {
+      width: 100%; /* Make the text fields take full width on small screens */
+      max-width: 100%; /* Set a maximum width to prevent overflow */
+      box-sizing: border-box; /* Include padding and border in the element's total width */
+      padding: 10px; /* Adjust padding as needed */
+      margin-bottom: 10px; /* Adjust margin as needed */
+    }
+  }

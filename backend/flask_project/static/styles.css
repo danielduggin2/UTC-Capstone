@@ -1,0 +1,222 @@
+/*CSS variables*/
+:root{
+  --background-color1: #d5c1b9;
+  --background-color2: #ede7e3;
+  --background-color3: #8b6b61;
+  --background-color4: #a1887f;
+}
+
+/* Reset some default browser styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* NAVBAR CSS */
+header {
+  background-color: var(--background-color3);
+  color: var(--background-color4);
+  padding: 25px 10px; /* Add padding to the left and right */
+  width: 100%;
+  text-align: right;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Add a shadow to the header */
+  z-index: 1; /* Ensure it's on top of other elements */
+  position: fixed;
+}
+
+/* Navigation styles */
+nav {
+  width: 95%;
+  margin: 0 auto;
+  display: block;
+}
+
+/* List item styles */
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 20px;
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Vertically center the items */
+}
+
+nav li {
+  font-family: Arial, sans-serif;
+  text-align: center; /* Center the text horizontally */
+  margin-right: 20px; /* Adjust spacing between items */
+}
+
+/* First list item styles */
+nav li:first-child {
+  margin-right: auto; /* Push the first item to the left */
+}
+
+/* Link styles */
+nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Circular icon styles */
+.profile-icon::after {
+  /* content: "";
+  background-image: url("../static/Images/profile.jpeg"); */
+  background-size: cover;
+  width: 40px; /* Increase the size of the icon */
+  height: 40px; /* Increase the size of the icon */
+  border-radius: 50%; /* Makes it a circle */
+  display: inline-block;
+  vertical-align: middle; /* Align the icon vertically in the middle */
+  margin-left: 10px; /* Adjust the spacing from the "Reviews" link */
+}
+
+/* Additional adjustments for smaller screens */
+@media screen and (max-width: 665px) {
+  nav ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  nav li {
+    margin: 10px 0;
+    text-align: center;
+    display: block;
+  }
+
+  nav li:first-child {
+    float: none;
+    text-align: center;
+    margin-left: auto;
+  }
+
+  header {
+    position: relative;
+  }
+}
+
+/* NAVBAR EDITS END */
+
+/*Code FOR HOME/FAVS  */
+body {
+  font-family: Arial, sans-serif;
+  background-color: var(--background-color1); /* Use CSS variable for background color */
+  display: flex;
+  flex-direction: column; /* Ensure header is above cards */
+  align-items: center; /* Center horizontally */
+  min-height: 100vh; /* Full viewport height */
+  margin: 0; /* Remove default body margin */
+  padding: 0; /* Remove default body padding */
+}
+
+.header-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.recipe-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 50px; /* Add spacing between header and cards */
+}
+
+.recipe-card {
+  background-color: var(--background-color3); /* White background */
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Slightly darker shadow */
+  margin: 20px;
+  padding: 20px;
+  width: 300px;
+  text-align: center;
+  border-radius: 15px; /* Increased border radius */
+}
+
+.recipe-card img {
+  width: 250px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px; /* Increased border radius */
+}
+
+.recipe-details ul {
+  list-style-type: none;
+  padding: 0;
+  border-bottom: 1px solid var(--background-color4);
+  margin-bottom: 10px;
+}
+
+.recipe-details ul li {
+  margin: 5px 0;
+  color: #F0F8FF;
+}
+
+.recipe-description {
+  margin-top: 10px;
+  color: #F0F8FF;
+}
+
+.save-button,
+.info-button {
+  display: inline-block;
+  margin: 10px 5px;
+  padding: 10px 20px;
+  background-color: var(--background-color4); /* Green */
+  color: #F0F8FF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.save-button:hover,
+.info-button:hover {
+  background-color: var(--background-color3); /* Darker green on hover */
+}
+ /*END HOME/FAVORITES.html */
+
+ /*CODE FOR ABOUT.HTML*/
+ /* Target the h1 element inside the main container */
+div.employees > h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Target the .employee-card elements inside the main container */
+div.employees > .employee-card {
+  display: inline-block;
+  width: 250px;
+  border: 1px solid #ccc;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Target the .profile-image elements inside .employee-card */
+div.employees > .employee-card > .profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 10px;
+  display: block;
+}
+
+/* Target the h2 elements inside .employee-card */
+div.employees > .employee-card > h2 {
+  font-size: 18px;
+}
+
+/* Target the p elements inside .employee-card */
+div.employees > .employee-card > p {
+  font-size: 14px;
+  margin: 5px 0;
+}
+
+/*END FOR ABOUT.HTML*/

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link rel="stylesheet" href="../static/signup.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign up</title>
+
+  </head>
+
+  <body>
+    <script
+  src="../static/index.js"
+  type="text/javascript"
+  charset="utf-8"
+></script>
+    {% include "flashmessage.html" %}
+    <div class="login-container">
+      <h2>Sign up</h2>
+      <form method="POST" action="/signup">
+        <input
+          type="text"
+          class="light-input"
+          name="first_name"
+          placeholder="First Name"
+          required
+        />
+        <input
+          type="text"
+          class="light-input"
+          name="last_name"
+          placeholder="Last Name"
+          required
+        />
+        <input
+          type="text"
+          class="light-input"
+          name="username"
+          placeholder="Username"
+          required
+        />
+        <input
+          type="email"
+          class="light-input"
+          name="email"
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          class="light-input"
+          name="password"
+          placeholder="Create Password"
+          required
+        />
+        <input
+          type="password"
+          class="light-input"
+          name="confirm_password"
+          placeholder="Confirm Password"
+          required
+        />
+        <button type="submit">Sign up</button>
+      </form>
+      <div class="signup-link">
+        Already have an account?
+        <a href="/login" style="color: #8b6b61">Login here</a>
+      </div>
+    </div>
+  </body>
+</html>
