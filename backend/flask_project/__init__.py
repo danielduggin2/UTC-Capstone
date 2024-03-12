@@ -40,18 +40,9 @@ login_manager = LoginManager()
 login_manager.login_view = "auth.login"
 login_manager.init_app(app)
 
-
-app.debug=False
-
-
-
-
-
-
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
-# Create tables, "from .models import User" is necessary for this
 
 
