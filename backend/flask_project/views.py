@@ -9,8 +9,11 @@ from sqlalchemy.sql import func
 import os
 
 
-
-
+@views.route("api/react-test")
+def reactTest():
+    
+    reactTest = {"tests": ["test1","test2","test3"]}
+    return (reactTest)
 # START: Define a route for the HTML pages
 @views.route("/")
 @views.route("/home", methods=["GET", "POST"])
