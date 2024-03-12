@@ -13,6 +13,15 @@ import AnalyticsTasks from '../app-tasks';
 import AppCalendar from '../app-calendar';
 
 export default function AppView() {
+    const requestOptions = {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+    };
+    fetch('/api/react-test', requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data);
+        });
     const [calendarEvents, setCalendarEvents] = useState([
         {
             title: 'Appointment with John Doe',
