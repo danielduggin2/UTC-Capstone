@@ -44,7 +44,6 @@ export default function SettingsView() {
         setOpen(true);
     };
 
-
     const handleClose = () => {
         setOpen(false);
     };
@@ -62,35 +61,33 @@ export default function SettingsView() {
         }
     }, [scrolled]);
 
-
     const handleChange = (event, newValue) => {
-      setValue(newValue);
+        setValue(newValue);
     };
-  
+
     return (
-            <Container>
-                <Tabs sx={{}} value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Office Settings"/>
-          <Tab label="User Settings" />
-        </Tabs>
-        <Divider sx={{mb:2}}/>
-                <Grid container spacing={2}>
-                    <Grid xs={7}>
-                        <Stack spacing={2}>
-                            <Card sx={{ p: 2}}>
-                                <EditPatientView setEditState={setEditState} />
-                            </Card>
-                        </Stack>
-                    </Grid>
-                    <Grid xs={5}>
-                        <Stack spacing={2}>
-                            <Card sx={{ p: 2, pb: 4 }}>
-                                <ReadPatientView setEditState={setEditState} />
-                            </Card>
-                        </Stack>
-                    </Grid>
-                    
+        <Container>
+            <Tabs sx={{}} value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tab label="Office Settings" />
+                <Tab label="User Settings" />
+            </Tabs>
+            <Divider sx={{ mb: 2 }} />
+            <Grid container spacing={2}>
+                <Grid xs={7}>
+                    <Stack spacing={2}>
+                        <Card sx={{ p: 2 }}>
+                            <EditPatientView setEditState={setEditState} />
+                        </Card>
+                    </Stack>
                 </Grid>
-            </Container>
+                <Grid xs={5}>
+                    <Stack spacing={2}>
+                        <Card sx={{ p: 2, pb: 4 }}>
+                            <ReadPatientView setEditState={setEditState} />
+                        </Card>
+                    </Stack>
+                </Grid>
+            </Grid>
+        </Container>
     );
 }

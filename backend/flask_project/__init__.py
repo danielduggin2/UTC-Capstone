@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_login import LoginManager
 from dotenv import load_dotenv #maybe issues here
-
+from flask_cors import CORS
 
 db = SQLAlchemy()
 
@@ -22,7 +22,7 @@ app.config["SECRET_KEY"] = SECRET_KEY
 DB_NAME = os.getenv("DB_NAME") #maybe issues here
 app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{DB_NAME}"
 db.init_app(app)
-
+CORS(app)
 # This tells Flask of new views or URLs
 from .views import views
 from .auth import auth
@@ -40,18 +40,9 @@ login_manager = LoginManager()
 login_manager.login_view = "auth.login"
 login_manager.init_app(app)
 
-
-app.debug=False
-
-
-
-
-
-
 @login_manager.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
-# Create tables, "from .models import User" is necessary for this
 
 
