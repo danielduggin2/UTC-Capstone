@@ -1,5 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
+backend/bin
+backend/obj
 # dependencies
 node_modules
 .pnp
@@ -75,3 +77,4 @@ frontend/yarn-error.log*
 backend/.vscode/
 backend/instance/
 backend/flask_project/__pycache__
+
