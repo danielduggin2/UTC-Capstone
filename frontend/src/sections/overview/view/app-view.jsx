@@ -17,7 +17,7 @@ export default function AppView() {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     };
-    fetch('/api/react-test', requestOptions)
+    fetch('https://localhost:7031/api/todoitems', requestOptions)
         .then((response) => response.json())
         .then((data) => {
             console.log(data);

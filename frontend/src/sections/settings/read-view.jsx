@@ -29,7 +29,7 @@ export default function ReadPatientView({ setEditState }) {
                                 m: '-5px',
                             }}
                         >
-                            <FontAwesomeIcon icon={faEllipsisVertical} size="xs"></FontAwesomeIcon>
+                            <FontAwesomeIcon icon={faEllipsisVertical} size="xs"/>
                         </Box>
                     </IconButton>
                 </Stack>
@@ -51,7 +51,7 @@ export default function ReadPatientView({ setEditState }) {
                                 m: '-5px',
                             }}
                         >
-                            <FontAwesomeIcon icon={faEllipsisVertical} size="xs"></FontAwesomeIcon>
+                            <FontAwesomeIcon icon={faEllipsisVertical} size="xs"/>
                         </Box>
                     </IconButton>
                 </Stack>
