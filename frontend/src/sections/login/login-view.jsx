@@ -19,28 +19,67 @@ import { bgGradient } from 'src/theme/css';
 
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
+import Cookies from 'js-cookie';
 
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
     const theme = useTheme();
-
+    const [loggedIn, setLoggedIn] = useState(false)
     const router = useRouter();
+    const [formData, setFormData] = useState({
+        username:'',
+        password:''
+    })
 
     const [showPassword, setShowPassword] = useState(false);
+    
+    const handleChange = (e) => {
+        
+        const {name, value} = e.target;
+        setFormData({...formData,[name]:value})
 
+    }
+    const logInAttempt = () => {
+        const cookieValue = Cookies.get('JwtToken')
+        const requestOptions = {
+            method: 'GET',
+            headers:{'Authorization': `Bearer ${cookieValue}`}
+        }
+        console.log(requestOptions)
+        fetch("https://localhost:7031/api/user/admins", requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+        })
+    }
     const handleClick = () => {
-        router.push('/dashboard');
+        
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type':'application/json'},
+            credentials: 'same-origin',
+            body: JSON.stringify({...formData,id:0})
+        }
+        fetch("https://localhost:7031/api/login", requestOptions)
+        .then(response => response.json())
+        .then((data)=>{
+            console.log(data)
+            Cookies.remove('JwtToken');
+            Cookies.set('JwtToken',data.responseToken, {expires:7, path: '/'});
+        })
     };
 
     const renderForm = (
         <>
             <Stack spacing={3}>
-                <TextField name="email" label="Email address" />
+                <TextField name="username" label="Username" value={formData.username} onChange={handleChange} />
 
                 <TextField
                     name="password"
                     label="Password"
+                    value={formData.password}
+                    onChange={handleChange}
                     type={showPassword ? 'text' : 'password'}
                     InputProps={{
                         endAdornment: (
@@ -75,6 +114,9 @@ export default function LoginView() {
             >
                 Login
             </LoadingButton>
+            <Button onClick={logInAttempt}>
+                Am I logged in? {loggedIn ? 'Yes' : 'No'}
+            </Button>
         </>
     );
 
@@ -104,47 +146,14 @@ export default function LoginView() {
                         maxWidth: 420,
                     }}
                 >
-                    <Typography variant="h4">Sign in to Minimal</Typography>
+                    <Typography variant="h4">Sign in to GetRite</Typography>
 
-                    <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
+                    <Typography variant="body2" sx={{ mt: 2, mb: 3 }}>
                         Don’t have an account?
                         <Link variant="subtitle2" sx={{ ml: 0.5 }}>
                             Get started
                         </Link>
                     </Typography>
-
-                    <Stack direction="row" spacing={2}>
-                        <Button
-                            fullWidth
-                            size="large"
-                            color="inherit"
-                            variant="outlined"
-                            sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
-                        >
-                            <Iconify icon="eva:google-fill" color="#DF3E30" />
-                        </Button>
-
-                        <Button
-                            fullWidth
-                            size="large"
-                            color="inherit"
-                            variant="outlined"
-                            sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
-                        >
-                            <Iconify icon="eva:facebook-fill" color="#1877F2" />
-                        </Button>
-
-                        <Button
-                            fullWidth
-                            size="large"
-                            color="inherit"
-                            variant="outlined"
-                            sx={{ borderColor: alpha(theme.palette.grey[500], 0.16) }}
-                        >
-                            <Iconify icon="eva:twitter-fill" color="#1C9CEA" />
-                        </Button>
-                    </Stack>
-
                     <Divider sx={{ my: 3 }}>
                         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                             OR

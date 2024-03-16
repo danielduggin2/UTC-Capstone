@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "mssql2": {
+      "restored": true,
+      "restoreTime": "2024-02-04T23:56:26.7733803Z"
+    },
+    "apis1": {
+      "restored": true,
+      "restoreTime": "2024-02-04T23:56:31.0188803Z"
+    },
+    "mssql1": {
+      "restored": true,
+      "restoreTime": "2024-02-04T23:56:35.3262355Z"
+    }
+  },
+  "parameters": {
+    "mssql2.resourceGroupName": {
+      "Name": "mssql2.resourceGroupName",
+      "Type": "resourceGroup",
+      "Value": "WebApiJobSearchResourceGroup"
+    },
+    "mssql2.subscriptionId": {
+      "Name": "mssql2.subscriptionId",
+      "Type": "subscription",
+      "Value": "46d09b5e-b33d-4020-ad0b-eefb3b9dc4ed"
+    }
+  }
+}

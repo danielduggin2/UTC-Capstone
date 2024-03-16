@@ -14,9 +14,9 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function PostCard({ post, index }) {
-    const { title, view, comment, share, createdAt, videoUrl, cover, bodyPart } = post;
+    const { name, cover, bodyPart, } = post;
 
-    const renderTitle = (
+    const renderName = (
         <Link
             color="inherit"
             variant="h5"
@@ -29,39 +29,15 @@ export default function PostCard({ post, index }) {
                 mt: 1,
             }}
         >
-            {title}
+            {name}
         </Link>
-    );
-
-    const renderInfo = (
-        <Stack
-            direction="row"
-            flexWrap="wrap"
-            spacing={1.5}
-            justifyContent="flex-end"
-            sx={{
-                mt: 3,
-                color: 'text.disabled',
-            }}
-        >
-            {[
-                { number: comment, icon: 'eva:message-circle-fill' },
-                { number: view, icon: 'eva:eye-fill' },
-                { number: share, icon: 'eva:share-fill' },
-            ].map((info, _index) => (
-                <Stack key={_index} direction="row">
-                    <Iconify width={16} icon={info.icon} sx={{ mr: 0.5 }} />
-                    <Typography variant="caption">{fShortenNumber(info.number)}</Typography>
-                </Stack>
-            ))}
-        </Stack>
     );
 
     const renderCover = (
         <Box
             component="img"
-            alt={title}
-            src={cover}
+            alt={name}
+            src="/assets/images/exercises/exercise_2.jpg"
             sx={{
                 top: 0,
                 width: 1,
@@ -70,32 +46,6 @@ export default function PostCard({ post, index }) {
                 position: 'absolute',
             }}
         />
-        // <a
-        //   href={videoUrl}
-        //   target="_blank" // Opens the video in a new tab
-        //   rel="noopener noreferrer" // Security measure
-        //   style={{
-        //     position: 'absolute',
-        //     width: '100%',
-        //     height: '100%',
-        //     textDecoration: 'none', // Removing underline from the link
-        //     overflow: 'hidden', // Hide any potential overflow content
-        //   }}
-        // >
-        //   <span style={{ position: 'absolute', width: '1px', height: '1px', overflow: 'hidden', clip: 'rect(1px, 1px, 1px, 1px)', whiteSpace: 'nowrap' }}>
-        //     Go to video
-        //   </span>
-        //   <Box
-
-        //     style={{
-        //       backgroundImage: "", // Using the cover image as the background
-        //       backgroundSize: 'cover',
-        //       display: 'block', // Making the entire box clickable
-        //       width: '100%',
-        //       height: '100%',
-        //     }}
-        //   />
-        // </a>
     );
 
     const renderDate = (
@@ -131,7 +81,7 @@ export default function PostCard({ post, index }) {
                     }}
                 >
                     {renderDate}
-                    {renderTitle}
+                    {renderName}
                 </Box>
             </Card>
         </Grid>
@@ -140,5 +90,4 @@ export default function PostCard({ post, index }) {
 
 PostCard.propTypes = {
     post: PropTypes.object.isRequired,
-    index: PropTypes.number,
 };
