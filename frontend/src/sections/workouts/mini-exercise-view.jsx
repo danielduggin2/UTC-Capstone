@@ -7,10 +7,50 @@ import { posts } from 'src/_mock/blog';
 import MiniExerciseCard from './mini-exercise-card';
 import MiniExerciseSort from './mini-exercise-sort';
 import MiniExerciseSearch from './mini-exercise-search';
+import Cookies from 'js-cookie';
+import { useEffect, useState } from 'react';
 
 // ----------------------------------------------------------------------
 
 export default function MiniExerciseView() {
+
+    const [Exercises, setExercises] = useState([])
+    const [searchValue, setSearchValue] = useState('')
+    const [bodyPartValue, setbodyPartValue] = useState('All')
+    const [bodyParts, setBodyParts] = useState([])
+
+
+    function getExercises(){
+        const cookieValue = Cookies.get('JwtToken')
+        const requestOptions = {
+            method: 'GET',
+            headers:{'Authorization': `Bearer ${cookieValue}`}
+        }
+        fetch(`https://localhost:7031/api/exercises?name=${searchValue}&bodyPart=${bodyPartValue == 'All' ? '' : bodyPartValue}`,requestOptions)
+        .then(response => response.json())
+        .then((data) => {
+            setExercises(data)
+        })
+    }
+    const onSort = (e) => {
+        setbodyPartValue(e.target.value)
+    }
+    function getBodyParts(){
+        const cookieValue = Cookies.get('JwtToken')
+        const requestOptions = {
+            method: 'GET',
+            headers:{'Authorization': `Bearer ${cookieValue}`}
+        }
+        fetch(`https://localhost:7031/api/exercises/bodyParts?`,requestOptions)
+        .then(response => response.json())
+        .then((data) => {
+            setBodyParts(data)
+        })
+    }
+    useEffect(() => {
+        getExercises();
+        getBodyParts();
+    }, [searchValue,bodyPartValue])
     return (
         <>
             {/* <Typography>Hello</Typography> */}
@@ -19,13 +59,11 @@ export default function MiniExerciseView() {
             </Stack>
 
             <Stack mb={5} direction="row" alignItems="center" justifyContent="space-between">
-                <MiniExerciseSearch posts={posts} />
+                <MiniExerciseSearch posts={Exercises} setSearchValue={setSearchValue} />
                 <MiniExerciseSort
-                    options={[
-                        { value: 'latest', label: 'Latest' },
-                        { value: 'popular', label: 'Popular' },
-                        { value: 'oldest', label: 'Oldest' },
-                    ]}
+                    onSort={onSort}
+                    options={bodyParts}
+                    selected = {bodyPartValue}
                 />
             </Stack>
             <Grid
@@ -50,8 +88,8 @@ export default function MiniExerciseView() {
                     },
                 }}
             >
-                {posts.map((post, index) => (
-                    <MiniExerciseCard key={post.id} post={post} index={index} />
+                {Exercises.map((post, index) => (
+                    <MiniExerciseCard key={post.id} post={post} />
                 ))}
             </Grid>
         </>

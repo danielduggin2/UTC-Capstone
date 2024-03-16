@@ -14,15 +14,14 @@ export default function ExerciseItem({ post, index }) {
     const renderCover = (
         <Box
             component="img"
-            alt={title}
-            src={cover}
+            alt={post.name}
+            src="/assets/images/exercises/exercise_16.jpg"
             sx={{
                 objectFit: 'cover',
                 display: 'inline',
             }}
         />
     );
-    console.log(cover);
     return (
         <Stack spacing={1} pt={1}>
             <Stack direction="row" justifyContent="space-between" alignItems="center">
@@ -40,7 +39,7 @@ export default function ExerciseItem({ post, index }) {
                         {renderCover}
                     </Box>
                     <Typography sx={{ display: 'inline' }} variant="body1">
-                        Hello
+                        {post.name}
                     </Typography>
                 </Stack>
                 <Box>

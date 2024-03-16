@@ -17,7 +17,7 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function MiniExerciseCard({ post, index }) {
-    const { title, view, comment, share, createdAt, videoUrl, cover, bodyPart } = post;
+    const { title,name, view, comment, share, createdAt, videoUrl, cover, bodyPart } = post;
 
     const renderTitle = (
         <Link
@@ -32,39 +32,17 @@ export default function MiniExerciseCard({ post, index }) {
                 mt: 1,
             }}
         >
-            {title}
+            {name}
         </Link>
     );
 
-    const renderInfo = (
-        <Stack
-            direction="row"
-            flexWrap="wrap"
-            spacing={1.5}
-            justifyContent="flex-end"
-            sx={{
-                mt: 3,
-                color: 'text.disabled',
-            }}
-        >
-            {[
-                { number: comment, icon: 'eva:message-circle-fill' },
-                { number: view, icon: 'eva:eye-fill' },
-                { number: share, icon: 'eva:share-fill' },
-            ].map((info, _index) => (
-                <Stack key={_index} direction="row">
-                    <Iconify width={16} icon={info.icon} sx={{ mr: 0.5 }} />
-                    <Typography variant="caption">{fShortenNumber(info.number)}</Typography>
-                </Stack>
-            ))}
-        </Stack>
-    );
+
 
     const renderCover = (
         <Box
             component="img"
             alt={title}
-            src={cover}
+            src='/assets/images/exercises/exercise_16.jpg'
             sx={{
                 top: 0,
                 width: 1,

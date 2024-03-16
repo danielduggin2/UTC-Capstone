@@ -5,10 +5,10 @@ namespace WebApiJobSearch.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Exercises : ControllerBase
+    public class Patients : ControllerBase
     {
         private readonly TodoContext _context;
-        public Exercises(TodoContext context)
+        public Patients(TodoContext context)
         {
             _context = context;
         }
@@ -20,20 +20,21 @@ namespace WebApiJobSearch.Controllers
         {
             var officeId = 3;
 
-            var exercisesQ = _context.GetRiteExercises.AsQueryable();
-            exercisesQ = exercisesQ.Where(e => e.OfficeId == officeId || e.isDefault == true);
+            var exercisesQ = _context.GetRiteOffices.AsQueryable();
+            exercisesQ = exercisesQ.Select(o => o.Patients);
 
-            if (!string.IsNullOrEmpty(name))
-            {
-                exercisesQ = exercisesQ.Where(e => e.Name.ToLower().Contains(name.ToLower()));
-            }
+            //if (!string.IsNullOrEmpty(name))
+            //{
+            //    exercisesQ = exercisesQ.Where(e => e.Name.ToLower().Contains(name.ToLower()));
+            //}
 
-            if (!string.IsNullOrEmpty(bodypart))
-            {
-                exercisesQ = exercisesQ.Where(e => e.BodyPart.ToLower().Contains(bodypart.ToLower()));
-            }
+            //if (!string.IsNullOrEmpty(bodypart))
+            //{
+            //    exercisesQ = exercisesQ.Where(e => e.BodyPart.ToLower().Contains(bodypart.ToLower()));
+            //}
+            var genderS = Enum.GetName(typeof(Gender), 1);
 
-            return Ok(exercisesQ);
+            return Ok(genderS);
         }
 
         [HttpGet("bodyparts")]
@@ -44,7 +45,7 @@ namespace WebApiJobSearch.Controllers
                 .Where(e => e.OfficeId == officeId || e.isDefault == true)
                 .Select(e => e.BodyPart)
                 .Distinct();
-       
+
             return Ok(bodyPartsQ);
         }
     }
