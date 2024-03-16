@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using WebApiJobSearch.Models;
 
 namespace WebApiJobSearch.Controllers
@@ -20,21 +22,21 @@ namespace WebApiJobSearch.Controllers
         {
             var officeId = 3;
 
-            var exercisesQ = _context.GetRiteOffices.AsQueryable();
-            exercisesQ = exercisesQ.Select(o => o.Patients);
 
-            //if (!string.IsNullOrEmpty(name))
-            //{
-            //    exercisesQ = exercisesQ.Where(e => e.Name.ToLower().Contains(name.ToLower()));
-            //}
 
-            //if (!string.IsNullOrEmpty(bodypart))
-            //{
-            //    exercisesQ = exercisesQ.Where(e => e.BodyPart.ToLower().Contains(bodypart.ToLower()));
-            //}
-            var genderS = Enum.GetName(typeof(Gender), 1);
+            var patientsQ = _context.GetRitePatients
+                .SelectMany(p => p.Offices, (patient, office) => new { Patient = patient, Office = office })
+                .Where(x => x.Office.Id == officeId)
+                .Select(x => new { 
+                    id = x.Patient.Id,
+                    injury = x.Patient.Injury,
+                    birthdate = x.Patient.Birthdate.ToString("yyyy-MM-ddTHH:mm:ss"),
+                    phone = x.Patient.PhoneNumber,
+                    name = x.Patient.User.FirstName + " " +  x.Patient.User.LastName
+                })
+                .ToList();
 
-            return Ok(genderS);
+            return Ok(patientsQ);
         }
 
         [HttpGet("bodyparts")]

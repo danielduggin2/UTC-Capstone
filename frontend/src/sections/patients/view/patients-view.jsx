@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
@@ -27,6 +27,7 @@ import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
 import UserTableToolbar from '../user-table-toolbar';
 import { emptyRows, applyFilter, getComparator } from '../utils';
+import Cookies from 'js-cookie';
 
 export default function PatientsView() {
     const [page, setPage] = useState(0);
@@ -36,7 +37,7 @@ export default function PatientsView() {
     const [filterName, setFilterName] = useState('');
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [showForm, setShowForm] = useState(false); // Add state to manage form visibility
-
+    const [patients, setPatients] = useState([])
     const handleSort = (event, id) => {
         const isAsc = orderBy === id && order === 'asc';
         if (id !== '') {
@@ -47,7 +48,7 @@ export default function PatientsView() {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelecteds = users.map((n) => n.name);
+            const newSelecteds = patients.map((n) => n.name);
             setSelected(newSelecteds);
             return;
         }
@@ -96,11 +97,31 @@ export default function PatientsView() {
     };
 
     const dataFiltered = applyFilter({
-        inputData: users,
+        inputData: patients,
         comparator: getComparator(order, orderBy),
         filterName,
     });
 
+    function getPatients(){
+        const cookieValue = Cookies.get('JwtToken')
+        const requestOptions = {
+            method: 'GET',
+            headers:{'Authorization': `Bearer ${cookieValue}`}
+        }
+        fetch(`https://localhost:7031/api/patients`,requestOptions)
+        .then(response => response.json())
+        .then((data) => {
+            data.forEach(patient => {
+                const dateObj = new Date(patient.birthdate)
+                patient.birthdate = dateObj
+            })
+            setPatients(data);
+        })
+    }
+
+    useEffect(()=> {
+        getPatients();
+    },[]);
     const notFound = !dataFiltered.length && !!filterName;
 
     return (
@@ -139,7 +160,7 @@ export default function PatientsView() {
                                     <UserTableHead
                                         order={order}
                                         orderBy={orderBy}
-                                        rowCount={users.length}
+                                        rowCount={patients.length}
                                         numSelected={selected.length}
                                         onRequestSort={handleSort}
                                         onSelectAllClick={handleSelectAllClick}
@@ -165,11 +186,11 @@ export default function PatientsView() {
                                                     birthdate={row.birthdate}
                                                     phone={row.phone}
                                                     name={row.name}
-                                                    role={row.role}
-                                                    status={row.status}
-                                                    company={row.company}
+                                                    role='null'
+                                                    status='null'
+                                                    company='null'
                                                     avatarUrl={row.avatarUrl}
-                                                    isVerified={row.isVerified}
+                                                    isVerified='null'
                                                     selected={selected.indexOf(row.name) !== -1}
                                                     handleClick={(event) =>
                                                         handleClick(event, row.name)
@@ -179,7 +200,7 @@ export default function PatientsView() {
 
                                         <TableEmptyRows
                                             height={77}
-                                            emptyRows={emptyRows(page, rowsPerPage, users.length)}
+                                            emptyRows={emptyRows(page, rowsPerPage, patients.length)}
                                         />
 
                                         {notFound && <TableNoData query={filterName} />}
@@ -191,7 +212,7 @@ export default function PatientsView() {
                         <TablePagination
                             page={page}
                             component="div"
-                            count={users.length}
+                            count={patients.length}
                             rowsPerPage={rowsPerPage}
                             onPageChange={handleChangePage}
                             rowsPerPageOptions={[5, 10, 25]}
