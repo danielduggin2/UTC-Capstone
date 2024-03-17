@@ -20,6 +20,7 @@ import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +32,7 @@ export default function LoginView() {
         username: '',
         password: '',
     });
-
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
     const handleChange = (e) => {
@@ -60,9 +61,11 @@ export default function LoginView() {
         fetch('https://localhost:7031/api/getRiteLogin', requestOptions)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
+                console.log(data)
                 Cookies.remove('JwtToken');
                 Cookies.set('JwtToken', data.responseToken, { expires: 7, path: '/' });
+                
+                navigate('/')
             });
     };
 

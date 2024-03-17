@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import Box from '@mui/material/Box';
@@ -21,6 +21,7 @@ import Scrollbar from 'src/components/scrollbar';
 
 import { NAV } from './config-layout';
 import navConfig from './config-navigation';
+import Cookies from 'js-cookie';
 
 // ----------------------------------------------------------------------
 
@@ -35,6 +36,24 @@ export default function Nav({ openNav, onCloseNav }) {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
+
+    const [userData, setUserData] = useState({});
+const getUser = () => {
+        const cookieValue = Cookies.get('JwtToken');
+        const requestOptions = {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${cookieValue}` },
+        };
+        fetch('https://localhost:7031/api/getRiteLogin', requestOptions)
+        .then((response) => response.json())
+        .then((data) => {
+            console.log(data)
+            setUserData(data)
+        });
+    }
+    useEffect(()=>{
+        getUser();
+    },[])
 
     const renderAccount = (
         <Box
@@ -52,7 +71,7 @@ export default function Nav({ openNav, onCloseNav }) {
             <Avatar src={account.photoURL} alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
-                <Typography variant="subtitle2">{account.displayName}</Typography>
+                <Typography variant="subtitle2">{userData.firstName} {userData.lastName}</Typography>
 
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     {account.role}

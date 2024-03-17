@@ -38,7 +38,7 @@ namespace WebApiJobSearch.Controllers
                 var token = Generate(user);
                 var cookieOptions = new CookieOptions
                 {
-                    Expires = DateTime.Now.AddMinutes(1),
+                    Expires = DateTime.Now.AddMinutes(20),
                     //HttpOnly = true,
                     //Secure = true
                 };
@@ -51,12 +51,21 @@ namespace WebApiJobSearch.Controllers
             return NotFound("User not found");
         }
 
+    
+        [HttpGet("loggedIn")]
+        public IActionResult GetUserInfobool()
+        {
+            var user = GetCurrentUser();
+            
+            return Ok(user);
+        }
+
         [Authorize]
         [HttpGet]
         public IActionResult GetUserInfo()
         {
             var user = GetCurrentUser();
-            var data = new { userInfo = user };
+            var data = _context.GetRiteUsers.Find(int.Parse(user.UserId));
             return Ok(data);
         }
 
@@ -83,7 +92,7 @@ namespace WebApiJobSearch.Controllers
                 _config["JwtSettings:Issuer"],
                 _config["JwtSettings:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(1),
+                expires: DateTime.Now.AddMinutes(20),
                 signingCredentials: credentials
                 );
 
