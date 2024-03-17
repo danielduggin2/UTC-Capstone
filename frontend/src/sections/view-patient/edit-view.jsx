@@ -17,61 +17,67 @@ import {
     FormControlLabel,
 } from '@mui/material';
 
-export default function EditPatientView({ setEditState }) {
+export default function EditPatientView({ setEditState ,patientInfo,editState}) {
     const states = [
-        'Alabama',
-        'Alaska',
-        'Arizona',
-        'Arkansas',
-        'California',
-        'Colorado',
-        'Connecticut',
-        'Delaware',
-        'Florida',
-        'Georgia',
-        'Hawaii',
-        'Idaho',
-        'Illinois',
-        'Indiana',
-        'Iowa',
-        'Kansas',
-        'Kentucky',
-        'Louisiana',
-        'Maine',
-        'Maryland',
-        'Massachusetts',
-        'Michigan',
-        'Minnesota',
-        'Mississippi',
-        'Missouri',
-        'Montana',
-        'Nebraska',
-        'Nevada',
-        'New Hampshire',
-        'New Jersey',
-        'New Mexico',
-        'New York',
-        'North Carolina',
-        'North Dakota',
-        'Ohio',
-        'Oklahoma',
-        'Oregon',
-        'Pennsylvania',
-        'Rhode Island',
-        'South Carolina',
-        'South Dakota',
-        'Tennessee',
-        'Texas',
-        'Utah',
-        'Vermont',
-        'Virginia',
-        'Washington',
-        'West Virginia',
-        'Wisconsin',
-        'Wyoming',
+        
+        "AL", // Alabama
+        "AK", // Alaska
+        "AZ", // Arizona
+        "AR", // Arkansas
+        "CA", // California
+        "CO", // Colorado
+        "CT", // Connecticut
+        "DE", // Delaware
+        "FL", // Florida
+        "GA", // Georgia
+        "HI", // Hawaii
+        "ID", // Idaho
+        "IL", // Illinois
+        "IN", // Indiana
+        "IA", // Iowa
+        "KS", // Kansas
+        "KY", // Kentucky
+        "LA", // Louisiana
+        "ME", // Maine
+        "MD", // Maryland
+        "MA", // Massachusetts
+        "MI", // Michigan
+        "MN", // Minnesota
+        "MS", // Mississippi
+        "MO", // Missouri
+        "MT", // Montana
+        "NE", // Nebraska
+        "NV", // Nevada
+        "NH", // New Hampshire
+        "NJ", // New Jersey
+        "NM", // New Mexico
+        "NY", // New York
+        "NC", // North Carolina
+        "ND", // North Dakota
+        "OH", // Ohio
+        "OK", // Oklahoma
+        "OR", // Oregon
+        "PA", // Pennsylvania
+        "RI", // Rhode Island
+        "SC", // South Carolina
+        "SD", // South Dakota
+        "TN", // Tennessee
+        "TX", // Texas
+        "UT", // Utah
+        "VT", // Vermont
+        "VA", // Virginia
+        "WA", // Washington
+        "WV", // West Virginia
+        "WI", // Wisconsin
+        "WY", // Wyoming
+        "OTHER"
     ];
+    let patientInfoExists = Object.keys(patientInfo).length > 0
+    if (patientInfoExists) {
     return (
-        <Box
+        
+
+            <Box
             component="form"
             sx={{
                 '& .MuiTextField-root': { m: 2, width: '27ch' },
@@ -80,6 +86,7 @@ export default function EditPatientView({ setEditState }) {
                 '& .css-4jnixx-MuiStack-root': { p: 0 },
                 '& .css-106nasd-MuiFormLabel-root': { fontSize: '12px' },
                 '& .ss-4jnixx-MuiStack-root': { display: 'inline-flex' },
+                display: editState ? 'block' : 'none'
             }}
             noValidate
             autoComplete="off"
@@ -91,13 +98,13 @@ export default function EditPatientView({ setEditState }) {
                 id="outlined-basic"
                 label="First Name"
                 variant="outlined"
-                defaultValue="Andres"
+                value={patientInfo.firstName}
             />
             <TextField
                 id="outlined-basic"
                 label="Last Name"
                 variant="outlined"
-                defaultValue="Cavalie"
+                value={patientInfo.lastName}
             />
 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -105,7 +112,7 @@ export default function EditPatientView({ setEditState }) {
                     <DatePicker
                         size="small"
                         label="Controlled picker"
-                        value={dayjs('2022-04-17')}
+                        value={dayjs(patientInfo.birthdate?.toLocaleString('en-US', { year: "numeric", month: '2-digit', day: '2-digit'}).replace(/\//g, '-'))}
                     />
                 </DemoContainer>
             </LocalizationProvider>
@@ -113,12 +120,14 @@ export default function EditPatientView({ setEditState }) {
             <FormControl variant="filled" size="small">
                 <FormLabel component="legend">Gender</FormLabel>
                 <RadioGroup
+                value={patientInfo.gender}
                     row
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
                 >
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                    <FormControlLabel value="F" control={<Radio />} label="Female" />
+                    <FormControlLabel value="M" control={<Radio />} label="Male" />
+                    <FormControlLabel value="X" control={<Radio />} label="Other" />
                 </RadioGroup>
             </FormControl>
 
@@ -126,13 +135,13 @@ export default function EditPatientView({ setEditState }) {
                 id="outlined-basic"
                 label="Email"
                 variant="outlined"
-                defaultValue="andrescavalie@gmail.com"
+                value={patientInfo.user?.email}
             />
             <TextField
                 id="outlined-basic"
                 label="Phone"
                 variant="outlined"
-                defaultValue="(931) 409 - 9499"
+                value={patientInfo.phone}
             />
 
             <Typography variant="h6" mb={1}>
@@ -142,19 +151,20 @@ export default function EditPatientView({ setEditState }) {
                 id="outlined-basic"
                 label="Address"
                 variant="outlined"
-                defaultValue="900 Mountain Creek Rd"
+                value={patientInfo.address?.address}
             />
             <TextField
                 id="outlined-basic"
                 label="City"
                 variant="outlined"
-                defaultValue="Chattanooga"
+                value={patientInfo.address?.city}
             />
             <Autocomplete
+                value={patientInfo.state}
                 options={states}
                 renderInput={(params) => <TextField {...params} label="State" />}
             />
-            <TextField id="outlined-basic" label="Zip" variant="outlined" defaultValue="37405" />
+            <TextField id="outlined-basic" label="Zip" variant="outlined" defaultValue={patientInfo.state} />
             <Stack spacing={2} direction="row-reverse">
                 <Button variant="contained">Apply</Button>
                 <Button
@@ -166,5 +176,11 @@ export default function EditPatientView({ setEditState }) {
                 </Button>
             </Stack>
         </Box>
+        
     );
+    } else {
+        return(
+            <p>No Info</p>
+        )
+    }
 }

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTimes, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
@@ -29,6 +29,7 @@ import ReadPatientView from '../read-view';
 import EditPatientView from '../edit-view';
 import AppWebsiteVisits from '../app-website-visits';
 import stockImage from '../../../_mock/office_stock_1.jpg';
+import Cookies from 'js-cookie';
 
 export default function ViewPatientView() {
     const [editState, setEditState] = useState(false);
@@ -36,8 +37,67 @@ export default function ViewPatientView() {
     const [value, setValue] = useState(0);
     const [exercisesOpen, setexercisesOpen] = useState(false);
     const [appointmentNotes, setappointmentNotes] = useState([]);
+    const [appointments,setAppointments] = useState([]);
+    const [patientInfo, setPatientInfo] = useState({})
+    const [selectedAppointment, setSelectedAppointment] = useState({});
+    const currentTime = new Date();
 
-    const handleClickOpen = () => {
+    
+    function getAppointments(){
+        const cookieValue = Cookies.get('JwtToken')
+        const requestOptions = {
+            method: 'GET',
+            headers:{'Authorization': `Bearer ${cookieValue}`}
+        }
+        fetch(`https://localhost:7031/api/appointments`,requestOptions)
+        .then(response => response.json())
+        .then((data) => {
+            data.forEach(appointment => {
+                const dateObj = new Date(appointment.appointmentTime)
+                appointment.appointmentTime = dateObj
+            })
+            console.log(data)
+            setAppointments(data)
+        })
+    }
+
+    function getAppointmentById(id){
+        const cookieValue = Cookies.get('JwtToken')
+        const requestOptions = {
+            method: 'GET',
+            headers:{'Authorization': `Bearer ${cookieValue}`}
+        }
+        fetch(`https://localhost:7031/api/appointments/${id}`,requestOptions)
+        .then(response => response.json())
+        .then((data) => {
+            console.log(data[0])
+            const dateObj = new Date(data[0].appointmentTime)
+            data[0].appointmentTime = dateObj
+            setSelectedAppointment(data[0])
+        })
+    }
+
+    function getPatientInfo(){
+        const cookieValue = Cookies.get('JwtToken')
+        const requestOptions = {
+            method: 'GET',
+            headers:{'Authorization': `Bearer ${cookieValue}`}
+        }
+        fetch(`https://localhost:7031/api/patients/3`,requestOptions)
+        .then(response => response.json())
+        .then((data) => {
+            const dateObj = new Date(data[0].birthdate)
+            data[0].birthdate = dateObj
+            setPatientInfo(data[0])
+            
+        })
+    }
+
+    
+    
+    const handleClickOpen = (id) => {
+        console.log(id)
+        getAppointmentById(id);
         setOpen(true);
     };
     const handleChange = (event, newValue) => {
@@ -50,13 +110,76 @@ export default function ViewPatientView() {
     const fontColor = {
         style: { color: 'rgb(100, 0, 0)' },
     };
+
+    const StatusText = ({time}) => {
+        let futureTime = new Date(time);
+        futureTime.setMinutes(futureTime.getMinutes()+30);
+        let statusText = 'Upcoming'
+        let color = '#fc9d03'
+        let fontColor = '#fff'
+        if (currentTime >= time && currentTime <= futureTime) {
+            statusText = 'In Progress'
+            color = '#7e44db'
+  
+        } else if (currentTime > time) {
+            statusText = 'Completed'
+            color = '#44b0db'
+
+        }
+        return(
+            <Box
+                sx={{ backgroundColor: color, borderRadius: 0.5 }}
+                p="5px"
+            >
+                <Typography
+                    sx={{ fontWeight: 'normal', lineHeight: '.9',color:fontColor }}
+                    variant="subtitle2"
+                >
+                    {statusText}
+                </Typography>
+            </Box>
+        )
+    }
+
+    const AppointmentNotesList = ({notes}) => {
+        if (notes.length > 0) {
+        return(
+            <List
+            sx={{ listStyleType: 'disc', listStylePosition: 'inside' }}
+        >
+            {notes.slice(0, 3).map((note,i) => (
+                <ListItem
+                key={note.id}
+                sx={{
+                    display: 'list-item',
+                    pl: 1,
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis',
+                }}
+            >
+                {note.content}
+            </ListItem>
+            ))}
+        </List>
+        )} else {
+            return(
+                <Stack sx={{height:'100%',mt:'30px'}} alignItems='center' justifyContent='center'>
+                    No Notes Available
+                </Stack>
+            ) 
+        }
+    }
     const [scrolled, setScrolled] = useState(false);
     useEffect(() => {
+        getPatientInfo();
+        getAppointments();
         if (!scrolled) {
             const container = document.getElementById('scrollableContainer');
             if (container) {
                 container.scrollLeft = container.scrollWidth;
                 setScrolled(true);
+                
             }
         }
     }, [scrolled]);
@@ -64,7 +187,7 @@ export default function ViewPatientView() {
         <>
             <Container>
                 <Typography variant="h3" pb={2}>
-                    Andres Cavalie
+                    {patientInfo.firstName} {patientInfo.lastName}
                 </Typography>
                 <Typography variant="h6">Appointments</Typography>
 
@@ -92,8 +215,9 @@ export default function ViewPatientView() {
                     }}
                 >
                     <Stack direction="row" spacing={2} sx={{ pb: '10px' }}>
-                        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11].map((x) => (
-                            <Card sx={{ flexShrink: 0, width: '350px', height: '250px' }}>
+                        {appointments.map((appointment,i) => (
+                            <Card key={appointment.id} sx={{ flexShrink: 0, width: '350px', height: '250px' }}>
+                                <Stack justifyContent='space-between' alignItems="flex" direction="column" sx={{height:'100%'}}>
                                 <CardContent sx={{ pb: 1 }}>
                                     <Stack
                                         px={1}
@@ -102,61 +226,18 @@ export default function ViewPatientView() {
                                         justifyContent="space-between"
                                         alignItems="center"
                                     >
-                                        <Typography variant="h6"> March 6 2024</Typography>
-                                        <Box
-                                            sx={{ backgroundColor: '#ffde73', borderRadius: 0.5 }}
-                                            p="5px"
-                                        >
-                                            <Typography
-                                                sx={{ fontWeight: 'normal', lineHeight: '.9' }}
-                                                variant="subtitle2"
-                                            >
-                                                In Progress
-                                            </Typography>
-                                        </Box>
+                                        <Typography variant="h6">{ appointment.appointmentTime.toLocaleString('en-US', { month: 'short', day: 'numeric' ,year: "2-digit"})} {appointment.appointmentTime.toLocaleString('en-US', {hour:"2-digit",minute:"numeric"}) }</Typography>
+                                        <StatusText time={appointment.appointmentTime}/>
+                                        
                                     </Stack>
-                                    <List
-                                        sx={{ listStyleType: 'disc', listStylePosition: 'inside' }}
-                                    >
-                                        <ListItem
-                                            sx={{
-                                                display: 'list-item',
-                                                pl: 1,
-                                                whiteSpace: 'nowrap',
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis',
-                                            }}
-                                        >
-                                            Range of motion getting better. Swelling is down.
-                                            Swelling is down.
-                                        </ListItem>
-                                        <ListItem
-                                            sx={{
-                                                display: 'list-item',
-                                                pl: 1,
-                                                whiteSpace: 'nowrap',
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis',
-                                            }}
-                                        >
-                                            Swelling is down. Swelling is down. Swelling is down.
-                                        </ListItem>
-                                        <ListItem
-                                            sx={{
-                                                display: 'list-item',
-                                                pl: 1,
-                                                whiteSpace: 'nowrap',
-                                                overflow: 'hidden',
-                                                textOverflow: 'ellipsis',
-                                            }}
-                                        >
-                                            Still need to ice after each session
-                                        </ListItem>
-                                    </List>
+                                   <AppointmentNotesList notes = {appointment.notes}/>
                                 </CardContent>
                                 <CardActions sx={{ px: 2 }}>
-                                    <Button onClick={handleClickOpen}>See More</Button>
+                                    <Stack alignItems='center' sx={{width:'100%'}}>
+                                    <Button onClick={() => handleClickOpen(appointment.id)}>See More</Button>
+                                    </Stack>
                                 </CardActions>
+                                </Stack>
                             </Card>
                         ))}
                     </Stack>
@@ -181,11 +262,11 @@ export default function ViewPatientView() {
                                         )}
                                     </IconButton>
                                 </Stack>
-                                {!editState ? (
-                                    <ReadPatientView setEditState={setEditState} />
-                                ) : (
-                                    <EditPatientView setEditState={setEditState} />
-                                )}
+                                
+                                    <ReadPatientView editState={editState} setEditState={setEditState} patientInfo={patientInfo} />
+                              
+                                    <EditPatientView editState={editState} setEditState={setEditState} patientInfo={patientInfo} />
+                             
                             </Card>
                         </Stack>
                     </Grid>
@@ -205,11 +286,11 @@ export default function ViewPatientView() {
                                                     fontSize: 40,
                                                 }}
                                             >
-                                                AC
+                                                {patientInfo.firstName?.[0]}{patientInfo.lastName?.[0]}
                                             </Avatar>
                                         </Grid>
                                         <Grid xs={12} display="flex" justifyContent="center">
-                                            <Typography variant="h6">Andres Cavalie</Typography>
+                                            <Typography variant="h6">{patientInfo.firstName} {patientInfo.lastName}</Typography>
                                         </Grid>
                                         <Grid
                                             container
@@ -218,7 +299,7 @@ export default function ViewPatientView() {
                                             justifyContent="center"
                                         >
                                             <Grid>
-                                                <Button variant="outlined">Add Patient</Button>
+                                                <Button variant="outlined">New Appointment</Button>
                                             </Grid>
                                             <Grid>
                                                 <Button variant="contained">Send Message</Button>
@@ -304,8 +385,17 @@ export default function ViewPatientView() {
                     }}
                 >
                     <Stack direction="row" spacing={2}>
-                        <Paper sx={{ p: 2, height: '520px' }}>
-                            <Typography variant="h5">Workout for Cavalie from 3-6-24</Typography>
+                        <Paper sx={{ p: 2, minHeight: '520px' ,minWidth:'500px'}}>
+
+
+
+
+
+
+
+                        {Object.keys(selectedAppointment).length === 0 ? '' : 
+                                <>
+                                    <Typography variant="h5">{selectedAppointment.appointmentTime?.toLocaleString('en-US', { year: "numeric", month: '2-digit', day: '2-digit'}).replace(/\//g, '-')}</Typography>
                             <Box mt={2}>
                                 <Typography variant="h6">Notes from session</Typography>
                                 <Grid container spacing={3}>
@@ -318,41 +408,80 @@ export default function ViewPatientView() {
     	  	    			Sample Workout Name
     	  	  			</Typography> */}
                                                 <List>
-                                                    {appointmentNotes.map((index, note) => (
-                                                        <ListItem>{note}</ListItem>
+                                                    {selectedAppointment.notes.map((note, index) => (
+                                                        <ListItem>{note.content}</ListItem>
                                                     ))}
                                                     {/* <ListItem>Range of motion getting better</ListItem>
 							<ListItem>Swelling is down. Still need to ice after each session</ListItem>
 							<ListItem>Quad activation is impressive</ListItem> */}
                                                 </List>
 
-                                                <Button
+                                                
+                                            </CardContent>
+                                            
+                                        </Card>
+                                        <Button
                                                     variant="contained"
                                                     // onClick={() => {}}
                                                 >
                                                     Add Note
                                                 </Button>
-                                            </CardContent>
-                                        </Card>
                                     </Grid>
                                 </Grid>
                             </Box>
 
                             {/* Workouts */}
                             <Box mt={4}>
-                                <Typography variant="h6">Workouts completed</Typography>
+                                <Typography variant="h6">Exercises</Typography>
                                 <Grid container spacing={3}>
                                     <Grid item xs={12}>
                                         <Card>
                                             <CardContent
                                                 style={{ backgroundColor: primary.lighter }}
                                             >
-                                                <Typography>
-                                                    Can be faker data of our exercises from Angel
-                                                </Typography>
-                                                <Grid container spacing={2} sx={{ mt: 2 }}>
-                                                    <Grid item>
-                                                        <Button
+                                                {selectedAppointment.exercises.map((ex,i) => (
+
+<Stack spacing={1} pt={1}>
+<Stack direction="row" justifyContent="space-between" alignItems="center">
+    <Stack direction="row" alignItems="center" spacing={2}>
+        <Box
+            sx={{
+                width: '60px',
+                height: '60px',
+                display: 'inline',
+                boxShadow: '0px 1px 5px 2px lightgrey',
+                borderRadius: '10px',
+                p: 0.7,
+            }}
+        >
+            <Box
+component="img"
+alt={ex.getRiteExerciseId}
+src="/assets/images/exercises/exercise_16.jpg"
+sx={{
+    objectFit: 'cover',
+    display: 'inline',
+}}
+/>
+        </Box>
+        <Typography sx={{ display: 'inline' }} variant="body1">
+            {ex.name}
+        </Typography>
+    </Stack>
+    <Box>
+        <IconButton>
+            <FontAwesomeIcon icon={faCircleMinus} size="xs" />
+        </IconButton>
+    </Box>
+</Stack>
+</Stack>
+                                                )) }
+                                               
+                                            </CardContent>
+                                        </Card>
+                                    </Grid>
+                                </Grid>
+                                <Button
                                                             variant="contained"
                                                             color="primary"
                                                             onClick={() => {
@@ -361,22 +490,30 @@ export default function ViewPatientView() {
                                                         >
                                                             Add
                                                         </Button>
-                                                    </Grid>
-                                                    <Grid item>
-                                                        <Button
+<Button
                                                             variant="contained"
                                                             color="primary"
                                                             onClick={() => {}}
                                                         >
                                                             Filter
                                                         </Button>
-                                                    </Grid>
-                                                </Grid>
-                                            </CardContent>
-                                        </Card>
-                                    </Grid>
-                                </Grid>
                             </Box>
+                                </>
+                            }
+                            
+
+
+
+
+
+
+
+
+
+
+
+
+
                         </Paper>
                         <Paper
                             sx={{

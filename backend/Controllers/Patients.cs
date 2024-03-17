@@ -39,6 +39,37 @@ namespace WebApiJobSearch.Controllers
             return Ok(patientsQ);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Index(int id)
+        {
+            var officeId = 3;
+
+            Type genderType = typeof(Gender);
+            Type stateType = typeof(State);
+
+            Func<Type, object, string> getNameDelegate = Enum.GetName;
+            var patientsQ = _context.GetRitePatients
+                .SelectMany(p => p.Offices, (patient, office) => new { Patient = patient, Office = office })
+                .Where(x => x.Office.Id == officeId && x.Patient.Id == 3)
+                .Select(x => new {
+                    id = x.Patient.Id,
+                    injury = x.Patient.Injury,
+                    birthdate = x.Patient.Birthdate.ToString("yyyy-MM-ddTHH:mm:ss"),
+                    phone = x.Patient.PhoneNumber,
+                    firstName = x.Patient.User.FirstName,
+                    lastName = x.Patient.User.LastName,
+                    user = x.Patient.User,
+                    gender = getNameDelegate(genderType, x.Patient.Gender),
+                    address = x.Patient.Address,
+                    state = getNameDelegate(stateType,x.Patient.Address.State)
+                })
+                .ToList();
+
+
+
+            return Ok(patientsQ);
+        }
+
         [HttpGet("bodyparts")]
         public IActionResult BodyParts()
         {
