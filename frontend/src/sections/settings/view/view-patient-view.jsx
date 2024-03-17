@@ -32,6 +32,7 @@ import ReadPatientView from '../read-view';
 import EditPatientView from '../edit-view';
 import AppWebsiteVisits from '../app-website-visits';
 import stockImage from '../../../_mock/office_stock_1.jpg';
+import Cookies from 'js-cookie';
 
 export default function SettingsView() {
     const [editState, setEditState] = useState(false);
@@ -39,6 +40,8 @@ export default function SettingsView() {
     const [value, setValue] = useState(0);
     const [exercisesOpen, setexercisesOpen] = useState(false);
     const [appointmentNotes, setappointmentNotes] = useState([]);
+    const [officeInfo, setOfficeInfo] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -51,15 +54,24 @@ export default function SettingsView() {
         style: { color: 'rgb(100, 0, 0)' },
     };
     const [scrolled, setScrolled] = useState(false);
+
+    function getOfficeInfo() {
+        const cookieValue = Cookies.get('JwtToken');
+        const requestOptions = {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${cookieValue}` },
+        };
+        fetch(`https://localhost:7031/api/offices`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                setOfficeInfo(data[0]);
+                setIsLoading(false);
+            });
+    }
+
     useEffect(() => {
-        if (!scrolled) {
-            const container = document.getElementById('scrollableContainer');
-            if (container) {
-                container.scrollLeft = container.scrollWidth;
-                setScrolled(true);
-            }
-        }
-    }, [scrolled]);
+        getOfficeInfo();
+    }, []);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
@@ -67,27 +79,44 @@ export default function SettingsView() {
 
     return (
         <Container>
-            <Tabs sx={{}} value={value} onChange={handleChange} aria-label="basic tabs example">
-                <Tab label="Office Settings" />
-                <Tab label="User Settings" />
-            </Tabs>
-            <Divider sx={{ mb: 2 }} />
-            <Grid container spacing={2}>
-                <Grid xs={7}>
-                    <Stack spacing={2}>
-                        <Card sx={{ p: 2 }}>
-                            <EditPatientView setEditState={setEditState} />
-                        </Card>
-                    </Stack>
-                </Grid>
-                <Grid xs={5}>
-                    <Stack spacing={2}>
-                        <Card sx={{ p: 2, pb: 4 }}>
-                            <ReadPatientView setEditState={setEditState} />
-                        </Card>
-                    </Stack>
-                </Grid>
-            </Grid>
+            {isLoading ? (
+                <p>loading</p>
+            ) : (
+                <>
+                    <Tabs
+                        sx={{}}
+                        value={value}
+                        onChange={handleChange}
+                        aria-label="basic tabs example"
+                    >
+                        <Tab label="Office Settings" />
+                        <Tab label="User Settings" />
+                    </Tabs>
+                    <Divider sx={{ mb: 2 }} />
+                    <Grid container spacing={2}>
+                        <Grid xs={7}>
+                            <Stack spacing={2}>
+                                <Card sx={{ p: 2 }}>
+                                    <EditPatientView
+                                        setEditState={setEditState}
+                                        officeInfo={officeInfo}
+                                    />
+                                </Card>
+                            </Stack>
+                        </Grid>
+                        <Grid xs={5}>
+                            <Stack spacing={2}>
+                                <Card sx={{ p: 2, pb: 4 }}>
+                                    <ReadPatientView
+                                        setEditState={setEditState}
+                                        officeInfo={officeInfo}
+                                    />
+                                </Card>
+                            </Stack>
+                        </Grid>
+                    </Grid>
+                </>
+            )}
         </Container>
     );
 }

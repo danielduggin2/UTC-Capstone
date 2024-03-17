@@ -18,59 +18,61 @@ import {
 } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2';
 
-export default function EditPatientView({ setEditState }) {
+export default function EditPatientView({ setEditState, officeInfo }) {
     const states = [
-        'Alabama',
-        'Alaska',
-        'Arizona',
-        'Arkansas',
-        'California',
-        'Colorado',
-        'Connecticut',
-        'Delaware',
-        'Florida',
-        'Georgia',
-        'Hawaii',
-        'Idaho',
-        'Illinois',
-        'Indiana',
-        'Iowa',
-        'Kansas',
-        'Kentucky',
-        'Louisiana',
-        'Maine',
-        'Maryland',
-        'Massachusetts',
-        'Michigan',
-        'Minnesota',
-        'Mississippi',
-        'Missouri',
-        'Montana',
-        'Nebraska',
-        'Nevada',
-        'New Hampshire',
-        'New Jersey',
-        'New Mexico',
-        'New York',
-        'North Carolina',
-        'North Dakota',
-        'Ohio',
-        'Oklahoma',
-        'Oregon',
-        'Pennsylvania',
-        'Rhode Island',
-        'South Carolina',
-        'South Dakota',
-        'Tennessee',
-        'Texas',
-        'Utah',
-        'Vermont',
-        'Virginia',
-        'Washington',
-        'West Virginia',
-        'Wisconsin',
-        'Wyoming',
+        'AL', // Alabama
+        'AK', // Alaska
+        'AZ', // Arizona
+        'AR', // Arkansas
+        'CA', // California
+        'CO', // Colorado
+        'CT', // Connecticut
+        'DE', // Delaware
+        'FL', // Florida
+        'GA', // Georgia
+        'HI', // Hawaii
+        'ID', // Idaho
+        'IL', // Illinois
+        'IN', // Indiana
+        'IA', // Iowa
+        'KS', // Kansas
+        'KY', // Kentucky
+        'LA', // Louisiana
+        'ME', // Maine
+        'MD', // Maryland
+        'MA', // Massachusetts
+        'MI', // Michigan
+        'MN', // Minnesota
+        'MS', // Mississippi
+        'MO', // Missouri
+        'MT', // Montana
+        'NE', // Nebraska
+        'NV', // Nevada
+        'NH', // New Hampshire
+        'NJ', // New Jersey
+        'NM', // New Mexico
+        'NY', // New York
+        'NC', // North Carolina
+        'ND', // North Dakota
+        'OH', // Ohio
+        'OK', // Oklahoma
+        'OR', // Oregon
+        'PA', // Pennsylvania
+        'RI', // Rhode Island
+        'SC', // South Carolina
+        'SD', // South Dakota
+        'TN', // Tennessee
+        'TX', // Texas
+        'UT', // Utah
+        'VT', // Vermont
+        'VA', // Virginia
+        'WA', // Washington
+        'WV', // West Virginia
+        'WI', // Wisconsin
+        'WY', // Wyoming
+        'OTHER',
     ];
+    console.log(officeInfo);
     return (
         // <Grid container
         //     component="form"
@@ -87,7 +89,7 @@ export default function EditPatientView({ setEditState }) {
                 label="Account Name"
                 margin="normal"
                 variant="outlined"
-                defaultValue="UTC Therapy"
+                value={officeInfo.officeName}
             />
             <TextField
                 fullWidth
@@ -95,14 +97,7 @@ export default function EditPatientView({ setEditState }) {
                 margin="normal"
                 label="Email"
                 variant="outlined"
-                defaultValue="andrescavalie@gmail.com"
-            />
-            <TextField
-                id="outlined-basic"
-                margin="normal"
-                label="Office Phone #"
-                variant="outlined"
-                defaultValue="(931) 409 - 9499"
+                value={officeInfo.officeEmail}
             />
 
             <Typography variant="h6" mb={1}>
@@ -114,7 +109,7 @@ export default function EditPatientView({ setEditState }) {
                 label="Address"
                 margin="normal"
                 variant="outlined"
-                defaultValue="900 Mountain Creek Rd"
+                value={officeInfo.address?.address}
             />
             <Stack direction="row" spacing={2} mt={2} mb={1}>
                 <TextField
@@ -122,12 +117,13 @@ export default function EditPatientView({ setEditState }) {
                     label="City"
                     margin="normal"
                     variant="outlined"
-                    defaultValue="Chattanooga"
+                    value={officeInfo.address?.city}
                 />
                 <Autocomplete
                     sx={{ display: 'inline-flex', width: '250px' }}
                     options={states}
                     renderInput={(params) => <TextField {...params} label="State" />}
+                    value={officeInfo.address?.state}
                 />
                 <TextField
                     id="outlined-basic"
@@ -135,6 +131,7 @@ export default function EditPatientView({ setEditState }) {
                     label="Zip"
                     variant="outlined"
                     defaultValue="37405"
+                    value={officeInfo.address?.zipCode}
                 />
             </Stack>
 
