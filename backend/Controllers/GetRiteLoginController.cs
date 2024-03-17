@@ -65,7 +65,7 @@ namespace WebApiJobSearch.Controllers
             }).Where(u => u.Id == user.Id).FirstOrDefault();
             var claims = new[]
             {
-                new Claim(ClaimTypes.Sid, userInfo.Id.ToString()),
+                new Claim(CustomClaimTypes.UserId, userInfo.Id.ToString()),
                 new Claim(CustomClaimTypes.OfficeId, userInfo.OfficeId.ToString()),
                 new Claim(CustomClaimTypes.PhysicianId, userInfo.PhysicianId.ToString()),
                 new Claim(CustomClaimTypes.PatientId, userInfo.PatientId.ToString())

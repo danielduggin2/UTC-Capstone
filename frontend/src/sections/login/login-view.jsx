@@ -44,7 +44,6 @@ export default function LoginView() {
             method: 'GET',
             headers: { Authorization: `Bearer ${cookieValue}` },
         };
-        console.log(requestOptions);
         fetch('https://localhost:7031/api/user/admins', requestOptions)
             .then((response) => response.json())
             .then((data) => {
@@ -58,7 +57,7 @@ export default function LoginView() {
             credentials: 'same-origin',
             body: JSON.stringify({ ...formData, id: 0 }),
         };
-        fetch('https://localhost:7031/api/login', requestOptions)
+        fetch('https://localhost:7031/api/getRiteLogin', requestOptions)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
