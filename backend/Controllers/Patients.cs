@@ -50,7 +50,7 @@ namespace WebApiJobSearch.Controllers
             Func<Type, object, string> getNameDelegate = Enum.GetName;
             var patientsQ = _context.GetRitePatients
                 .SelectMany(p => p.Offices, (patient, office) => new { Patient = patient, Office = office })
-                .Where(x => x.Office.Id == officeId && x.Patient.Id == 3)
+                .Where(x => x.Office.Id == officeId && x.Patient.Id == id)
                 .Select(x => new {
                     id = x.Patient.Id,
                     injury = x.Patient.Injury,

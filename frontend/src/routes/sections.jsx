@@ -36,7 +36,7 @@ export default function Router() {
                 { path: 'exercises', element: <ExercisesPage /> },
                 { path: 'purchase', element: <PurchasePage /> },
                 { path: 'user', element: <UserPage /> },
-                { path: 'view-patient', element: <ViewPatientPage /> },
+                { path: 'patients/:id', element: <ViewPatientPage /> },
                 { path: 'new-appointment', element: <NewAppointmentPage /> },
                 { path: 'settings', element: <SettingsPage /> },
             ],

@@ -17,24 +17,15 @@ export default function AppView() {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     };
-    fetch('https://localhost:7031/api/todoitems', requestOptions)
+    
+    const [calendarEvents, setCalendarEvents] = useState([]);
+    const [currentTasks, setCurrentTasks] = useState([]);
+
+    fetch('https://localhost:7031/api/appointments/office', requestOptions)
         .then((response) => response.json())
         .then((data) => {
-            console.log(data);
+            setCalendarEvents(data)
         });
-    const [calendarEvents, setCalendarEvents] = useState([
-        {
-            title: 'Appointment with John Doe',
-            start: new Date(2024, 3, 1),
-            end: new Date(2024, 3, 1),
-        },
-        {
-            title: 'Appointment with Jane Doe',
-            start: new Date(2024, 3, 2),
-            end: new Date(2024, 3, 2),
-        },
-    ]);
-    const [currentTasks, setCurrentTasks] = useState([]);
     // const fetchData = async () => {
     //   try {
     //     // Get a reference to the Firestore database
@@ -94,6 +85,17 @@ export default function AppView() {
             </Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={12} lg={12}>
+                {/* const [selected, setSelected] = useState();
+
+const handleSelected = (event) => {
+  setSelected(event);
+  console.info('[handleSelected - event]', event);
+};
+<Calendar
+  selected={selected}
+  onSelectEvent={handleSelected}
+  {...otherProps}
+/> */}
                     <AppCalendar
                         events={calendarEvents}
                         onAddEvent={handleAddEvent}

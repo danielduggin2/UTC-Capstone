@@ -17,10 +17,8 @@ namespace WebApiJobSearch.Controllers
             _context = context;
         }
 
-        [HttpGet]
-        public IActionResult Index(
-            [FromQuery] string? name,
-            [FromQuery] string? bodypart)
+        [HttpGet("patient/{id}")]
+        public IActionResult Patient(int id)
         {
             var options = new JsonSerializerOptions
             {
@@ -28,7 +26,6 @@ namespace WebApiJobSearch.Controllers
                 // Other options as needed
             };
             var officeId = 3;
-            var patientId = 3;
 
             var appointmentsQ = _context.GetRiteAppointments.Select(a => new {
                 a.Id,
@@ -39,7 +36,7 @@ namespace WebApiJobSearch.Controllers
                 a.PatientId,
                 a.Exercises,
                 a.Notes
-            }).Where(a => a.OfficeId == officeId && a.PatientId == patientId)
+            }).Where(a => a.OfficeId == officeId && a.PatientId == id)
             .OrderBy(a => a.AppointmentTime);
 
             //var patientsQ = _context.GetRitePatients
@@ -95,6 +92,39 @@ namespace WebApiJobSearch.Controllers
                     a.Notes
                 });
       
+
+            return Ok(appointmentQ);
+        }
+
+        [HttpGet("office")]
+        public IActionResult OfficeAppointments()
+        {
+
+            var officeId = 3;
+            var appointmentQ = _context.GetRiteAppointments
+                .Where(a => a.OfficeId == officeId)
+                .Select(a => new
+                {
+                    a.Id,
+                    start = a.AppointmentTime,
+                    end = a.AppointmentTime,
+                    title = a.Patient.User.FirstName + " " + a.Patient.User.LastName,
+                });
+
+            var appointmentQ2 = _context.GetRiteAppointments
+               .Where(a => a.OfficeId == officeId)
+               .Select(a => new
+               {
+                   a.Id,
+                   a.AppointmentTime,
+                   a.Reason,
+                   a.Injury,
+                   a.OfficeId,
+                   a.PatientId,
+                   Patient = a.Patient.User.FirstName,
+                   a.Notes
+               });
+
 
             return Ok(appointmentQ);
         }

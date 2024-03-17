@@ -37,11 +37,6 @@ const navConfig = [
         path: '/purchase',
         icon: icon('ic_cart'),
     },
-    {
-        title: 'View Patient',
-        path: '/view-patient',
-        icon: icon('ic_user'),
-    },
     // below are original items
     // {
     //     title: 'dashboardOG',

@@ -30,6 +30,7 @@ import EditPatientView from '../edit-view';
 import AppWebsiteVisits from '../app-website-visits';
 import stockImage from '../../../_mock/office_stock_1.jpg';
 import Cookies from 'js-cookie';
+import { Link, useParams } from 'react-router-dom';
 
 export default function ViewPatientView() {
     const [editState, setEditState] = useState(false);
@@ -41,7 +42,7 @@ export default function ViewPatientView() {
     const [patientInfo, setPatientInfo] = useState({})
     const [selectedAppointment, setSelectedAppointment] = useState({});
     const currentTime = new Date();
-
+    const { id } = useParams();
     
     function getAppointments(){
         const cookieValue = Cookies.get('JwtToken')
@@ -49,7 +50,7 @@ export default function ViewPatientView() {
             method: 'GET',
             headers:{'Authorization': `Bearer ${cookieValue}`}
         }
-        fetch(`https://localhost:7031/api/appointments`,requestOptions)
+        fetch(`https://localhost:7031/api/appointments/patient/${id}`,requestOptions)
         .then(response => response.json())
         .then((data) => {
             data.forEach(appointment => {
@@ -83,7 +84,7 @@ export default function ViewPatientView() {
             method: 'GET',
             headers:{'Authorization': `Bearer ${cookieValue}`}
         }
-        fetch(`https://localhost:7031/api/patients/3`,requestOptions)
+        fetch(`https://localhost:7031/api/patients/${id}`,requestOptions)
         .then(response => response.json())
         .then((data) => {
             const dateObj = new Date(data[0].birthdate)
@@ -186,6 +187,7 @@ export default function ViewPatientView() {
     return (
         <>
             <Container>
+                <Link to={`/patients`}>Back</Link>
                 <Typography variant="h3" pb={2}>
                     {patientInfo.firstName} {patientInfo.lastName}
                 </Typography>

@@ -182,6 +182,7 @@ export default function PatientsView() {
                                             .map((row) => (
                                                 <UserTableRow
                                                     key={row.id}
+                                                    id={row.id}
                                                     injury={row.injury}
                                                     birthdate={row.birthdate}
                                                     phone={row.phone}
