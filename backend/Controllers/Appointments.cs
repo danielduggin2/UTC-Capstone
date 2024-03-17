@@ -68,17 +68,7 @@ namespace WebApiJobSearch.Controllers
             var officeId = 3;
             var patientId = 3;
 
-            var appointmentsQ = _context.GetRiteAppointments.Select(a => new {
-                a.Id,
-                a.AppointmentTime,
-                a.Reason,
-                a.Injury,
-                a.OfficeId,
-                a.PatientId,
-                a.Exercises,
-                a.Notes
-            }).Where(a => a.OfficeId == officeId && a.PatientId == patientId && a.Id == id)
-            .OrderBy(a => a.AppointmentTime);
+           
 
             var appointmentQ = _context.GetRiteAppointments
                 .Where(a => a.OfficeId == officeId && a.Id == id)
@@ -90,6 +80,8 @@ namespace WebApiJobSearch.Controllers
                     a.Injury,
                     a.OfficeId,
                     a.PatientId,
+                    first = a.Patient.User.FirstName,
+                    last = a.Patient.User.LastName,
                     Exercises = a.Exercises.Select(eS => new { eS.Sets,eS.GetRiteExercise.Name }).ToList(),
                     a.Notes
                 });

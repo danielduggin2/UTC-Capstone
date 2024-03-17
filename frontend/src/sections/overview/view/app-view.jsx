@@ -4,18 +4,28 @@
 import React, { useEffect, useState } from 'react';
 // import Iconify from 'src/components/iconify';
 import { useNavigate } from 'react-router-dom';
-
+import MiniExerciseView from 'src/sections/workouts/mini-exercise-view';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
-
+import { primary } from 'src/theme/palette';
 import AnalyticsTasks from '../app-tasks';
 import AppCalendar from '../app-calendar';
 import Cookies from 'js-cookie';
+import { Box, Button, Card, CardContent, IconButton, List, ListItem, Modal, Paper, Stack } from '@mui/material';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
 export default function AppView() {
     const [calendarEvents, setCalendarEvents] = useState([]);
     const [currentTasks, setCurrentTasks] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [exercisesOpen, setexercisesOpen] = useState(false);
+    const [selectedAppointment, setSelectedAppointment] = useState({});
+
+    const handleClose = () => {
+        setOpen(false);
+    };
 
     const logInAttempt = () => {
         const cookieValue = Cookies.get('JwtToken');
@@ -31,24 +41,6 @@ export default function AppView() {
             });
     };
 
-    // const fetchData = async () => {
-    //   try {
-    //     // Get a reference to the Firestore database
-
-    //     // Reference to a Firestore collection (replace "yourCollection" with your collection name)
-    // 	// const querySnapshot = await getDocs(collection(db, "DashboardTasks"));
-    // 	// const temporaryArr = [];
-    // 	// querySnapshot.forEach((doc) => {
-    // 	// temporaryArr.push({...doc.data(),id:doc.id});
-    // 	// });
-    //   //   // Set the data state with the fetched data
-    //   //   setCurrentTasks(temporaryArr);
-    //   // console.log("set")
-    //   // } catch (error) {
-    //   //   console.error('Error fetching data:', error);
-    //   // }
-    // };
-
     useEffect(() => {
         logInAttempt();
     }, []);
@@ -57,6 +49,12 @@ export default function AppView() {
         setCalendarEvents([...calendarEvents, event]);
     };
 
+    const handleSelectEvent = (e) => {
+        console.log(e)
+        getAppointmentById(e.id);
+        setOpen(true);
+
+    }
     const handleUpdateEvent = (updatedEvent) => {
         const updatedEvents = calendarEvents.map((event) =>
             event.title === updatedEvent.title ? updatedEvent : event
@@ -72,6 +70,21 @@ export default function AppView() {
     const handleNewAppointment = () => {
         navigate('/new-appointment');
     };
+    function getAppointmentById(id) {
+        const cookieValue = Cookies.get('JwtToken');
+        const requestOptions = {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${cookieValue}` },
+        };
+        fetch(`https://localhost:7031/api/appointments/${id}`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data[0]);
+                const dateObj = new Date(data[0].appointmentTime);
+                data[0].appointmentTime = dateObj;
+                setSelectedAppointment(data[0]);
+            });
+    }
     const [inputValue1, setInputValue1] = useState('');
     const [inputValue2, setInputValue2] = useState('');
 
@@ -104,6 +117,7 @@ const handleSelected = (event) => {
                     <AppCalendar
                         events={calendarEvents}
                         onAddEvent={handleAddEvent}
+                        onSelectEventCallback={handleSelectEvent}
                         onUpdateEvent={handleUpdateEvent}
                         onDeleteEvent={handleDeleteEvent}
                     />
@@ -335,6 +349,177 @@ const handleSelected = (event) => {
           /> */}
                 </Grid>
             </Grid>
+            <Modal open={open} onClose={handleClose}>
+                <Box
+                    sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+
+                        transform: 'translate(-50%, -50%)',
+                    }}
+                >
+                    <Stack direction="row" spacing={2}>
+                        <Paper sx={{ p: 2, minHeight: '520px', minWidth: '500px' }}>
+                            {Object.keys(selectedAppointment).length === 0 ? (
+                                ''
+                            ) : (
+                                <>
+                                    <Typography variant="h5">
+                                        {selectedAppointment.appointmentTime
+                                            ?.toLocaleString('en-US', {
+                                                year: 'numeric',
+                                                month: '2-digit',
+                                                day: '2-digit',
+                                            })
+                                            } {selectedAppointment.first} {selectedAppointment.last}
+                                    </Typography>
+                                    <Box mt={2}>
+                                        <Typography variant="h6">Notes from session</Typography>
+                                        <Grid container spacing={3}>
+                                            <Grid item xs={12}>
+                                                <Card>
+                                                    <CardContent
+                                                        style={{ backgroundColor: primary.lighter }}
+                                                    >
+                                                        {/* <Typography variant="body2" color="text.secondary">
+    	  	    			Sample Workout Name
+    	  	  			</Typography> */}
+                                                        <List>
+                                                            {selectedAppointment.notes.map(
+                                                                (note, index) => (
+                                                                    <ListItem>
+                                                                        {note.content}
+                                                                    </ListItem>
+                                                                )
+                                                            )}
+                                                            {/* <ListItem>Range of motion getting better</ListItem>
+							<ListItem>Swelling is down. Still need to ice after each session</ListItem>
+							<ListItem>Quad activation is impressive</ListItem> */}
+                                                        </List>
+                                                    </CardContent>
+                                                </Card>
+                                                <Button
+                                                    variant="contained"
+                                                    // onClick={() => {}}
+                                                >
+                                                    Add Note
+                                                </Button>
+                                            </Grid>
+                                        </Grid>
+                                    </Box>
+
+                                    {/* Workouts */}
+                                    <Box mt={4}>
+                                        <Typography variant="h6">Exercises</Typography>
+                                        <Grid container spacing={3}>
+                                            <Grid item xs={12}>
+                                                <Card>
+                                                    <CardContent
+                                                        style={{ backgroundColor: primary.lighter }}
+                                                    >
+                                                        {selectedAppointment.exercises.map(
+                                                            (ex, i) => (
+                                                                <Stack spacing={1} pt={1}>
+                                                                    <Stack
+                                                                        direction="row"
+                                                                        justifyContent="space-between"
+                                                                        alignItems="center"
+                                                                    >
+                                                                        <Stack
+                                                                            direction="row"
+                                                                            alignItems="center"
+                                                                            spacing={2}
+                                                                        >
+                                                                            <Box
+                                                                                sx={{
+                                                                                    width: '60px',
+                                                                                    height: '60px',
+                                                                                    display:
+                                                                                        'inline',
+                                                                                    boxShadow:
+                                                                                        '0px 1px 5px 2px lightgrey',
+                                                                                    borderRadius:
+                                                                                        '10px',
+                                                                                    p: 0.7,
+                                                                                }}
+                                                                            >
+                                                                                <Box
+                                                                                    component="img"
+                                                                                    alt={
+                                                                                        ex.getRiteExerciseId
+                                                                                    }
+                                                                                    src="/assets/images/exercises/exercise_16.jpg"
+                                                                                    sx={{
+                                                                                        objectFit:
+                                                                                            'cover',
+                                                                                        display:
+                                                                                            'inline',
+                                                                                    }}
+                                                                                />
+                                                                            </Box>
+                                                                            <Typography
+                                                                                sx={{
+                                                                                    display:
+                                                                                        'inline',
+                                                                                }}
+                                                                                variant="body1"
+                                                                            >
+                                                                                {ex.name}
+                                                                            </Typography>
+                                                                        </Stack>
+                                                                        <Box>
+                                                                            <IconButton>
+                                                                                <FontAwesomeIcon
+                                                                                    icon={
+                                                                                        faCircleMinus
+                                                                                    }
+                                                                                    size="xs"
+                                                                                />
+                                                                            </IconButton>
+                                                                        </Box>
+                                                                    </Stack>
+                                                                </Stack>
+                                                            )
+                                                        )}
+                                                    </CardContent>
+                                                </Card>
+                                            </Grid>
+                                        </Grid>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={() => {
+                                                setexercisesOpen(!exercisesOpen);
+                                            }}
+                                        >
+                                            Add
+                                        </Button>
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={() => {}}
+                                        >
+                                            Filter
+                                        </Button>
+                                    </Box>
+                                </>
+                            )}
+                        </Paper>
+                        <Paper
+                            sx={{
+                                p: 2,
+                                height: '475px',
+                                display: exercisesOpen ? 'block' : 'none',
+                            }}
+                        >
+                            <Stack sx={{ width: 350 }}>
+                                <MiniExerciseView sx={{ minHeight: 0 }} />
+                            </Stack>
+                        </Paper>
+                    </Stack>
+                </Box>
+            </Modal>
         </Container>
     );
 }
