@@ -45,7 +45,6 @@ namespace WebApiJobSearch.Controllers
                     pS.Id,
                     pS.UserId,
                     name = pS.User.FirstName + " " + pS.User.LastName,
-                    pS.User.Username,
                     pS.User.Email
                     })
             }).Where(a => a.Id == officeId);

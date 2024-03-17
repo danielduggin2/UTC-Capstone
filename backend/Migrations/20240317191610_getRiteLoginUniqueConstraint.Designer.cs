@@ -12,8 +12,8 @@ using WebApiJobSearch.Models;
 namespace WebApiJobSearch.Migrations
 {
     [DbContext(typeof(TodoContext))]
-    [Migration("20240316164517_getritebaseAzure")]
-    partial class getritebaseAzure
+    [Migration("20240317191610_getRiteLoginUniqueConstraint")]
+    partial class getRiteLoginUniqueConstraint
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -215,6 +215,38 @@ namespace WebApiJobSearch.Migrations
                     b.ToTable("GetRiteExercises");
                 });
 
+            modelBuilder.Entity("WebApiJobSearch.Models.GetRiteLogin", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("GetRiteLogin");
+                });
+
             modelBuilder.Entity("WebApiJobSearch.Models.GetRiteOffice", b =>
                 {
                     b.Property<int>("Id")
@@ -347,15 +379,9 @@ namespace WebApiJobSearch.Migrations
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Username")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("GetRiteUsers");
+                    b.ToTable("GetRiteUser");
                 });
 
             modelBuilder.Entity("WebApiJobSearch.Models.GetRiteWorkout", b =>
@@ -528,7 +554,7 @@ namespace WebApiJobSearch.Migrations
             modelBuilder.Entity("WebApiJobSearch.Models.GetRiteAppointmentExercise", b =>
                 {
                     b.HasOne("WebApiJobSearch.Models.GetRiteAppointment", "GetRiteAppointment")
-                        .WithMany()
+                        .WithMany("Exercises")
                         .HasForeignKey("GetRiteAppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -545,7 +571,7 @@ namespace WebApiJobSearch.Migrations
             modelBuilder.Entity("WebApiJobSearch.Models.GetRiteAppointmentNote", b =>
                 {
                     b.HasOne("WebApiJobSearch.Models.GetRiteAppointment", "GetRiteAppointment")
-                        .WithMany()
+                        .WithMany("Notes")
                         .HasForeignKey("GetRiteAppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -560,6 +586,17 @@ namespace WebApiJobSearch.Migrations
                         .HasForeignKey("OfficeId");
 
                     b.Navigation("Office");
+                });
+
+            modelBuilder.Entity("WebApiJobSearch.Models.GetRiteLogin", b =>
+                {
+                    b.HasOne("WebApiJobSearch.Models.GetRiteUser", "User")
+                        .WithOne("GetRiteLogin")
+                        .HasForeignKey("WebApiJobSearch.Models.GetRiteLogin", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("WebApiJobSearch.Models.GetRiteOffice", b =>
@@ -627,6 +664,13 @@ namespace WebApiJobSearch.Migrations
                     b.Navigation("Office");
                 });
 
+            modelBuilder.Entity("WebApiJobSearch.Models.GetRiteAppointment", b =>
+                {
+                    b.Navigation("Exercises");
+
+                    b.Navigation("Notes");
+                });
+
             modelBuilder.Entity("WebApiJobSearch.Models.GetRiteOffice", b =>
                 {
                     b.Navigation("Appointments");
@@ -650,6 +694,8 @@ namespace WebApiJobSearch.Migrations
 
             modelBuilder.Entity("WebApiJobSearch.Models.GetRiteUser", b =>
                 {
+                    b.Navigation("GetRiteLogin");
+
                     b.Navigation("GetRitePatient");
 
                     b.Navigation("GetRitePhysician");

@@ -18,6 +18,7 @@ namespace WebApiJobSearch.Models
         public DbSet<GetRiteAddress> GetRiteAddresses { get; set; } = null!;
         public DbSet<GetRiteOffice> GetRiteOffices { get; set; } = null!;
         public DbSet<GetRiteUser> GetRiteUsers { get; set; } = null!;
+        public DbSet<GetRiteUser> GetRiteLogin { get; set; } = null!;
         public DbSet<GetRitePatient> GetRitePatients { get; set; } = null!;
         public DbSet<GetRitePhysician> GetRitePhysicians { get; set; } = null!;
         public DbSet<GetRiteTask> GetRiteTasks { get; set; } = null!;
@@ -49,6 +50,10 @@ namespace WebApiJobSearch.Models
                     j.HasKey(ap => new { ap.GetRitePhysicianId, ap.GetRiteAppointmentId });
                 }
                 );
+
+            modelBuilder.Entity<GetRiteLogin>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
         }
     }
 }
