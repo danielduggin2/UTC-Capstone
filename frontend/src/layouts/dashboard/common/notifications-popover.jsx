@@ -22,6 +22,7 @@ import { fToNow } from 'src/utils/format-time';
 
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
+import { useNavigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
@@ -44,10 +45,13 @@ export default function NotificationsPopover() {
     const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
 
     const [open, setOpen] = useState(null);
-
+    const navigate = useNavigate();
     const handleOpen = (event) => {
         setOpen(event.currentTarget);
     };
+    const clickInbox = () => {
+        navigate('/inbox')
+    }
 
     const handleClose = () => {
         setOpen(null);
@@ -124,7 +128,7 @@ export default function NotificationsPopover() {
                 <Divider sx={{ borderStyle: 'dashed' }} />
 
                 <Box sx={{ p: 1 }}>
-                    <Button fullWidth disableRipple>
+                    <Button fullWidth disableRipple onClick={clickInbox}>
                         View All
                     </Button>
                 </Box>
