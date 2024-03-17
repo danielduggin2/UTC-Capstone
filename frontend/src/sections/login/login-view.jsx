@@ -39,18 +39,7 @@ export default function LoginView() {
         const { name, value } = e.target;
         setFormData({ ...formData, [name]: value });
     };
-    const logInAttempt = () => {
-        const cookieValue = Cookies.get('JwtToken');
-        const requestOptions = {
-            method: 'GET',
-            headers: { Authorization: `Bearer ${cookieValue}` },
-        };
-        fetch('https://localhost:7031/api/getRiteLogin', requestOptions)
-            .then((response) => response.json())
-            .then((data) => {
-                console.log(data);
-            });
-    };
+    
     const handleClick = () => {
         const requestOptions = {
             method: 'POST',
@@ -118,7 +107,6 @@ export default function LoginView() {
             >
                 Login
             </LoadingButton>
-            <Button onClick={logInAttempt}>Am I logged in? {loggedIn ? 'Yes' : 'No'}</Button>
         </>
     );
 
