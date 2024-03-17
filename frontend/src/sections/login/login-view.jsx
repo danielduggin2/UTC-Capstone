@@ -61,11 +61,11 @@ export default function LoginView() {
         fetch('https://localhost:7031/api/getRiteLogin', requestOptions)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data)
+                console.log(data);
                 Cookies.remove('JwtToken');
                 Cookies.set('JwtToken', data.responseToken, { expires: 7, path: '/' });
-                
-                navigate('/')
+
+                navigate('/');
             });
     };
 

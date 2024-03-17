@@ -22,25 +22,25 @@ export default function DashboardLayout({ children }) {
             headers: { Authorization: `Bearer ${cookieValue}` },
         };
         fetch('https://localhost:7031/api/getRiteLogin/loggedIn', requestOptions)
-        .then(response => {
-            if (!response.ok) {
-                navigate('/login')
-            }
+            .then((response) => {
+                if (!response.ok) {
+                    navigate('/login');
+                }
 
-            if (response.status === 401) {
-                navigate('/login')
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.userId === null){
-                navigate('/login')
-            }
-        })
-    }
-    useEffect(()=>{
+                if (response.status === 401) {
+                    navigate('/login');
+                }
+                return response.json();
+            })
+            .then((data) => {
+                if (data.userId === null) {
+                    navigate('/login');
+                }
+            });
+    };
+    useEffect(() => {
         getUser();
-    },[])
+    }, []);
     return (
         <>
             <Header onOpenNav={() => setOpenNav(true)} />

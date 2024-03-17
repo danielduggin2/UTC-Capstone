@@ -14,7 +14,6 @@ import AppCalendar from '../app-calendar';
 import Cookies from 'js-cookie';
 
 export default function AppView() {
-
     const [calendarEvents, setCalendarEvents] = useState([]);
     const [currentTasks, setCurrentTasks] = useState([]);
 
@@ -25,13 +24,13 @@ export default function AppView() {
             headers: { Authorization: `Bearer ${cookieValue}` },
         };
         fetch('https://localhost:7031/api/appointments/office', requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data)
-            setCalendarEvents(data);
-        });
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setCalendarEvents(data);
+            });
     };
-    
+
     // const fetchData = async () => {
     //   try {
     //     // Get a reference to the Firestore database
@@ -50,9 +49,9 @@ export default function AppView() {
     //   // }
     // };
 
-    useEffect(()=>{
-        logInAttempt()
-    }, [])
+    useEffect(() => {
+        logInAttempt();
+    }, []);
 
     const handleAddEvent = (event) => {
         setCalendarEvents([...calendarEvents, event]);

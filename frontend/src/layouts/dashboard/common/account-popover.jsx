@@ -27,12 +27,12 @@ const MENU_OPTIONS = [
     {
         label: 'Settings',
         icon: 'eva:settings-2-fill',
-        link: '/settings'
+        link: '/settings',
     },
     {
         label: 'Log Out',
         icon: 'eva:settings-2-fill',
-        link: '/login'
+        link: '/login',
     },
 ];
 
@@ -45,14 +45,13 @@ export default function AccountPopover() {
         setOpen(event.currentTarget);
     };
     const navigate = useNavigate();
-  
+
     const menuClick = (link) => {
         if (link == '/login') {
             Cookies.remove('JwtToken');
-        } 
-        navigate(link)
-    
-    }
+        }
+        navigate(link);
+    };
 
     const handleClose = () => {
         setOpen(null);
@@ -64,15 +63,15 @@ export default function AccountPopover() {
             headers: { Authorization: `Bearer ${cookieValue}` },
         };
         fetch('https://localhost:7031/api/getRiteLogin', requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data)
-            setUserData(data)
-        });
-    }
-    useEffect(()=>{
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setUserData(data);
+            });
+    };
+    useEffect(() => {
         getUser();
-    },[])
+    }, []);
     return (
         <>
             <IconButton
@@ -117,7 +116,7 @@ export default function AccountPopover() {
             >
                 <Box sx={{ my: 1.5, px: 2 }}>
                     <Typography variant="subtitle2" noWrap>
-                    {userData.firstName} {userData.lastName}
+                        {userData.firstName} {userData.lastName}
                     </Typography>
                     <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
                         {userData.email}

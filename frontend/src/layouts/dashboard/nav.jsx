@@ -38,22 +38,22 @@ export default function Nav({ openNav, onCloseNav }) {
     }, [pathname]);
 
     const [userData, setUserData] = useState({});
-const getUser = () => {
+    const getUser = () => {
         const cookieValue = Cookies.get('JwtToken');
         const requestOptions = {
             method: 'GET',
             headers: { Authorization: `Bearer ${cookieValue}` },
         };
         fetch('https://localhost:7031/api/getRiteLogin', requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data)
-            setUserData(data)
-        });
-    }
-    useEffect(()=>{
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                setUserData(data);
+            });
+    };
+    useEffect(() => {
         getUser();
-    },[])
+    }, []);
 
     const renderAccount = (
         <Box
@@ -71,7 +71,9 @@ const getUser = () => {
             <Avatar src={account.photoURL} alt="photoURL" />
 
             <Box sx={{ ml: 2 }}>
-                <Typography variant="subtitle2">{userData.firstName} {userData.lastName}</Typography>
+                <Typography variant="subtitle2">
+                    {userData.firstName} {userData.lastName}
+                </Typography>
 
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
                     {account.role}
