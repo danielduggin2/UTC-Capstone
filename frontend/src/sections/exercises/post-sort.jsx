@@ -8,15 +8,13 @@ import TextField from '@mui/material/TextField';
 PostSort.propTypes = {
     options: PropTypes.array,
     onSort: PropTypes.func,
-    selected: PropTypes.string
+    selected: PropTypes.string,
 };
 
-export default function PostSort({ options, onSort,selected }) {
+export default function PostSort({ options, onSort, selected }) {
     return (
-        <TextField select size="small" value={selected} onChange={onSort} >
-            <MenuItem value={'All Body Parts'}>
-                    All Body Parts
-            </MenuItem>
+        <TextField select size="small" value={selected} onChange={onSort}>
+            <MenuItem value={'All Body Parts'}>All Body Parts</MenuItem>
             {options.map((option) => (
                 <MenuItem key={option} value={option}>
                     {option}

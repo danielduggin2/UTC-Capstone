@@ -17,14 +17,14 @@ export default function AppView() {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
     };
-    
+
     const [calendarEvents, setCalendarEvents] = useState([]);
     const [currentTasks, setCurrentTasks] = useState([]);
 
     fetch('https://localhost:7031/api/appointments/office', requestOptions)
         .then((response) => response.json())
         .then((data) => {
-            setCalendarEvents(data)
+            setCalendarEvents(data);
         });
     // const fetchData = async () => {
     //   try {
@@ -85,7 +85,7 @@ export default function AppView() {
             </Typography>
             <Grid container spacing={3}>
                 <Grid item xs={12} md={12} lg={12}>
-                {/* const [selected, setSelected] = useState();
+                    {/* const [selected, setSelected] = useState();
 
 const handleSelected = (event) => {
   setSelected(event);

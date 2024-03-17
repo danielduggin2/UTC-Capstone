@@ -14,7 +14,7 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function PostCard({ post, index }) {
-    const { name, cover, bodyPart, } = post;
+    const { name, cover, bodyPart } = post;
 
     const renderName = (
         <Link

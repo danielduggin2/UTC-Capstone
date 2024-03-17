@@ -37,7 +37,7 @@ export default function PatientsView() {
     const [filterName, setFilterName] = useState('');
     const [rowsPerPage, setRowsPerPage] = useState(5);
     const [showForm, setShowForm] = useState(false); // Add state to manage form visibility
-    const [patients, setPatients] = useState([])
+    const [patients, setPatients] = useState([]);
     const handleSort = (event, id) => {
         const isAsc = orderBy === id && order === 'asc';
         if (id !== '') {
@@ -102,26 +102,26 @@ export default function PatientsView() {
         filterName,
     });
 
-    function getPatients(){
-        const cookieValue = Cookies.get('JwtToken')
+    function getPatients() {
+        const cookieValue = Cookies.get('JwtToken');
         const requestOptions = {
             method: 'GET',
-            headers:{'Authorization': `Bearer ${cookieValue}`}
-        }
-        fetch(`https://localhost:7031/api/patients`,requestOptions)
-        .then(response => response.json())
-        .then((data) => {
-            data.forEach(patient => {
-                const dateObj = new Date(patient.birthdate)
-                patient.birthdate = dateObj
-            })
-            setPatients(data);
-        })
+            headers: { Authorization: `Bearer ${cookieValue}` },
+        };
+        fetch(`https://localhost:7031/api/patients`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                data.forEach((patient) => {
+                    const dateObj = new Date(patient.birthdate);
+                    patient.birthdate = dateObj;
+                });
+                setPatients(data);
+            });
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         getPatients();
-    },[]);
+    }, []);
     const notFound = !dataFiltered.length && !!filterName;
 
     return (
@@ -187,11 +187,11 @@ export default function PatientsView() {
                                                     birthdate={row.birthdate}
                                                     phone={row.phone}
                                                     name={row.name}
-                                                    role='null'
-                                                    status='null'
-                                                    company='null'
+                                                    role="null"
+                                                    status="null"
+                                                    company="null"
                                                     avatarUrl={row.avatarUrl}
-                                                    isVerified='null'
+                                                    isVerified="null"
                                                     selected={selected.indexOf(row.name) !== -1}
                                                     handleClick={(event) =>
                                                         handleClick(event, row.name)
@@ -201,7 +201,11 @@ export default function PatientsView() {
 
                                         <TableEmptyRows
                                             height={77}
-                                            emptyRows={emptyRows(page, rowsPerPage, patients.length)}
+                                            emptyRows={emptyRows(
+                                                page,
+                                                rowsPerPage,
+                                                patients.length
+                                            )}
                                         />
 
                                         {notFound && <TableNoData query={filterName} />}

@@ -18,7 +18,7 @@ import Cookies from 'js-cookie';
 
 export default function WorkoutsView() {
     const [open, setOpen] = useState(false);
-    const [selectedWorkout,setSelectedWorkout] = useState({})
+    const [selectedWorkout, setSelectedWorkout] = useState({});
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -28,49 +28,45 @@ export default function WorkoutsView() {
     };
 
     function openDialog(id) {
-        getWorkoutById(id)
-        setOpen(true)
+        getWorkoutById(id);
+        setOpen(true);
         // console.log(selectedWorkout)
-    };
-
-
-
-    const [Workouts, setWorkouts] = useState([])
-    const [searchValue, setSearchValue] = useState('')
-    const [bodyPartValue, setbodyPartValue] = useState('All Body Parts')
-    const [bodyParts, setBodyParts] = useState([])
-
-  
-    function getWorkouts(){
-        const cookieValue = Cookies.get('JwtToken')
-        const requestOptions = {
-            method: 'GET',
-            headers:{'Authorization': `Bearer ${cookieValue}`}
-        }
-        fetch(`https://localhost:7031/api/workouts?description=${searchValue}`,requestOptions)
-        .then(response => response.json())
-        .then((data) => {
-            setWorkouts(data)
-        })
     }
 
-    function getWorkoutById(id){
-        const cookieValue = Cookies.get('JwtToken')
+    const [Workouts, setWorkouts] = useState([]);
+    const [searchValue, setSearchValue] = useState('');
+    const [bodyPartValue, setbodyPartValue] = useState('All Body Parts');
+    const [bodyParts, setBodyParts] = useState([]);
+
+    function getWorkouts() {
+        const cookieValue = Cookies.get('JwtToken');
         const requestOptions = {
             method: 'GET',
-            headers:{'Authorization': `Bearer ${cookieValue}`}
-        }
-        fetch(`https://localhost:7031/api/workouts/${id}`,requestOptions)
-        .then(response => response.json())
-        .then((data) => {
-            setSelectedWorkout(data[0])
-        })
+            headers: { Authorization: `Bearer ${cookieValue}` },
+        };
+        fetch(`https://localhost:7031/api/workouts?description=${searchValue}`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                setWorkouts(data);
+            });
+    }
+
+    function getWorkoutById(id) {
+        const cookieValue = Cookies.get('JwtToken');
+        const requestOptions = {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${cookieValue}` },
+        };
+        fetch(`https://localhost:7031/api/workouts/${id}`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                setSelectedWorkout(data[0]);
+            });
     }
 
     useEffect(() => {
         getWorkouts();
-    }, [searchValue,bodyPartValue])
-
+    }, [searchValue, bodyPartValue]);
 
     return (
         <>
@@ -92,11 +88,7 @@ export default function WorkoutsView() {
 
                 <Grid container spacing={3}>
                     {Workouts.map((post, index) => (
-                        <PostCard
-                            key={post.id}
-                            post={post}
-                            dialogFunction={openDialog}
-                        />
+                        <PostCard key={post.id} post={post} dialogFunction={openDialog} />
                     ))}
                 </Grid>
             </Container>
@@ -113,28 +105,34 @@ export default function WorkoutsView() {
                 >
                     <Stack direction="row" spacing={2}>
                         <Paper sx={{ p: 2, height: '475px' }}>
-                            {Object.keys(selectedWorkout).length === 0 ? '' : 
+                            {Object.keys(selectedWorkout).length === 0 ? (
+                                ''
+                            ) : (
                                 <>
-                                    <Typography variant="h4">{selectedWorkout.description}</Typography>
+                                    <Typography variant="h4">
+                                        {selectedWorkout.description}
+                                    </Typography>
                                     <Stack sx={{ width: 500 }} mt={2}>
-                                        {selectedWorkout.exercises.map((ex,i) => (
+                                        {selectedWorkout.exercises.map((ex, i) => (
                                             <ExerciseItem
-                                            post={{
-                                                name: ex.name,
-                                                cover: '/assets/images/exercises/exercise_16.jpg',
-                                            }}
-                                        />
+                                                post={{
+                                                    name: ex.name,
+                                                    cover: '/assets/images/exercises/exercise_16.jpg',
+                                                }}
+                                            />
                                         ))}
-        
+
                                         <Stack pt={2}>
-                                            <Button variant="outlined" sx={{ justifyContent: 'left' }}>
+                                            <Button
+                                                variant="outlined"
+                                                sx={{ justifyContent: 'left' }}
+                                            >
                                                 + Add Exercise
                                             </Button>
                                         </Stack>
                                     </Stack>
                                 </>
-                            }
-                           
+                            )}
                         </Paper>
                         <Paper sx={{ p: 2, height: '475px' }}>
                             <Stack sx={{ width: 350 }}>

@@ -60,7 +60,7 @@ export default function UserTableRow({
 
                 <TableCell>{injury}</TableCell>
                 <TableCell>{phone}</TableCell>
-                <TableCell>{`${birthdate.getMonth()+1}/${birthdate.getDate()}/${birthdate.getFullYear()}`}</TableCell>
+                <TableCell>{`${birthdate.getMonth() + 1}/${birthdate.getDate()}/${birthdate.getFullYear()}`}</TableCell>
                 {/* <TableCell>{role}</TableCell> */}
 
                 {/* <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell> */}

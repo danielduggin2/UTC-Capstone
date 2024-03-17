@@ -28,12 +28,12 @@ export default function PostCard({ post, dialogFunction }) {
                     <Stack direction="row" alignItems="center" mb={1}>
                         <Typography variant="h6">{post.description}</Typography>
                     </Stack>
-                    {post.exercises.map((ex,item) => (
+                    {post.exercises.map((ex, item) => (
                         <ExerciseItem post={ex} />
                     ))}
 
                     <Stack pt={2}>
-                        <Button variant="outlined" onClick={ () => dialogFunction(post.id)}>
+                        <Button variant="outlined" onClick={() => dialogFunction(post.id)}>
                             See More
                         </Button>
                     </Stack>

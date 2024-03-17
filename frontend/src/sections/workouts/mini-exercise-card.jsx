@@ -17,7 +17,7 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 export default function MiniExerciseCard({ post, index }) {
-    const { title,name, view, comment, share, createdAt, videoUrl, cover, bodyPart } = post;
+    const { title, name, view, comment, share, createdAt, videoUrl, cover, bodyPart } = post;
 
     const renderTitle = (
         <Link
@@ -36,13 +36,11 @@ export default function MiniExerciseCard({ post, index }) {
         </Link>
     );
 
-
-
     const renderCover = (
         <Box
             component="img"
             alt={title}
-            src='/assets/images/exercises/exercise_16.jpg'
+            src="/assets/images/exercises/exercise_16.jpg"
             sx={{
                 top: 0,
                 width: 1,
