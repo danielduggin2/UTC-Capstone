@@ -4,9 +4,11 @@ using System.Linq;
 using System.Text.Json.Serialization;
 using System.Text.Json;
 using WebApiJobSearch.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApiJobSearch.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class Appointments : ControllerBase

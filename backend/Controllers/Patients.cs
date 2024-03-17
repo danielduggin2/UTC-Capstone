@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using WebApiJobSearch.Models;
 
 namespace WebApiJobSearch.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class Patients : ControllerBase

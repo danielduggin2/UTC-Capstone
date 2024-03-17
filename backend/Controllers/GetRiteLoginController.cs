@@ -15,7 +15,6 @@ using WebApiJobSearch.CustomClaims;
 
 namespace WebApiJobSearch.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class GetRiteLoginController : ControllerBase
@@ -50,6 +49,15 @@ namespace WebApiJobSearch.Controllers
 
             }
             return NotFound("User not found");
+        }
+
+        [Authorize]
+        [HttpGet]
+        public IActionResult GetUserInfo()
+        {
+            var user = GetCurrentUser();
+            var data = new { userInfo = user };
+            return Ok(data);
         }
 
         private string Generate(GetRiteUser user)
@@ -90,6 +98,23 @@ namespace WebApiJobSearch.Controllers
             if (currentUser != null)
             {
                 return currentUser;
+            }
+            return null;
+        }
+        public JwtUserInfo GetCurrentUser()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+
+                return new JwtUserInfo
+                {
+                    UserId = userClaims.FirstOrDefault(o => o.Type == CustomClaimTypes.UserId)?.Value,
+                    OfficeId = userClaims.FirstOrDefault(o => o.Type == CustomClaimTypes.OfficeId)?.Value,
+                    PhysicianId = userClaims.FirstOrDefault(o => o.Type == CustomClaimTypes.PhysicianId)?.Value,
+                    PatientId = userClaims.FirstOrDefault(o => o.Type == CustomClaimTypes.PatientId)?.Value,
+                };
             }
             return null;
         }
