@@ -72,16 +72,6 @@ namespace WebApiJobSearch.Controllers
             return Ok(patientsQ);
         }
 
-        [HttpGet("bodyparts")]
-        public IActionResult BodyParts()
-        {
-            var officeId = 3;
-            var bodyPartsQ = _context.GetRiteExercises
-                .Where(e => e.OfficeId == officeId || e.isDefault == true)
-                .Select(e => e.BodyPart)
-                .Distinct();
-
-            return Ok(bodyPartsQ);
-        }
+ 
     }
 }

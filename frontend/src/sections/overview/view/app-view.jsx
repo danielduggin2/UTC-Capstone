@@ -1,7 +1,7 @@
 // import { faker } from '@faker-js/faker';
 
 // ----------------------------------------------------------------------
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import Iconify from 'src/components/iconify';
 import { useNavigate } from 'react-router-dom';
 
@@ -11,21 +11,27 @@ import Typography from '@mui/material/Typography';
 
 import AnalyticsTasks from '../app-tasks';
 import AppCalendar from '../app-calendar';
+import Cookies from 'js-cookie';
 
 export default function AppView() {
-    const requestOptions = {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-    };
 
     const [calendarEvents, setCalendarEvents] = useState([]);
     const [currentTasks, setCurrentTasks] = useState([]);
 
-    fetch('https://localhost:7031/api/appointments/office', requestOptions)
+    const logInAttempt = () => {
+        const cookieValue = Cookies.get('JwtToken');
+        const requestOptions = {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${cookieValue}` },
+        };
+        fetch('https://localhost:7031/api/appointments/office', requestOptions)
         .then((response) => response.json())
         .then((data) => {
+            console.log(data)
             setCalendarEvents(data);
         });
+    };
+    
     // const fetchData = async () => {
     //   try {
     //     // Get a reference to the Firestore database
@@ -44,9 +50,9 @@ export default function AppView() {
     //   // }
     // };
 
-    // useEffect(()=>{
-    // fetchData()
-    // }, [])
+    useEffect(()=>{
+        logInAttempt()
+    }, [])
 
     const handleAddEvent = (event) => {
         setCalendarEvents([...calendarEvents, event]);

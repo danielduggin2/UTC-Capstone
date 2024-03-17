@@ -18,7 +18,6 @@ export default function ExercisesView() {
     const [bodyPartValue, setbodyPartValue] = useState('All Body Parts');
     const [bodyParts, setBodyParts] = useState([]);
 
-    console.log(bodyParts);
     function getExercises() {
         const cookieValue = Cookies.get('JwtToken');
         const requestOptions = {
@@ -26,14 +25,15 @@ export default function ExercisesView() {
             headers: { Authorization: `Bearer ${cookieValue}` },
         };
         fetch(
-            `https://localhost:7031/api/exercises?name=${searchValue}&bodyPart=${bodyPartValue == 'All Body Parts' ? '' : bodyPartValue}`,
-            requestOptions
+            `https://localhost:7031/api/exercises?name=${searchValue}&bodyPart=${bodyPartValue == 'All Body Parts' ? '' : bodyPartValue}`,requestOptions
         )
             .then((response) => response.json())
             .then((data) => {
+                console.log(data)
                 setExercises(data);
             });
     }
+    
     const onSort = (e) => {
         setbodyPartValue(e.target.value);
     };

@@ -161,7 +161,7 @@ export default function InboxView() {
                     </Dialog>
 
                     {/* List of Messages */}
-                    <List justifyContent="space-between" mb={5}>
+                    <List  mb={5}>
                         {messages.map((message) => (
                             <ListItem
                                 key={message.id}
