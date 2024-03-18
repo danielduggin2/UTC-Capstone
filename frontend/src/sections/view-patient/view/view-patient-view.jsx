@@ -31,6 +31,7 @@ import AppWebsiteVisits from '../app-website-visits';
 import stockImage from '../../../_mock/office_stock_1.jpg';
 import Cookies from 'js-cookie';
 import { Link, useParams } from 'react-router-dom';
+import NewAppointmentModal from '../new-appointment-modal';
 
 export default function ViewPatientView() {
     const [editState, setEditState] = useState(false);
@@ -43,7 +44,7 @@ export default function ViewPatientView() {
     const [selectedAppointment, setSelectedAppointment] = useState({});
     const currentTime = new Date();
     const { id } = useParams();
-
+    const [newAppointmentOpen,setNewAppointmentOpen] = useState(false);
     function getAppointments() {
         const cookieValue = Cookies.get('JwtToken');
         const requestOptions = {
@@ -104,6 +105,11 @@ export default function ViewPatientView() {
 
     const handleClose = () => {
         setOpen(false);
+        setNewAppointmentOpen(false);
+    };
+    const handleAppointmentOpen = () => {
+        setOpen(true);
+        setNewAppointmentOpen(true);
     };
     const fontColor = {
         style: { color: 'rgb(100, 0, 0)' },
@@ -327,7 +333,7 @@ export default function ViewPatientView() {
                                             justifyContent="center"
                                         >
                                             <Grid>
-                                                <Button variant="outlined">New Appointment</Button>
+                                                <Button variant="outlined" onClick={handleAppointmentOpen}>New Appointment</Button>
                                             </Grid>
                                             <Grid>
                                                 <Button variant="contained">Send Message</Button>
@@ -403,7 +409,7 @@ export default function ViewPatientView() {
             {/* Notecard view on click */}
             {/* need this card to be a bit wider */}
             <Modal open={open} onClose={handleClose}>
-                <Box
+                {newAppointmentOpen ? (<NewAppointmentModal />) : (<Box
                     sx={{
                         position: 'absolute',
                         top: '50%',
@@ -571,7 +577,7 @@ export default function ViewPatientView() {
                             </Stack>
                         </Paper>
                     </Stack>
-                </Box>
+                </Box>)}
             </Modal>
             {/* 
 	OG dialog box
