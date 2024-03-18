@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using WebApiJobSearch.CustomClaims;
 using WebApiJobSearch.Models;
 
 namespace WebApiJobSearch.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class Exercises : ControllerBase
@@ -39,7 +43,7 @@ namespace WebApiJobSearch.Controllers
         [HttpGet("bodyparts")]
         public IActionResult BodyParts()
         {
-            var officeId = 1;
+            var officeId = 3;
             var bodyPartsQ = _context.GetRiteExercises
                 .Where(e => e.OfficeId == officeId || e.isDefault == true)
                 .Select(e => e.BodyPart)

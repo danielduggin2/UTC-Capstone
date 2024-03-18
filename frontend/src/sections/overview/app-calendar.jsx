@@ -8,13 +8,14 @@ import 'src/customCalendarStyles.css';
 
 const localizer = momentLocalizer(moment);
 
-const AppCalendar = ({ events }) => (
+const AppCalendar = ({ events, onSelectEventCallback }) => (
     <div style={{ height: 700 }}>
         <Calendar
             localizer={localizer}
             events={events}
             startAccessor="start"
             endAccessor="end"
+            onSelectEvent={onSelectEventCallback}
             style={{ height: '100%', width: '100%' }}
         />
     </div>

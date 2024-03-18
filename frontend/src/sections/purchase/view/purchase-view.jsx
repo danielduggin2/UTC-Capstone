@@ -15,5 +15,5 @@ import PostSearch from '../post-search';
 // ----------------------------------------------------------------------
 
 export default function PurchaseView() {
-    return <Container/>;
+    return <Container />;
 }

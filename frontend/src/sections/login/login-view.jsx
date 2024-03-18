@@ -20,60 +20,53 @@ import { bgGradient } from 'src/theme/css';
 import Logo from 'src/components/logo';
 import Iconify from 'src/components/iconify';
 import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
 export default function LoginView() {
     const theme = useTheme();
-    const [loggedIn, setLoggedIn] = useState(false)
+    const [loggedIn, setLoggedIn] = useState(false);
     const router = useRouter();
     const [formData, setFormData] = useState({
-        username:'',
-        password:''
-    })
-
+        username: '',
+        password: '',
+    });
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
-    
-    const handleChange = (e) => {
-        
-        const {name, value} = e.target;
-        setFormData({...formData,[name]:value})
 
-    }
-    const logInAttempt = () => {
-        const cookieValue = Cookies.get('JwtToken')
-        const requestOptions = {
-            method: 'GET',
-            headers:{'Authorization': `Bearer ${cookieValue}`}
-        }
-        console.log(requestOptions)
-        fetch("https://localhost:7031/api/user/admins", requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-            console.log(data)
-        })
-    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
+    
     const handleClick = () => {
-        
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type':'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             credentials: 'same-origin',
-            body: JSON.stringify({...formData,id:0})
-        }
-        fetch("https://localhost:7031/api/login", requestOptions)
-        .then(response => response.json())
-        .then((data)=>{
-            console.log(data)
-            Cookies.remove('JwtToken');
-            Cookies.set('JwtToken',data.responseToken, {expires:7, path: '/'});
-        })
+            body: JSON.stringify({ ...formData, id: 0 }),
+        };
+        fetch('https://localhost:7031/api/getRiteLogin', requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                Cookies.remove('JwtToken');
+                Cookies.set('JwtToken', data.responseToken, { expires: 7, path: '/' });
+
+                navigate('/');
+            });
     };
 
     const renderForm = (
         <>
             <Stack spacing={3}>
-                <TextField name="username" label="Username" value={formData.username} onChange={handleChange} />
+                <TextField
+                    name="username"
+                    label="Username"
+                    value={formData.username}
+                    onChange={handleChange}
+                />
 
                 <TextField
                     name="password"
@@ -114,9 +107,6 @@ export default function LoginView() {
             >
                 Login
             </LoadingButton>
-            <Button onClick={logInAttempt}>
-                Am I logged in? {loggedIn ? 'Yes' : 'No'}
-            </Button>
         </>
     );
 

@@ -12,14 +12,17 @@ MiniExerciseSearch.propTypes = {
     posts: PropTypes.array.isRequired,
 };
 
-export default function MiniExerciseSearch({ posts }) {
+export default function MiniExerciseSearch({ posts, setSearchValue }) {
     return (
         <Autocomplete
             sx={{ width: 220 }}
             autoHighlight
             popupIcon={null}
             options={posts}
-            getOptionLabel={(post) => post.title}
+            onInputChange={(event, newInputValue) => {
+                setSearchValue(newInputValue);
+            }}
+            getOptionLabel={(post) => post.name}
             isOptionEqualToValue={(option, value) => option.id === value.id}
             renderInput={(params) => (
                 <TextField

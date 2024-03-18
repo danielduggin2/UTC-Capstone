@@ -2,6 +2,9 @@
 
 backend/bin/
 backend/obj/
+backend/.vs/
+backend/appsettings.json
+backend/appsettings.Development.json
 # dependencies
 node_modules
 .pnp

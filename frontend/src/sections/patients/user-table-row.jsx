@@ -13,10 +13,13 @@ import IconButton from '@mui/material/IconButton';
 
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
+import { Link } from 'react-router-dom';
 
 // ----------------------------------------------------------------------
 
 export default function UserTableRow({
+    key,
+    id,
     injury,
     birthdate,
     phone,
@@ -38,7 +41,7 @@ export default function UserTableRow({
     const handleCloseMenu = () => {
         setOpen(null);
     };
-    console.log(typeof birthdate);
+    console.log(birthdate.getDay());
     return (
         <>
             <TableRow hover tabIndex={-1} role="checkbox" selected={selected}>
@@ -50,14 +53,14 @@ export default function UserTableRow({
                     <Stack direction="row" alignItems="center" spacing={2}>
                         <Avatar alt={name} src={avatarUrl} />
                         <Typography variant="subtitle2" noWrap>
-                            {name}
+                            <Link to={`${id}`}>{name}</Link>
                         </Typography>
                     </Stack>
                 </TableCell>
 
                 <TableCell>{injury}</TableCell>
                 <TableCell>{phone}</TableCell>
-                <TableCell>{`${birthdate.getMonth()}/${birthdate.getDay()}/${birthdate.getFullYear()}`}</TableCell>
+                <TableCell>{`${birthdate.getMonth() + 1}/${birthdate.getDate()}/${birthdate.getFullYear()}`}</TableCell>
                 {/* <TableCell>{role}</TableCell> */}
 
                 {/* <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell> */}
