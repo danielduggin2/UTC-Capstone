@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 
 // ----------------------------------------------------------------------
 
-export default function ExerciseItem({ post, index }) {
+export default function ExerciseItem({ post, index,isExpanded,onRemoveExercise }) {
     const { title, view, comment, share, createdAt, videoUrl, cover, bodyPart } = post;
     const renderCover = (
         <Box
@@ -43,9 +43,10 @@ export default function ExerciseItem({ post, index }) {
                     </Typography>
                 </Stack>
                 <Box>
-                    <IconButton>
+                    {isExpanded ? (<IconButton onClick={() => onRemoveExercise(post.id)}>
                         <FontAwesomeIcon icon={faCircleMinus} size="xs" />
-                    </IconButton>
+                    </IconButton>) : (<></>)}
+                    
                 </Box>
             </Stack>
         </Stack>

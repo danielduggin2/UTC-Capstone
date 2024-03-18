@@ -20,6 +20,23 @@ export default function WorkoutsView() {
     const [open, setOpen] = useState(false);
     const [selectedWorkout, setSelectedWorkout] = useState({});
 
+    function handleRemoveExercise(Eid){
+        console.log(Eid)
+        console.log(selectedWorkout.id)
+        removeExercise(selectedWorkout.id,Eid)
+        
+  
+        //call to populate the selectedWorkoutagain
+    }
+
+    function handleAddExercise(Eid){
+        console.log(Eid)
+        console.log(selectedWorkout.id)
+        addExercise(selectedWorkout.id,Eid)
+        
+  
+        //call to populate the selectedWorkoutagain
+    }
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -51,6 +68,35 @@ export default function WorkoutsView() {
             });
     }
 
+    function removeExercise(Wid,Eid) {
+        const cookieValue = Cookies.get('JwtToken');
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { Authorization: `Bearer ${cookieValue}` },
+        };
+        fetch(`https://localhost:7031/api/workouts/${Wid}/exercise/${Eid}`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                getWorkoutById(selectedWorkout.id);
+                getWorkouts();
+            });
+    }
+
+    function addExercise(Wid,Eid) {
+        const cookieValue = Cookies.get('JwtToken');
+        const requestOptions = {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${cookieValue}` },
+        };
+        fetch(`https://localhost:7031/api/workouts/${Wid}/exercise/${Eid}`, requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                getWorkoutById(selectedWorkout.id);
+                getWorkouts();
+            });
+    }
+    
+
     function getWorkoutById(id) {
         const cookieValue = Cookies.get('JwtToken');
         const requestOptions = {
@@ -61,6 +107,7 @@ export default function WorkoutsView() {
             .then((response) => response.json())
             .then((data) => {
                 setSelectedWorkout(data[0]);
+          
             });
     }
 
@@ -115,10 +162,14 @@ export default function WorkoutsView() {
                                     <Stack sx={{ width: 500 }} mt={2}>
                                         {selectedWorkout.exercises.map((ex, i) => (
                                             <ExerciseItem
+                                                key={ex.id}
                                                 post={{
                                                     name: ex.name,
+                                                    id: ex.id,
                                                     cover: '/assets/images/exercises/exercise_16.jpg',
                                                 }}
+                                                isExpanded={selectedWorkout.isDefault ? false: true}
+                                                onRemoveExercise = {handleRemoveExercise}
                                             />
                                         ))}
 
@@ -136,7 +187,7 @@ export default function WorkoutsView() {
                         </Paper>
                         <Paper sx={{ p: 2, height: '475px' }}>
                             <Stack sx={{ width: 350 }}>
-                                <MiniExerciseView sx={{ minHeight: 0 }} />
+                                <MiniExerciseView sx={{ minHeight: 0 }} handleAddExercise={handleAddExercise} />
                             </Stack>
                         </Paper>
                     </Stack>

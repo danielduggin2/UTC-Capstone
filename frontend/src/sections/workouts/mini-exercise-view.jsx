@@ -12,7 +12,7 @@ import { useEffect, useState } from 'react';
 
 // ----------------------------------------------------------------------
 
-export default function MiniExerciseView() {
+export default function MiniExerciseView({handleAddExercise}) {
     const [Exercises, setExercises] = useState([]);
     const [searchValue, setSearchValue] = useState('');
     const [bodyPartValue, setbodyPartValue] = useState('All');
@@ -86,7 +86,7 @@ export default function MiniExerciseView() {
                 }}
             >
                 {Exercises.map((post, index) => (
-                    <MiniExerciseCard key={post.id} post={post} />
+                    <MiniExerciseCard key={post.id} post={post} handleAddExercise={handleAddExercise} />
                 ))}
             </Grid>
         </>

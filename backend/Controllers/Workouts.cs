@@ -61,5 +61,55 @@ namespace WebApiJobSearch.Controllers
             return Ok(workoutQ);
         }
 
+        [HttpDelete("{Wid}/exercise/{Eid}")]
+        public IActionResult Delete(int Wid, int Eid)
+        {
+
+            var workout = _context.GetRiteWorkouts.Select(w => new { w.Id, w.isDefault, w.Exercises }).FirstOrDefault(w => w.Id == Wid);
+            if (workout == null)
+            {
+                return NotFound();
+            }
+            if (workout.isDefault == true)
+            {
+                return BadRequest("workout is default");
+            }
+            
+            var exercise = workout.Exercises.FirstOrDefault(e => e.Id == Eid);
+            if (exercise == null)
+            {
+                return NotFound();
+            }
+            
+            var workoutEdit = _context.GetRiteWorkouts.Include(w => w.Exercises).FirstOrDefault(w => w.Id == Wid);
+            var exerciseEdit = _context.GetRiteExercises.Find(Eid);
+           
+            workoutEdit.Exercises.Remove(exerciseEdit);
+            _context.SaveChanges();
+            return Ok(new {workout= "" });
+        }
+
+        [HttpPost("{Wid}/exercise/{Eid}")]
+        public IActionResult Add(int Wid, int Eid)
+        {
+
+            var workout = _context.GetRiteWorkouts.Select(w => new { w.Id, w.isDefault, w.Exercises }).FirstOrDefault(w => w.Id == Wid);
+            if (workout == null)
+            {
+                return NotFound();
+            }
+            if (workout.isDefault == true)
+            {
+                return BadRequest("workout is default");
+            }
+
+            var workoutEdit = _context.GetRiteWorkouts.Include(w => w.Exercises).FirstOrDefault(w => w.Id == Wid);
+            var exerciseEdit = _context.GetRiteExercises.Find(Eid);
+
+            workoutEdit.Exercises.Add(exerciseEdit);
+            _context.SaveChanges();
+            return Ok(new { workout = "" });
+        }
+
     }
 }

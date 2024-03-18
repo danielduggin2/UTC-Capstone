@@ -16,8 +16,8 @@ import Iconify from 'src/components/iconify';
 
 // ----------------------------------------------------------------------
 
-export default function MiniExerciseCard({ post, index }) {
-    const { title, name, view, comment, share, createdAt, videoUrl, cover, bodyPart } = post;
+export default function MiniExerciseCard({ post, index,handleAddExercise }) {
+    const { title, name,id, view, comment, share, createdAt, videoUrl, cover, bodyPart } = post;
 
     const renderTitle = (
         <Link
@@ -114,7 +114,7 @@ export default function MiniExerciseCard({ post, index }) {
                     {renderTitle}
                 </Box>
                 <Stack alignItems="center">
-                    <IconButton>
+                    <IconButton onClick={() => handleAddExercise(id)}>
                         <FontAwesomeIcon icon={faCirclePlus} size="xs" />
                     </IconButton>
                 </Stack>

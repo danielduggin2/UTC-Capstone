@@ -17,6 +17,7 @@ import ExerciseItem from './exercise-item';
 
 export default function PostCard({ post, dialogFunction }) {
     const { title, view, comment, share, createdAt, videoUrl, cover, bodyPart } = post;
+    
     return (
         <Grid xs={12} sm={6} md={3}>
             <Card>
@@ -29,7 +30,7 @@ export default function PostCard({ post, dialogFunction }) {
                         <Typography variant="h6">{post.description}</Typography>
                     </Stack>
                     {post.exercises.map((ex, item) => (
-                        <ExerciseItem post={ex} />
+                        <ExerciseItem key={ex.id} post={ex} isExpanded={false} />
                     ))}
 
                     <Stack pt={2}>
