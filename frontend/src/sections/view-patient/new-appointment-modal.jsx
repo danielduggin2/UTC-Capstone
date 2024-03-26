@@ -34,12 +34,50 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { VisuallyHiddenInput } from '@chakra-ui/react';
 
 export default function NewAppointmentModal() {
-   
+    const { id } = useParams();
     const handleFileUpload = (e) => {
+        
         const file = e.target.files[0];
         setInsuranceCardImage(file);
     };
-    const [signature, setSignature] = useState('');
+    const [date,setDate] = useState('')
+    const [time,setTime] = useState('')
+    const [formData, setFormData] = useState({
+        reason: '',
+        injury:'',
+    });
+    const handleChange = (e) => {
+     
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+        
+    };
+    const handleClick = () => {
+        const year = date.getFullYear();
+        const month = date.getMonth();
+        const day = date.getDate();
+        
+        // Extract hours, minutes, and seconds from timeObject
+        const hours = time.getHours();
+        const minutes = time.getMinutes();
+        
+        // Create a new Date object by combining date and time components
+        const combinedDateTime = new Date(year, month, day, hours, minutes, 0);
+        const appointment = {...formData, AppointmentTime: combinedDateTime, PatientId:id}
+        const cookieValue = Cookies.get('JwtToken');
+        const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${cookieValue}` },
+            body: JSON.stringify(appointment)
+        };
+        
+        fetch('https://localhost:7031/api/appointments', requestOptions)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+
+            });
+    };
     return (
         <Box
                     sx={{
@@ -56,7 +94,7 @@ export default function NewAppointmentModal() {
                     <Grid container spacing={2} p={2}>
                         <Grid item xs={6}>
                             <DemoContainer components={['DatePicker']}>
-                                <DatePicker
+                                <DatePicker  onChange={(value) => setDate(value.$d)}
                                     size="small"
                                     label="Date"
                                 />
@@ -64,7 +102,7 @@ export default function NewAppointmentModal() {
                         </Grid>
                         <Grid item xs={6}>
                             <DemoContainer components={['TimePicker']} >
-                                <TimePicker sx={{}} label="Time" />
+                                <TimePicker sx={{}} label="Time"  onChange={(value) => setTime(value.$d)}/>
                             </DemoContainer>
                             {/* <TextField label="Time" type="time" value={selectedTime} onChange={(e) => setSelectedTime(e.target.value)} required fullWidth /> */}
                         </Grid>
@@ -72,8 +110,8 @@ export default function NewAppointmentModal() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Reason"
-                                value={signature}
-                                onChange={(e) => setSignature(e.target.value)}
+                                name="reason"
+                                onChange={handleChange}
                                 
                                 
                             />
@@ -81,8 +119,8 @@ export default function NewAppointmentModal() {
                         <Grid item xs={6}>
                             <TextField
                                 label="Injury"
-                                value={signature}
-                                onChange={(e) => setSignature(e.target.value)}
+                                name="injury"
+                                onChange={handleChange}
                                 
                                 
                             />
@@ -90,13 +128,11 @@ export default function NewAppointmentModal() {
                         <Grid item xs={12}>
                             <TextField
                                 label="Signature"
-                                value={signature}
-                                onChange={(e) => setSignature(e.target.value)}
                                 required
                                 fullWidth
                             />
                         </Grid>
-                        <Stack sx={{width:'100%'}} direction="row" justifyContent='flex-end'><Button>Submit</Button></Stack>
+                        <Stack sx={{width:'100%'}} direction="row" justifyContent='flex-end'><Button onClick={() => handleClick()}>Submit</Button></Stack>
                         
                     </Grid>
                 </LocalizationProvider>
