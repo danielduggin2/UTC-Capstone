@@ -5,6 +5,8 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using WebApiJobSearch.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using WebApiJobSearch.CustomClaims;
 
 namespace WebApiJobSearch.Controllers
 {
@@ -123,6 +125,42 @@ namespace WebApiJobSearch.Controllers
             return Ok(appointmentQ);
         }
 
-     
+        [HttpPost]
+        public IActionResult newAppointment(GetRiteAppointmentDTO appointment)
+
+        {
+            var user = GetCurrentUser();
+            
+            
+            var NewAppointment = new GetRiteAppointment
+            {
+                AppointmentTime = appointment.AppointmentTime,
+                Reason = appointment.Reason,
+                Injury = appointment.Injury,
+                OfficeId = int.Parse(user.OfficeId),
+                PatientId = appointment.PatientId,
+
+
+            };
+            return Ok(new { res = user, app = NewAppointment });
+        }
+        private JwtUserInfo GetCurrentUser()
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            if (identity != null)
+            {
+                var userClaims = identity.Claims;
+
+                return new JwtUserInfo
+                {
+                    UserId = userClaims.FirstOrDefault(o => o.Type == CustomClaimTypes.UserId)?.Value,
+                    OfficeId = userClaims.FirstOrDefault(o => o.Type == CustomClaimTypes.OfficeId)?.Value,
+                    PhysicianId = userClaims.FirstOrDefault(o => o.Type == CustomClaimTypes.PhysicianId)?.Value,
+                    PatientId = userClaims.FirstOrDefault(o => o.Type == CustomClaimTypes.PatientId)?.Value,
+                };
+            }
+            return null;
+        }
+
     }
 }
