@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTimes, faCircleMinus, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTimes, faCircleMinus, faEdit, faCheck } from '@fortawesome/free-solid-svg-icons';
 
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
@@ -19,6 +20,11 @@ import {
     IconButton,
     CardContent,
     CardActions,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions
 } from '@mui/material';
 
 import { primary } from 'src/theme/palette';
@@ -46,6 +52,12 @@ export default function ViewPatientView() {
     const currentTime = new Date();
     const { id } = useParams();
     const [newAppointmentOpen,setNewAppointmentOpen] = useState(false);
+    // for editing notes
+    const [editingNoteId, setEditingNoteId] = useState(null);
+    const [noteContent, setNoteContent] = useState("");
+    const [newNote, setNewNote] = useState("");
+    const [editedNotes, setEditedNotes] = useState({}); 
+    const [openDialog, setOpenDialog] = useState(false);
     function getAppointments() {
         const cookieValue = Cookies.get('JwtToken');
         const requestOptions = {
@@ -434,49 +446,105 @@ export default function ViewPatientView() {
                                             })
                                             .replace(/\//g, '-')}
                                     </Typography>
-                                    <Box mt={2}>
-                                    <Box display="flex" alignItems="center">
-                                        <Typography variant="h6">Notes from session</Typography>
-                                       <IconButton 
-                                            onClick={() => {
-                                                // Your function to enable editing of notes
-                                            }}
-                                            style={{ marginLeft: '10px' }}  // Add some space between the title and the icon
-                                        >
-                                            <FontAwesomeIcon icon={faEdit} />
-                                        </IconButton>
-                                    </Box>
+                                   <Box mt={2}>
+                                        <Box display="flex" alignItems="center">
+                                            <Typography variant="h6">Notes from session</Typography>
+                                        </Box>
                                         <Grid container spacing={3}>
                                             <Grid item xs={12}>
-                                                <Card>
-                                                    <CardContent
-                                                        style={{ backgroundColor: primary.lighter }}
-                                                    >
-                                                        {/* <Typography variant="body2" color="text.secondary">
-    	  	    			Sample Workout Name
-    	  	  			</Typography> */}
-                                                        <List>
-                                                            {selectedAppointment.notes.map(
-                                                                (note, index) => (
-                                                                    <ListItem>
-                                                                        {note.content}
-                                                                    </ListItem>
-                                                                )
+                                               <Card>
+                                                    <CardContent style={{ backgroundColor: primary.lighter }}>
+                                                    <List>
+                                                        {selectedAppointment.notes.map((note, index) => (
+                                                        <ListItem key={index}>
+                                                            {editingNoteId === index ? (
+                                                            <>
+                                                                <TextField 
+                                                                value={noteContent} 
+                                                                onChange={(e) => {
+                                                                    setNoteContent(e.target.value);
+                                                                    if (e.target.value !== note.content) {
+                                                                    setEditedNotes(prevState => ({...prevState, [index]: e.target.value}));
+                                                                    }
+                                                                }} 
+                                                                />
+                                                                {(editedNotes[index] && editedNotes[index] !== note.content) && (
+                                                                <IconButton
+                                                                    onClick={() => {
+                                                                        // Function to save edited note goes here...
+                                                                        selectedAppointment.notes[index].content = editedNotes[index];
+
+                                                                        // Reset editing state
+                                                                        setEditingNoteId(null);
+                                                                        delete editedNotes[index];
+                                                                    }}
+                                                                >
+                                                                    <FontAwesomeIcon icon={faCheck} />
+                                                                </IconButton>
+                                                                )}
+                                                            </>
+                                                            ) : (
+                                                            <>
+                                                                {note.content}
+                                                                <IconButton
+                                                                onClick={() => {
+                                                                    setEditingNoteId(index);
+                                                                    setNoteContent(note.content);
+                                                                }}
+                                                                style={{ marginLeft: '10px' }}
+                                                                >
+                                                                <FontAwesomeIcon icon={faEdit} />
+                                                                </IconButton>
+                                                            </>
                                                             )}
-                                                            {/* <ListItem>Range of motion getting better</ListItem>
-							<ListItem>Swelling is down. Still need to ice after each session</ListItem>
-							<ListItem>Quad activation is impressive</ListItem> */}
-                                                        </List>
+                                                        </ListItem>
+                                                        ))}
+                                                    </List>
                                                     </CardContent>
                                                 </Card>
-                                            <Box mt={2}>  
-                                                <Button
-                                                    variant="contained"
-                                                    // onClick={() => {}}
-                                                >
-                                                    Add Note
-                                                </Button>
-                                            </Box> 
+                                                {/* Add Note Button */}
+                                                <Box mt={2}>  
+                                                    <Button
+                                                        variant="contained"
+                                                        onClick={() => {
+                                                            setOpenDialog(true);
+                                                        }}
+                                                    >
+                                                        Add Note
+                                                    </Button>
+
+                                                    {/* New Note Creation Dialog */}
+                                                    <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+                                                        <DialogTitle>Create New Note</DialogTitle>
+                                                        
+                                                        <DialogContent>
+                                                            <TextField 
+                                                                value={newNote} 
+                                                                onChange={(e) => setNewNote(e.target.value)} 
+                                                                placeholder="Enter your note here..."
+                                                            />
+                                                        </DialogContent>
+
+                                                        <DialogActions>
+                                                            <Button onClick={() => setOpenDialog(false)}>
+                                                            Cancel
+                                                            </Button>
+
+                                                            <Button 
+                                                            onClick={() => {
+                                                                // Function to add new note goes here..
+                                                                
+                                                                // Close the dialog and reset new note input field
+                                                                setOpenDialog(false);
+                                                                setNewNote("");
+                                                            }}
+                                                            >
+                                                            Save Note
+                                                            </Button>
+                                                        </DialogActions>
+                                                    </Dialog>
+                                                </Box> 
+
                                             </Grid>
                                         </Grid>
                                     </Box>

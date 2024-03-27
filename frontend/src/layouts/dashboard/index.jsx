@@ -38,7 +38,7 @@ export default function DashboardLayout({ children }) {
                 }
             });
     };
-    // getUser();
+    getUser();
     return (
         <>
             <Header onOpenNav={() => setOpenNav(true)} />
