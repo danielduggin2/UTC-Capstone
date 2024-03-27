@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPen, faTimes, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTimes, faCircleMinus, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
@@ -32,6 +32,7 @@ import stockImage from '../../../_mock/office_stock_1.jpg';
 import Cookies from 'js-cookie';
 import { Link, useParams } from 'react-router-dom';
 import NewAppointmentModal from '../new-appointment-modal';
+
 
 export default function ViewPatientView() {
     const [editState, setEditState] = useState(false);
@@ -419,7 +420,7 @@ export default function ViewPatientView() {
                     }}
                 >
                     <Stack direction="row" spacing={2}>
-                        <Paper sx={{ p: 2, minHeight: '520px', minWidth: '500px' }}>
+                        <Paper sx={{ p: 2, minHeight: '520px', minWidth: '800px' }}>
                             {Object.keys(selectedAppointment).length === 0 ? (
                                 ''
                             ) : (
@@ -434,7 +435,17 @@ export default function ViewPatientView() {
                                             .replace(/\//g, '-')}
                                     </Typography>
                                     <Box mt={2}>
+                                    <Box display="flex" alignItems="center">
                                         <Typography variant="h6">Notes from session</Typography>
+                                       <IconButton 
+                                            onClick={() => {
+                                                // Your function to enable editing of notes
+                                            }}
+                                            style={{ marginLeft: '10px' }}  // Add some space between the title and the icon
+                                        >
+                                            <FontAwesomeIcon icon={faEdit} />
+                                        </IconButton>
+                                    </Box>
                                         <Grid container spacing={3}>
                                             <Grid item xs={12}>
                                                 <Card>
@@ -458,12 +469,14 @@ export default function ViewPatientView() {
                                                         </List>
                                                     </CardContent>
                                                 </Card>
+                                            <Box mt={2}>  
                                                 <Button
                                                     variant="contained"
                                                     // onClick={() => {}}
                                                 >
                                                     Add Note
                                                 </Button>
+                                            </Box> 
                                             </Grid>
                                         </Grid>
                                     </Box>
@@ -545,7 +558,8 @@ export default function ViewPatientView() {
                                                 </Card>
                                             </Grid>
                                         </Grid>
-                                        <Button
+                                        <Stack direction="row" spacing={2} mt={2}>
+                                           <Button
                                             variant="contained"
                                             color="primary"
                                             onClick={() => {
@@ -560,7 +574,8 @@ export default function ViewPatientView() {
                                             onClick={() => {}}
                                         >
                                             Filter
-                                        </Button>
+                                        </Button>                                         
+                                        </Stack>
                                     </Box>
                                 </>
                             )}

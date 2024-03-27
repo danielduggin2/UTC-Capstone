@@ -38,9 +38,7 @@ export default function DashboardLayout({ children }) {
                 }
             });
     };
-    useEffect(() => {
-        getUser();
-    }, []);
+    // getUser();
     return (
         <>
             <Header onOpenNav={() => setOpenNav(true)} />
