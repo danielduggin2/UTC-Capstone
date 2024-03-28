@@ -32,7 +32,7 @@ namespace WebApiJobSearch.Controllers
         public IActionResult Login([FromBody] GetRiteLoginDTO userLogin)
         {
             var user = Authenticate(userLogin);
-            
+            Console.WriteLine("hit");
             if (user != null)
             {
                 var token = Generate(user);
